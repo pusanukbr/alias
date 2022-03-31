@@ -1,13 +1,24 @@
 import React, { useState, useReducer } from 'react';
-import './GameBlock.css';
+import { ColorModeSwitcher } from '../ColorModeSwitcher';
 import { wordsRandom } from '../../const';
-import Maps from './GameMapsBlock';
+// import Maps from './GameMapsBlock'; FOR FUTURES
 import LeftBlock from './GameLeftBlock';
 import RightBlock from './GameRightBlock';
 import CorrectBlock from './GameCorrectBlock';
 import SkipBlock from './GameSkipBlock';
 import reducer from "../../reducer";
 import { useTranslation } from 'react-i18next';
+import {
+  Box,
+  Container,
+  FormControl,
+  FormLabel,
+  Input,
+  Stack,
+  useBreakpointValue,
+  useColorModeValue,
+  Button,
+} from '@chakra-ui/react';
 
 function Game({ userName, users, roomId, startTimer, stateTimer }) {
   const { t } = useTranslation();
@@ -22,9 +33,11 @@ function Game({ userName, users, roomId, startTimer, stateTimer }) {
   console.log(users);
   return (
     <div className='game'>
+      <Stack direction='row' maxW="lg" m={4} spacing={4} align='center' justify='space-between'>
+        <ColorModeSwitcher />
+      </Stack>
       <div className='game__topBlock'>
         {<LeftBlock userName={userName} roomId={roomId} />}
-        {<Maps users={users} />}
         {<RightBlock />}
       </div>
       <div className='game__bottomBlock'>

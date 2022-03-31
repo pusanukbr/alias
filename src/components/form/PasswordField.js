@@ -9,8 +9,10 @@ import {
 } from '@chakra-ui/react';
 import * as React from 'react';
 import { HiEye, HiEyeOff } from 'react-icons/hi';
+import { useTranslation } from 'react-i18next';
 
 export const PasswordField = ((props, ref) => {
+  const { t } = useTranslation();
   const { isOpen, onToggle } = useDisclosure();
 
   const onClickReveal = () => {
@@ -19,14 +21,15 @@ export const PasswordField = ((props, ref) => {
 
   return (
     <FormControl>
-      <FormLabel htmlFor="password">Password</FormLabel>
+      <FormLabel htmlFor="password">{t('form.password')}</FormLabel>
       <InputGroup>
         <InputRightElement>
           <IconButton
             variant="link"
-            aria-label={isOpen ? 'Mask password' : 'Reveal password'}
             icon={isOpen ? <HiEyeOff /> : <HiEye />}
             onClick={onClickReveal}
+            _focus={{shadow: 'none'}}
+            title={!isOpen ? t('form.show.password') : t('form.hide.password')}
           />
         </InputRightElement>
         <Input

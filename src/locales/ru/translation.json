@@ -11,6 +11,9 @@
   "btn.enter.loading": "Вход...",
   "btn.win": "Угадал",
   "btn.skip": "Пропутить",
-  "alert.empty": "Введите ID комнаты и пароль!"
-
+  "alert.empty": "Введите ID комнаты и пароль!",
+  "form.login": "Логин/ID",
+  "form.password": "Пароль",
+  "form.show.password": "Показать пароль",
+  "form.hide.password": "Спрятать пароль"
 }

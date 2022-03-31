@@ -13,23 +13,20 @@ import {
   Button,
 } from '@chakra-ui/react';
 import { PasswordField } from './form/PasswordField';
+import { ColorModeSwitcher } from './ColorModeSwitcher';
 
 function JoinBlock({ onLogin }) {
   const { t } = useTranslation();
   const [roomId, setRoomId] = React.useState('');
-  const [userName, setUserName] = React.useState('');
+  const [password, setPassword] = React.useState('');
   const [isLoading, setLoading] = React.useState(false);
-  const erros = {
-    id: 'ID error',
-    pass: 'Pass error'
-  }
   const onEnter = () => {
-    if(!roomId || !userName) {
+    if(!roomId || !password) {
       return alert(t('alert.empty'))
     }
     const obj = {
       roomId,
-      userName
+      password
     }
     setLoading(true)
     // await axios.post('/rooms', obj);
@@ -37,50 +34,10 @@ function JoinBlock({ onLogin }) {
   }
   return (
     <div className="join-block">
-      <div>
+      <Stack direction='row' maxW="lg" m={4} spacing={4} align='center' justify='space-between'>
         <Language/>
-      </div>
-      {/* <Box flex='1'>
-        <div className="join-block__left">
-          <div className="join-block__img"></div>
-        </div>
-        <div className="join-block__right">
-          <div className="join-block__text">
-            <h3>{t('login.title')}</h3>
-            <p>{t('login.desc')}</p>
-          </div>
-          <Box as='form'>
-            <FormControl>
-              <FormLabel htmlFor="roomId">Room ID</FormLabel>
-              <Input
-              isRequired
-              type='text'
-              id="roomId"
-              placeholder="Room ID"
-              onChange={(e) => setRoomId(e.target.value)}
-              value={roomId}/>
-            </FormControl>
-            <FormControl>
-              <FormLabel htmlFor="pass">Password</FormLabel>
-              <Input
-              isRequired
-              type='text'
-              id="pass"
-              placeholder="Password"
-              onChange={(e) => setUserName(e.target.value)}
-              value={userName}/>
-            </FormControl>
-            <Button
-              isLoading={isLoading}
-              loadingText={t('btn.enter.loading')}
-              colorScheme='blue'
-              onClick={onEnter}
-            >
-              {t('btn.enter')}
-            </Button>
-          </Box>
-        </div>
-      </Box> */}
+        <ColorModeSwitcher />
+      </Stack>
       <Container maxW="lg" py={{ base: '12', md: '24' }} px={{ base: '0', sm: '8' }}>
         <Stack spacing="8">
           <Box
@@ -93,11 +50,16 @@ function JoinBlock({ onLogin }) {
             <Stack spacing="6">
               <Stack spacing="5">
                 <FormControl>
-                  <FormLabel htmlFor="login">Login/ID</FormLabel>
-                  <Input id="login" type="text" />
+                  <FormLabel htmlFor="login">{t('form.login')}</FormLabel>
+                  <Input id="login" type="text" onChange={(e) => setRoomId(e.target.value)} />
                 </FormControl>
-                <PasswordField />
-                <Button colorScheme='blue'>Sign in</Button>
+                <PasswordField onChange={(e) => setPassword(e.target.value)} />
+                <Button
+                colorScheme='blue'
+                isLoading={isLoading}
+                loadingText={t('btn.enter.loading')}
+                onClick={onEnter}
+                >{t('btn.enter')}</Button>
               </Stack>
             </Stack>
           </Box>

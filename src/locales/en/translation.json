@@ -11,6 +11,9 @@
   "btn.enter.loading": "Loading...",
   "btn.win": "Done",
   "btn.skip": "Skip",
-  "alert.empty": "Enter ID room and password!"
-
+  "alert.empty": "Enter ID room and password!",
+  "form.login": "Login/ID",
+  "form.password": "Password",
+  "form.show.password": "Show password",
+  "form.hide.password": "Hide password"
 }

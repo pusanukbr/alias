@@ -72,7 +72,7 @@ function App() {
     <ChakraProvider>
       <div className="wrapper">
         <div className="content">
-          {!state.joined
+          {state.joined
             ? <JoinBlock onLogin={onLogin} />
             : <Game
                 { ...state }
