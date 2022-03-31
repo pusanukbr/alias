@@ -5,4 +5,13 @@ const wordsRandom  = () => {
 };
 
 
-export { wordsRandom };
+// Color dev
+
+const primeryBG = '#151316'
+const lightBG = '#1a1b1d'
+const accentColor = '#3ddbe6'
+
+
+export {
+  wordsRandom
+};

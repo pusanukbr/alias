@@ -1,10 +1,13 @@
 import React from "react";
 import JoinBlock from "./components/JoinBlock";
-import Game from "./components/Game";
+import Game from "./components/gameActive/GameBlock";
 import reducer from "./reducer";
-import { wordsRandom } from './const';
 // import socket from "./socket";
 import axios from "axios";
+// chakra
+import {
+  ChakraProvider,
+} from '@chakra-ui/react';
 
 function App() {
   const [stateTimer, setStateTimer] = React.useState(null)
@@ -13,8 +16,16 @@ function App() {
     joined: false,
     roomId: null,
     userName: null,
-    users: [],
-    word: wordsRandom(),
+    users: [
+      {
+        userName: 'test',
+        userScopes: 4,
+      },
+      {
+        userNane: 'test2',
+        userScopes: 9
+      }
+    ],
     sec: 90,
   });
 
@@ -32,12 +43,12 @@ function App() {
     )
   };
 
-  const setUsers = (users) => {
-    dispatch({
-      type: 'SET_USERS',
-      payload: users,
-    })
-  };
+  // const setUsers = (users) => {
+  //   dispatch({
+  //     type: 'SET_USERS',
+  //     payload: users,
+  //   })
+  // };
 
   const onLogin = async (obj) => {
     dispatch({
@@ -53,27 +64,24 @@ function App() {
       payload: data,
     })
   };
-  function newWord() {
-    dispatch({
-      type: 'NEW_WORD',
-      payload: wordsRandom()
-    })
-    console.log(state);
-  };
   React.useEffect(() => {
     // socket.on('ROOM:SET_USERS', setUsers);
   }, [])
   
   return (
-    <div className="wrapper">
-      {!state.joined
-       ? <JoinBlock onLogin={onLogin} />
-       : <Game
-          { ...state}
-          stateTimer={stateTimeLeft}
-          startTimer={startTimer}
-          newWord={newWord} /> }
-    </div>
+    <ChakraProvider>
+      <div className="wrapper">
+        <div className="content">
+          {!state.joined
+            ? <JoinBlock onLogin={onLogin} />
+            : <Game
+                { ...state }
+                stateTimer={stateTimeLeft}
+                startTimer={startTimer}/>
+          }
+        </div>
+      </div>
+    </ChakraProvider>
   );
 }
 

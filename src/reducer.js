@@ -18,10 +18,11 @@ const reducer = (state, action) => {
         users: action.payload.users,
         messages: action.payload.messages,
       };
-    case 'NEW_WORD': 
+    case 'FINISH_WORD': 
       return {
         ...state,
-        word: action.payload,
+        win_word: action.payload.win,
+        lose_word: action.payload.lose,
       };
     default:
       return state;
