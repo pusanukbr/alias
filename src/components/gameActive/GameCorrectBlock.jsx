@@ -1,5 +1,4 @@
 import React from "react";
-import './GameCorrectBlock.css';
 
 
 function GameCorrectBlock() {

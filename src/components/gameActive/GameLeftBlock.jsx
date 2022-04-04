@@ -1,5 +1,4 @@
 import React from "react";
-import './GameLeftBlock.css';
 import { useTranslation } from 'react-i18next';
 import {
   Box,

@@ -1,5 +1,4 @@
 import React from "react";
-import './GameMapsBlock.css';
 
 
 function Maps({ users }) {

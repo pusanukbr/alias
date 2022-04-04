@@ -1,5 +1,4 @@
 import React from "react";
-import './GameRightBlock.css';
 import { useTranslation } from 'react-i18next';
 import {
   Center,

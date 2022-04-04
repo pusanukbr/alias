@@ -21,6 +21,7 @@ import {
   Flex,
   Spacer,
   Divider,
+  Badge,
 } from '@chakra-ui/react';
 
 function Game({ userName, users, roomId, startTimer, stateTimer }) {
@@ -50,7 +51,7 @@ function Game({ userName, users, roomId, startTimer, stateTimer }) {
         <div>
           <div>{t('game.points')} <strong>0</strong></div>
           <div>{t('game.pass')} <strong>0</strong></div>
-          <div>{stateTimer}</div>
+          <Badge colorScheme='purple' px='4' fontSize='1.5em'>{stateTimer}</Badge>
           <div>
             <div>{word}</div>
           </div>

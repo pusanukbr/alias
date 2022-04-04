@@ -1,5 +1,4 @@
 import React from "react";
-import './GameSkipBlock.css';
 
 
 function GameSkipBlock() {
