@@ -18,6 +18,9 @@ import {
   useBreakpointValue,
   useColorModeValue,
   Button,
+  Flex,
+  Spacer,
+  Divider,
 } from '@chakra-ui/react';
 
 function Game({ userName, users, roomId, startTimer, stateTimer }) {
@@ -32,41 +35,42 @@ function Game({ userName, users, roomId, startTimer, stateTimer }) {
   };
   console.log(users);
   return (
-    <div className='game'>
+    <Box>
       <Stack direction='row' maxW="lg" m={4} spacing={4} align='center' justify='space-between'>
         <ColorModeSwitcher />
       </Stack>
-      <div className='game__topBlock'>
+      <Flex colorScheme='teal'>
         {<LeftBlock userName={userName} roomId={roomId} />}
+        <Spacer />
         {<RightBlock />}
-      </div>
-      <div className='game__bottomBlock'>
+      </Flex>
+      <Divider mb='5' size='4' colorScheme='purple'/>
+      <div>
         {<SkipBlock />}
-        <div className='game__center'>
-          <div className='game__points'>{t('game.points')} <strong>0</strong></div>
-          <div className='game__pass'>{t('game.pass')} <strong>0</strong></div>
-          <div className='game__timer'>{stateTimer}</div>
-          <div className='game__word'>
-            <div className="card-item">{word}</div>
+        <div>
+          <div>{t('game.points')} <strong>0</strong></div>
+          <div>{t('game.pass')} <strong>0</strong></div>
+          <div>{stateTimer}</div>
+          <div>
+            <div>{word}</div>
           </div>
-          <div className='game__start'>
+          <div>
             <button
             type="button"
-              className='btn btn-secondary btn__start'
               onClick={startTimer}>{t('game.start')}</button>
             </div>
-          <div className='game__button'>
-            <button type="button" className='btn btn-primary btn__right' onClick={newWord}>{t('btn.win')}</button>
-            <button type="button" className='btn btn-warning btn__skip'onClick={newWord}>{t('btn.skip')}</button>
+          <div>
+            <button type="button" onClick={newWord}>{t('btn.win')}</button>
+            <button type="button" onClick={newWord}>{t('btn.skip')}</button>
           </div>
-          <div className='game_continue'>
-            <button type="button" className='btn btn-secondary btn__continue'>Продолжить</button>
+          <div>
+            <button type="button">Продолжить</button>
           </div>
         </div>
         {<CorrectBlock />}
       </div>
       
-    </div>
+    </Box>
   );
 }
 

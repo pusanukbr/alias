@@ -1,13 +1,18 @@
 import React from "react";
 import './GameRightBlock.css';
 import { useTranslation } from 'react-i18next';
+import {
+  Center,
+  Heading,
+  Badge,
+} from '@chakra-ui/react';
 
 function GameRightBlock() {
   const { t } = useTranslation();
   return (
-    <div className="rightBlock">
-      <div className='game__score'>{t('game.scopes')} <strong>0</strong> - <strong>1</strong></div>
-    </div>
+    <Center p='4'>
+      <Heading size='md'>{t('game.scopes')} <Badge boxShadow='xs' colorScheme='purple'>0 - 1</Badge></Heading>
+    </Center>
   );
 }
 
