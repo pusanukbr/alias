@@ -29,20 +29,6 @@ function App() {
     sec: 90,
   });
 
-  const startTimer = () => {
-    clearInterval(stateTimer)
-    const timer = setInterval(() => {
-      const timeLeft = stateTimeLeft - 1;
-      if (timeLeft === 0) clearInterval(timer);
-      setStateTimeLeft(timeLeft);
-    }, 1000);
-    console.log(timer, stateTimeLeft);
-    return (
-      setStateTimer(timer),
-      setStateTimeLeft(state.sec)
-    )
-  };
-
   // const setUsers = (users) => {
   //   dispatch({
   //     type: 'SET_USERS',
@@ -65,9 +51,21 @@ function App() {
     })
   };
   React.useEffect(() => {
+    function startTimer() {
+      clearInterval(stateTimer)
+      const timer = setInterval(() => {
+        const timeLeft = stateTimeLeft - 1;
+        if (timeLeft === 0) clearInterval(timer);
+        setStateTimeLeft(timeLeft);
+      }, 1000);
+      return (
+        setStateTimer(timer),
+        setStateTimeLeft(state.sec)
+      )
+    };
     // socket.on('ROOM:SET_USERS', setUsers);
   }, [])
-  
+  https://upmostly.com/tutorials/build-a-react-timer-component-using-hooks  
   return (
     <ChakraProvider>
       <div className="wrapper">

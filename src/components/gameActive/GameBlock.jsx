@@ -8,9 +8,10 @@ import CorrectBlock from './GameCorrectBlock';
 import SkipBlock from './GameSkipBlock';
 import reducer from "../../reducer";
 import { useTranslation } from 'react-i18next';
+import { FaRegClock, FaClock } from 'react-icons/fa';
 import {
   Box,
-  Container,
+  Progress,
   FormControl,
   FormLabel,
   Input,
@@ -21,11 +22,16 @@ import {
   Flex,
   Spacer,
   Divider,
-  Badge,
+  Tag,
+  TagLeftIcon,
+  TagLabel,
+  VStack,
+  ButtonGroup,
 } from '@chakra-ui/react';
 
-function Game({ userName, users, roomId, startTimer, stateTimer }) {
+function Game({ userName, users, roomId, startTimer, stateTimer, sec }) {
   const { t } = useTranslation();
+  const SwitchIconTimer = useColorModeValue(FaRegClock, FaClock);
   const [word, setWord] = useState(wordsRandom())
   const [state, dispatch] = useReducer(reducer, {
     win_word: [],
@@ -40,36 +46,52 @@ function Game({ userName, users, roomId, startTimer, stateTimer }) {
       <Stack direction='row' maxW="lg" m={4} spacing={4} align='center' justify='space-between'>
         <ColorModeSwitcher />
       </Stack>
-      <Flex colorScheme='teal'>
+      <Flex>
         {<LeftBlock userName={userName} roomId={roomId} />}
         <Spacer />
         {<RightBlock />}
       </Flex>
       <Divider mb='5' size='4' colorScheme='purple'/>
-      <div>
-        {<SkipBlock />}
-        <div>
-          <div>{t('game.points')} <strong>0</strong></div>
-          <div>{t('game.pass')} <strong>0</strong></div>
-          <Badge colorScheme='purple' px='4' fontSize='1.5em'>{stateTimer}</Badge>
-          <div>
+      <Flex h='100%'>
+        <Box w='25%'>
+          {<SkipBlock />}
+        </Box>
+        <VStack w='50%'>
+          <Box>{t('game.points')} <strong>0</strong></Box>
+          <Box>{t('game.pass')} <strong>0</strong></Box>
+          <Box>
+            <Tag colorScheme='purple' px='4' fontSize='1.5em'>
+              <TagLeftIcon boxSize='16px' as={SwitchIconTimer}/>
+              <TagLabel>
+                {stateTimer}
+              </TagLabel>
+            </Tag>
+          </Box>
+          <Stack w='50%'>
+            <Progress value={10} max={sec} size='xs' colorScheme='pink' />
+          </Stack>
+          <Box>
             <div>{word}</div>
-          </div>
-          <div>
-            <button
-            type="button"
-              onClick={startTimer}>{t('game.start')}</button>
-            </div>
-          <div>
-            <button type="button" onClick={newWord}>{t('btn.win')}</button>
-            <button type="button" onClick={newWord}>{t('btn.skip')}</button>
-          </div>
-          <div>
+          </Box>
+          <Box>
+            <Button
+              type="button"
+              onClick={startTimer}>{t('game.start')}</Button>
+          </Box>
+          <Box>
+            <ButtonGroup>
+              <Button type="button" onClick={newWord}>{t('btn.win')}</Button>
+              <Button type="button" onClick={newWord}>{t('btn.skip')}</Button>
+            </ButtonGroup>
+          </Box>
+          <Box>
             <button type="button">Продолжить</button>
-          </div>
-        </div>
-        {<CorrectBlock />}
-      </div>
+          </Box>
+        </VStack>
+        <Box w='25%'>
+          {<CorrectBlock />}
+        </Box>
+      </Flex>
       
     </Box>
   );
