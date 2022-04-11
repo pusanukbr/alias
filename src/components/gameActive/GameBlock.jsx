@@ -1,5 +1,6 @@
 import React, { useState, useReducer } from 'react';
 import { ColorModeSwitcher } from '../ColorModeSwitcher';
+import Timer from '../Timer';
 import { wordsRandom } from '../../const';
 // import Maps from './GameMapsBlock'; FOR FUTURES
 import LeftBlock from './GameLeftBlock';
@@ -29,7 +30,7 @@ import {
   ButtonGroup,
 } from '@chakra-ui/react';
 
-function Game({ userName, users, roomId, startTimer, stateTimer, sec }) {
+function Game({ userName, users, roomId, stateTimer, sec }) {
   const { t } = useTranslation();
   const SwitchIconTimer = useColorModeValue(FaRegClock, FaClock);
   const [word, setWord] = useState(wordsRandom())
@@ -60,32 +61,16 @@ function Game({ userName, users, roomId, startTimer, stateTimer, sec }) {
           <Box>{t('game.points')} <strong>0</strong></Box>
           <Box>{t('game.pass')} <strong>0</strong></Box>
           <Box>
-            <Tag colorScheme='purple' px='4' fontSize='1.5em'>
-              <TagLeftIcon boxSize='16px' as={SwitchIconTimer}/>
-              <TagLabel>
-                {stateTimer}
-              </TagLabel>
-            </Tag>
+            <Timer/>
           </Box>
-          <Stack w='50%'>
-            <Progress value={10} max={sec} size='xs' colorScheme='pink' />
-          </Stack>
           <Box>
             <div>{word}</div>
           </Box>
           <Box>
-            <Button
-              type="button"
-              onClick={startTimer}>{t('game.start')}</Button>
-          </Box>
-          <Box>
             <ButtonGroup>
-              <Button type="button" onClick={newWord}>{t('btn.win')}</Button>
               <Button type="button" onClick={newWord}>{t('btn.skip')}</Button>
+              <Button type="button" onClick={newWord}>{t('btn.win')}</Button>
             </ButtonGroup>
-          </Box>
-          <Box>
-            <button type="button">Продолжить</button>
           </Box>
         </VStack>
         <Box w='25%'>

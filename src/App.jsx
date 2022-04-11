@@ -65,7 +65,7 @@ function App() {
     };
     // socket.on('ROOM:SET_USERS', setUsers);
   }, [])
-  https://upmostly.com/tutorials/build-a-react-timer-component-using-hooks  
+  
   return (
     <ChakraProvider>
       <div className="wrapper">
@@ -74,8 +74,7 @@ function App() {
             ? <JoinBlock onLogin={onLogin} />
             : <Game
                 { ...state }
-                stateTimer={stateTimeLeft}
-                startTimer={startTimer}/>
+                stateTimer={stateTimeLeft}/>
           }
         </div>
       </div>
