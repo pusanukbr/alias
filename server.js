@@ -4,8 +4,7 @@ const server = require('http').Server(app);
 const io = require('socket.io')(server, { cors: { origin: "*" } });
 const cors = require('cors');
 const mongoose = require('mongoose');
-
-const authRouter = require('./authRouter');
+const bcrypt = require('bcrypt');
 
 const Rooms = require('./models/rooms');
 
@@ -42,23 +41,28 @@ app.use(
 // app.use(authRouter);
 
 app.post('/login', async (req, res) => {
+  try {
+    const { userName, roomId, password } = req.body;
 
-  console.log('test', req.body);
-  // const { roomId, userName } = await req.body;
-  // const roomsHas = await Rooms.findOne({ roomId: roomId });
-  // if(!roomsHas) {
-  //   const roomsTest = new Rooms({
-  //     roomId,
-  //     users: [{
-  //       userName,
-  //     }],
-  //   })
-  //   await roomsTest.save();
-  // } else {
-  //   roomsHas.users.push({userName: userName});
-  //   await roomsHas.save();
-  // }
-
+    const roomsHas = await Rooms.findOne({ roomId: roomId });
+    const hashPassword = bcrypt.hashSync(password, 7)
+    if(!roomsHas) {
+      const roomsTest = new Rooms({
+        roomId,
+        users: [{
+          userName,
+        }],
+        password: hashPassword,
+      });
+      await roomsTest.save();
+      return req.json();
+    }
+    roomsHas.users.push({ userName: userName });
+    await roomsHas.save();
+    return req.json();
+  } catch (e) {
+      res.send({message: "Server error"})
+  }
   // res.send({
   //   roomId,
   //   userName,

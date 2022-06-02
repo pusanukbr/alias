@@ -1,5 +1,7 @@
 import React from "react";
 import { useTranslation } from 'react-i18next';
+import { useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from '../../hook/useAuth';
 import {
   Box,
   Container,
@@ -17,18 +19,26 @@ import axios from "axios";
 function JoinBlock() {
   const { t } = useTranslation();
   const [roomId, setRoomId] = React.useState('');
+  const [userName, setUserName] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [isLoading, setLoading] = React.useState(false);
-  const onEnter = async () => {
-    if(!roomId || !password) {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const fromPage = location.state?.from?.pathname || '/';
+  const { signin } = useAuth();
+
+  const onEnter = () => {
+    // TODO: Сделать проверку полей!
+    if(!roomId || !password || !userName) {
       return alert(t('alert.empty'))
     }
-    const obj = {
-      roomId,
-      password
-    }
     setLoading(true);
-    await axios.post('/login', obj);
+    axios.post('/login', { roomId, password, userName }).then((resp) => {
+      if(resp.status === 200) {
+        signin(resp.config.data, () => navigate(fromPage, { replace: true }));
+        localStorage.setItem('session', resp.config.data);
+      }
+    });
   }
   return (
     <div className="join-block">
@@ -44,8 +54,12 @@ function JoinBlock() {
             <Stack spacing="6">
               <Stack spacing="5">
                 <FormControl>
-                  <FormLabel htmlFor="login">{t('form.login')}</FormLabel>
-                  <Input id="login" type="text" onChange={(e) => setRoomId(e.target.value)} />
+                  <FormLabel htmlFor="user">{t('form.user')}</FormLabel>
+                  <Input id="user" type="text" onChange={(e) => setUserName(e.target.value)} />
+                </FormControl>
+                <FormControl>
+                  <FormLabel htmlFor="roomId">{t('form.roomId')}</FormLabel>
+                  <Input id="roomId" type="text" onChange={(e) => setRoomId(e.target.value)} />
                 </FormControl>
                 <PasswordField onChange={(e) => setPassword(e.target.value)} />
                 <Button
