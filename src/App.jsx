@@ -1,7 +1,12 @@
 import React from "react";
-import JoinBlock from "./components/JoinBlock";
+import { Routes, Route } from "react-router-dom";
+import JoinBlock from "./components/pages/Join";
+import Layout from "./components/Layout";
+import RequireAuth from "./hoc/RequireAuth";
+import { AuthProvider } from "./hoc/AuthProvider";
 import Game from "./components/gameActive/GameBlock";
 import reducer from "./reducer";
+import RouterConfig from "./const/RouterConfig";
 // import socket from "./socket";
 import axios from "axios";
 // chakra
@@ -68,16 +73,14 @@ function App() {
   
   return (
     <ChakraProvider>
-      <div className="wrapper">
-        <div className="content">
-          {state.joined
-            ? <JoinBlock onLogin={onLogin} />
-            : <Game
-                { ...state }
-                stateTimer={stateTimeLeft}/>
-          }
-        </div>
-      </div>
+      <AuthProvider>
+        <Routes>
+          <Route path={RouterConfig.MAIN.path} element={<Layout />}>
+            <Route index element={<RequireAuth><Game /></RequireAuth>} />
+            <Route path={RouterConfig.AUTH.path} element={<JoinBlock/>} />
+          </Route>
+        </Routes>
+      </AuthProvider>
     </ChakraProvider>
   );
 }

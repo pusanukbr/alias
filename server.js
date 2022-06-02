@@ -1,9 +1,11 @@
-const express = require('express')
+const express = require('express');
 const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server, { cors: { origin: "*" } });
 const cors = require('cors');
 const mongoose = require('mongoose');
+
+const authRouter = require('./authRouter');
 
 const Rooms = require('./models/rooms');
 
@@ -37,68 +39,67 @@ app.use(
 )
 
 // client
-app.get('/rooms/:id', async (req, res) => {
-  const { id: roomId } = req.params;
-  console.log(roomId);
-});
+// app.use('/login', authRouter);
 
-// app.post('/rooms', async (req, res) => {
-//   const { roomId, userName } = await req.body;
-//   const roomsHas = await Rooms.findOne({ roomId: roomId });
-//   if(!roomsHas) {
-//     const roomsTest = new Rooms({
-//       roomId,
-//       users: [{
-//         userName,
-//       }],
-//     })
-//     await roomsTest.save();
-//   } else {
-//     roomsHas.users.push({userName: userName});
-//     await roomsHas.save();
-//   }
+app.post('/rooms', async (req, res) => {
 
-//   res.send({
-//     roomId,
-//     userName,
-//     test: 'test',  
-//   });
-// })
+  console.log('test');
+  const { roomId, userName } = await req.body;
+  const roomsHas = await Rooms.findOne({ roomId: roomId });
+  if(!roomsHas) {
+    const roomsTest = new Rooms({
+      roomId,
+      users: [{
+        userName,
+      }],
+    })
+    await roomsTest.save();
+  } else {
+    roomsHas.users.push({userName: userName});
+    await roomsHas.save();
+  }
 
-
-// socket
-io.on('connection', (socket) => {
-  console.log('connection');
-  socket.on('ROOM:JOIN', async ({ roomId, userName }) => {
-    socket.join(roomId);
-    socket.to(roomId).emit('ROOM:SET_USERS');
-    // test
-    const roomsHas = await Rooms.findOne({ roomId: roomId });
-    if(!roomsHas) {
-      // const roomsTest = new Rooms({
-      //   roomId,
-      //   users: [{
-      //     userName,
-      //   }],
-      // })
-      // await roomsTest.save();
-    } else {
-      // roomsHas.users.push({userName: userName});
-      // await roomsHas.save();
-    }
+  res.send({
+    roomId,
+    userName,
+    test: 'test',  
   });
-
-  socket.on('ROOM:NEW_MESSAGES', ({ roomId, userName, text }) => {
-    const obj = {
-      userName,
-      text,
-    }
-    socket.to(roomId).emit('ROOM:SET_MESSAGES', obj);
-  });
-  socket.on('disconnect', () => {
-    console.log('disconnect');
-  })
 })
+
+
+// // socket
+// io.on('connection', (socket) => {
+//   console.log('connection');
+//   socket.on('ROOM:JOIN', async ({ roomId, userName }) => {
+//     socket.join(roomId);
+//     socket.to(roomId).emit('ROOM:SET_USERS');
+//     // test
+//     const roomsHas = await Rooms.findOne({ roomId: roomId });
+//     if(!roomsHas) {
+//       // const roomsTest = new Rooms({
+//       //   roomId,
+//       //   users: [{
+//       //     userName,
+//       //   }],
+//       // })
+//       // await roomsTest.save();
+//     } else {
+//       // roomsHas.users.push({userName: userName});
+//       // await roomsHas.save();
+//     }
+//   });
+
+//   socket.on('ROOM:NEW_MESSAGES', ({ roomId, userName, text }) => {
+//     const obj = {
+//       userName,
+//       text,
+//     }
+//     socket.to(roomId).emit('ROOM:SET_MESSAGES', obj);
+//   });
+//   socket.on('disconnect', () => {
+//     console.log('disconnect');
+//   })
+// })
 
 // START server and DB
 startDB()

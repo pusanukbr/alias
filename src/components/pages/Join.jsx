@@ -1,5 +1,4 @@
 import React from "react";
-import Language from './Language';
 import { useTranslation } from 'react-i18next';
 import {
   Box,
@@ -12,8 +11,7 @@ import {
   useColorModeValue,
   Button,
 } from '@chakra-ui/react';
-import { PasswordField } from './form/PasswordField';
-import { ColorModeSwitcher } from './ColorModeSwitcher';
+import { PasswordField } from '../form/PasswordField';
 
 function JoinBlock({ onLogin }) {
   const { t } = useTranslation();
@@ -34,10 +32,6 @@ function JoinBlock({ onLogin }) {
   }
   return (
     <div className="join-block">
-      <Stack direction='row' maxW="lg" m={4} spacing={4} align='center' justify='space-between'>
-        <Language/>
-        <ColorModeSwitcher />
-      </Stack>
       <Container maxW="lg" py={{ base: '12', md: '24' }} px={{ base: '0', sm: '8' }}>
         <Stack spacing="8">
           <Box

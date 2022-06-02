@@ -6,9 +6,8 @@ import {
     Button,
 } from '@chakra-ui/react';
 
-const Timer = () => {
+const Timer = ({ sec }) => {
     const { t } = useTranslation();
-    const sec = 5;
     const [seconds, setSeconds] = useState(sec);
     const [isActive, setIsActive] = useState(false);
     const styleSec = {

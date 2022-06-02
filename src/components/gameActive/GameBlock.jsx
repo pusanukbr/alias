@@ -1,5 +1,4 @@
 import React, { useState, useReducer } from 'react';
-import { ColorModeSwitcher } from '../ColorModeSwitcher';
 import Timer from '../Timer';
 import { wordsRandom } from '../../const';
 // import Maps from './GameMapsBlock'; FOR FUTURES
@@ -36,45 +35,56 @@ function Game({ userName, users, roomId, stateTimer, sec }) {
   const [word, setWord] = useState(wordsRandom())
   const [state, dispatch] = useReducer(reducer, {
     win_word: [],
-    lose_word: [],
+    skip_word: [],
   });
-  const newWord = () => {
+  const winWord = () => {
+    dispatch({
+      type: 'FINISH_WORD',
+      payload: {
+        win_word: word,
+      }
+    });
     setWord(wordsRandom());
   };
-  console.log(users);
+  const skipWord = () => {
+    dispatch({
+      type: 'FINISH_WORD',
+      payload: {
+        skip_word: word,
+      }
+    });
+    setWord(wordsRandom());
+  };
   return (
     <Box>
-      <Stack direction='row' maxW="lg" m={4} spacing={4} align='center' justify='space-between'>
-        <ColorModeSwitcher />
-      </Stack>
       <Flex>
         {<LeftBlock userName={userName} roomId={roomId} />}
         <Spacer />
-        {<RightBlock />}
+        {<RightBlock state={state} />}
       </Flex>
       <Divider mb='5' size='4' colorScheme='purple'/>
       <Flex h='100%'>
         <Box w='25%'>
-          {<SkipBlock />}
+          {<SkipBlock skip={state.skip_word} />}
         </Box>
         <VStack w='50%'>
-          <Box>{t('game.points')} <strong>0</strong></Box>
-          <Box>{t('game.pass')} <strong>0</strong></Box>
+          <Box>{t('game.points')} <strong>{state.win_word.length}</strong></Box>
+          <Box>{t('game.pass')} <strong>{state.skip_word.length}</strong></Box>
           <Box>
-            <Timer/>
+            <Timer sec={60}/>
           </Box>
           <Box>
             <div>{word}</div>
           </Box>
           <Box>
             <ButtonGroup>
-              <Button type="button" onClick={newWord}>{t('btn.skip')}</Button>
-              <Button type="button" onClick={newWord}>{t('btn.win')}</Button>
+              <Button type="button" onClick={skipWord}>{t('btn.skip')}</Button>
+              <Button type="button" onClick={winWord}>{t('btn.win')}</Button>
             </ButtonGroup>
           </Box>
         </VStack>
         <Box w='25%'>
-          {<CorrectBlock />}
+          {<CorrectBlock win={state.win_word} />}
         </Box>
       </Flex>
       
