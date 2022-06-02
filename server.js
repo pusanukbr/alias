@@ -39,31 +39,31 @@ app.use(
 )
 
 // client
-// app.use('/login', authRouter);
+// app.use(authRouter);
 
-app.post('/rooms', async (req, res) => {
+app.post('/login', async (req, res) => {
 
-  console.log('test');
-  const { roomId, userName } = await req.body;
-  const roomsHas = await Rooms.findOne({ roomId: roomId });
-  if(!roomsHas) {
-    const roomsTest = new Rooms({
-      roomId,
-      users: [{
-        userName,
-      }],
-    })
-    await roomsTest.save();
-  } else {
-    roomsHas.users.push({userName: userName});
-    await roomsHas.save();
-  }
+  console.log('test', req.body);
+  // const { roomId, userName } = await req.body;
+  // const roomsHas = await Rooms.findOne({ roomId: roomId });
+  // if(!roomsHas) {
+  //   const roomsTest = new Rooms({
+  //     roomId,
+  //     users: [{
+  //       userName,
+  //     }],
+  //   })
+  //   await roomsTest.save();
+  // } else {
+  //   roomsHas.users.push({userName: userName});
+  //   await roomsHas.save();
+  // }
 
-  res.send({
-    roomId,
-    userName,
-    test: 'test',  
-  });
+  // res.send({
+  //   roomId,
+  //   userName,
+  //   test: 'test',  
+  // });
 })
 
 

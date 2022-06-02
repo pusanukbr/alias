@@ -12,13 +12,14 @@ import {
   Button,
 } from '@chakra-ui/react';
 import { PasswordField } from '../form/PasswordField';
+import axios from "axios";
 
-function JoinBlock({ onLogin }) {
+function JoinBlock() {
   const { t } = useTranslation();
   const [roomId, setRoomId] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [isLoading, setLoading] = React.useState(false);
-  const onEnter = () => {
+  const onEnter = async () => {
     if(!roomId || !password) {
       return alert(t('alert.empty'))
     }
@@ -26,9 +27,8 @@ function JoinBlock({ onLogin }) {
       roomId,
       password
     }
-    setLoading(true)
-    // await axios.post('/rooms', obj);
-    onLogin(obj);
+    setLoading(true);
+    await axios.post('/login', obj);
   }
   return (
     <div className="join-block">
