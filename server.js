@@ -1,74 +1,66 @@
+require('dotenv').config();
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server, { cors: { origin: "*" } });
 const cors = require('cors');
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
 
-const Rooms = require('./models/rooms');
+const router = require('./routers/index');
+const PORT = process.env.PORT_SERVER || 4000;
 
-// Date Base MongoDB
-function startDB() {
-  try {
-    mongoose.connect('mongodb+srv://alias_bd:v4XGaWSMVemXrFZ6@cluster0.1iraz.mongodb.net/aliasDB', {
-      useNewUrlParser: true,
-    });
-  } catch (e) {
-    console.error(e);
-  }
-}
-async function startServer() {
-  await server.listen(8080, (err) => {
-    if(err) {
-        throw Error(err);
-    } else {
-      console.log('Server started!');
-    }
-  });
-}
-
-// CORS setting
+// setting
 app.use(
-  cors({
-    origin: '*',
-  }),
+  cors({ origin: '*', credentials: true, origin: process.env.CLIENT_URL }),
   express.json(),
-  express.urlencoded({ extended: true })
+  express.urlencoded({ extended: true }),
+  cookieParser()
 )
 
+app.use('/', router);
+
+const startServer = async() => {
+  try {
+    await mongoose.connect(process.env.DB_URL, { useNewUrlParser: true });
+    server.listen(PORT, (err) => console.log(`Server start on PORT = ${PORT}`));
+  } catch (e) {
+    console.log(e);
+  }
+  
+}
 // client
 // app.use(authRouter);
 
-app.post('/login', async (req, res) => {
-  try {
-    const { userName, roomId, password } = req.body;
+// app.post('/login', async (req, res) => {
+//   try {
+//     const { userName, roomId, password } = req.body;
 
-    const roomsHas = await Rooms.findOne({ roomId: roomId });
-    const hashPassword = bcrypt.hashSync(password, 7)
-    if(!roomsHas) {
-      const roomsTest = new Rooms({
-        roomId,
-        users: [{
-          userName,
-        }],
-        password: hashPassword,
-      });
-      await roomsTest.save();
-      return req.json();
-    }
-    roomsHas.users.push({ userName: userName });
-    await roomsHas.save();
-    return req.json();
-  } catch (e) {
-      res.send({message: "Server error"})
-  }
-  // res.send({
-  //   roomId,
-  //   userName,
-  //   test: 'test',  
-  // });
-})
+//     const roomsHas = await Rooms.findOne({ roomId: roomId });
+//     const hashPassword = bcrypt.hashSync(password, 7)
+//     if(!roomsHas) {
+//       const roomsTest = new Rooms({
+//         roomId,
+//         users: [{
+//           userName,
+//         }],
+//         password: hashPassword,
+//       });
+//       await roomsTest.save();
+//       return req.json();
+//     }
+//     roomsHas.users.push({ userName: userName });
+//     await roomsHas.save();
+//     return req.json();
+//   } catch (e) {
+//       res.send({message: "Server error"})
+//   }
+//   // res.send({
+//   //   roomId,
+//   //   userName,
+//   //   test: 'test',  
+//   // });
+// })
 
 
 // // socket
@@ -104,9 +96,6 @@ app.post('/login', async (req, res) => {
 //     console.log('disconnect');
 //   })
 // })
-
-// START server and DB
-startDB()
 
 // server
 startServer();

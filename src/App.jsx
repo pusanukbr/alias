@@ -7,16 +7,14 @@ import { AuthProvider } from "./hoc/AuthProvider";
 import Game from "./components/gameActive/GameBlock";
 import reducer from "./reducer";
 import RouterConfig from "./const/RouterConfig";
+
 // import socket from "./socket";
-import axios from "axios";
 // chakra
 import {
   ChakraProvider,
 } from '@chakra-ui/react';
 
 function App() {
-  const [stateTimer, setStateTimer] = React.useState(null)
-  const [stateTimeLeft, setStateTimeLeft] = React.useState(null)
   const [state, dispatch] = React.useReducer(reducer, {
     joined: false,
     roomId: null,
@@ -33,7 +31,7 @@ function App() {
     ],
     sec: 90,
   });
-
+  
   // const setUsers = (users) => {
   //   dispatch({
   //     type: 'SET_USERS',
@@ -41,35 +39,23 @@ function App() {
   //   })
   // };
 
-  const onLogin = async (obj) => {
-    dispatch({
-      type: 'JOINED',
-      payload: obj
-    });
-    // socket.emit('ROOM:JOIN', obj)
-    console.log('test', obj);
-    const { data } = await axios.get(`/rooms/${obj.roomId}`);
-    console.log(data);
-    dispatch({
-      type: 'SET_DATA',
-      payload: data,
-    })
-  };
-  React.useEffect(() => {
-    function startTimer() {
-      clearInterval(stateTimer)
-      const timer = setInterval(() => {
-        const timeLeft = stateTimeLeft - 1;
-        if (timeLeft === 0) clearInterval(timer);
-        setStateTimeLeft(timeLeft);
-      }, 1000);
-      return (
-        setStateTimer(timer),
-        setStateTimeLeft(state.sec)
-      )
-    };
+  // const onLogin = async (obj) => {
+  //   dispatch({
+  //     type: 'JOINED',
+  //     payload: obj
+  //   });
+  //   // socket.emit('ROOM:JOIN', obj)
+  //   console.log('test', obj);
+  //   const { data } = await axios.get(`/rooms/${obj.roomId}`);
+  //   console.log(data);
+  //   dispatch({
+  //     type: 'SET_DATA',
+  //     payload: data,
+  //   })
+  // };
+  // React.useEffect(() => {
     // socket.on('ROOM:SET_USERS', setUsers);
-  }, [])
+  // }, [])
   
   return (
     <ChakraProvider>

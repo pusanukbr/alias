@@ -1,12 +1,23 @@
 import { useLocation, Navigate } from 'react-router-dom';
 import RouterConfig from "../const/RouterConfig";
 import { useAuth } from '../hook/useAuth';
-
+import reducer from "../reducer";
+import React from "react";
 const RequireAuth = ({ children }) => {
     const location = useLocation();
-    const { user } = useAuth();
-    console.log(localStorage.getItem('session'));
+    const { user, checkAuth } = useAuth();
+    const [state, dispatch] = React.useReducer(reducer, {
+        users: ''
+    });
 
+    React.useEffect(() => {
+        console.log(state);
+        if (localStorage.getItem('token')) {
+            checkAuth();
+        }
+    }, [])
+
+    console.log('ok');
     if(!user) {
         return <Navigate to={RouterConfig.AUTH.path} state={{from: location}} />
     }

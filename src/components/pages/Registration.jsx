@@ -15,10 +15,8 @@ import {
 } from '@chakra-ui/react';
 import { PasswordField } from '../form/PasswordField';
 import axios from "axios";
-import $api from "../../http";
-import { connect } from "react-redux";
 
-function JoinBlock() {
+function Registration() {
   const { t } = useTranslation();
   const [roomId, setRoomId] = React.useState('');
   const [login, setLogin] = React.useState('');
@@ -35,7 +33,11 @@ function JoinBlock() {
       return alert(t('alert.empty'))
     }
     setLoading(true);
-    signin({roomId, password, login}, () => navigate(fromPage, { replace: true }));
+    axios.post('/registration', { roomId, password, login }).then((resp) => {
+      if(resp.status === 200) {
+        signin(resp.config.data, () => navigate(fromPage, { replace: true }));
+      }
+    });
   }
   return (
     <div className="join-block">
@@ -74,6 +76,4 @@ function JoinBlock() {
   );
 }
 
-export default connect(({ rooms }) => ({
-  roomsId: rooms.id,
-}))(JoinBlock);
+export default Registration;

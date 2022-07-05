@@ -3,11 +3,12 @@ const reducer = (state, action) => {
     case 'JOINED': 
       return {
         ...state,
-        joined: true,
+        isAuth: true,
         roomId: action.payload.roomId,
-        userName: action.payload.userName,
+        login: action.payload.login,
       };
-    case 'SET_USERS': 
+    case 'SET_USERS':
+      console.log('SET_USERS', action.payload);
       return {
         ...state,
         users: action.payload,

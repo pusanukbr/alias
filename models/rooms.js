@@ -4,8 +4,9 @@ const schema = new Schema ({
   roomId: {
     type: String,
     required: true,
+    unique: true,
   },
-  users: [
+  login: [
     {
       userName: {
         type: String,
