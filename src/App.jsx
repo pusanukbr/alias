@@ -1,11 +1,11 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 import JoinBlock from "./components/pages/Join";
 import Layout from "./components/Layout";
 import RequireAuth from "./hoc/RequireAuth";
 import { AuthProvider } from "./hoc/AuthProvider";
 import Game from "./components/gameActive/GameBlock";
-import reducer from "./reducer";
 import RouterConfig from "./const/RouterConfig";
 
 // import socket from "./socket";
@@ -14,24 +14,8 @@ import {
   ChakraProvider,
 } from '@chakra-ui/react';
 
-function App() {
-  const [state, dispatch] = React.useReducer(reducer, {
-    joined: false,
-    roomId: null,
-    userName: null,
-    users: [
-      {
-        userName: 'test',
-        userScopes: 4,
-      },
-      {
-        userNane: 'test2',
-        userScopes: 9
-      }
-    ],
-    sec: 90,
-  });
-  
+function App(props) {
+  console.log(props);
   // const setUsers = (users) => {
   //   dispatch({
   //     type: 'SET_USERS',
@@ -71,4 +55,6 @@ function App() {
   );
 }
 
-export default App;
+export default connect(({user}) => ({
+  user
+}), (dispatch) => ({dispatch}))(App);

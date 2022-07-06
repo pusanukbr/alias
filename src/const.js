@@ -1,6 +1,6 @@
-import ru from './ru';
-import en from './en';
-import ua from './ua';
+import ru from './locales/ru/word';
+import en from './locales/en/word';
+import ua from './locales/ua/word';
 import i18n from 'i18next';
 
 const langWord = () => {

@@ -1,6 +1,12 @@
-import ReducerCommand from './const/ReducerCommand';
+import ReducerCommand from '../const/ReducerCommand';
 
-const Rooms = (state = [], action) => {
+const initialState = {
+  roomId: 0,
+  lang: 'ua',
+  colorMode: 'ligth',
+};
+
+const roomReducer = (state = initialState, action) => {
 
   const { type, payload } = action;
 
@@ -15,4 +21,4 @@ const Rooms = (state = [], action) => {
   }
 };
 
-export default Rooms;
+export default roomReducer;
