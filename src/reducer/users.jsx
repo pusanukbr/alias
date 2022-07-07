@@ -1,7 +1,7 @@
-const SET_USERS = 'SET_USERS';
-const SET_DATA = 'SET_DATA';
-const FINISH_WORD = 'FINISH_WORD';
-const JOINED = 'JOINED';
+import AuthService from '../service/AuthService';
+import axios from "axios";
+import ReducerCommand from '../const/ReducerCommand';
+import { setLoading } from './ui';
 
 const initialState = {
     userName: '',
@@ -13,39 +13,52 @@ const initialState = {
 
 const userReducer = (state = initialState, action) => {
     switch (action.type) {
-    case JOINED: 
+    case ReducerCommand.JOINED: 
         return {
             ...state,
             isAuth: true,
             roomId: action.payload.roomId,
             login: action.payload.login,
         };
-    case SET_USERS:
+    case ReducerCommand.SET_USERS:
+        console.log(action.payload);
         return {
             ...state,
-            users: action.payload,
+            userName: action.payload,
         };
-    case SET_DATA: 
+    case ReducerCommand.SET_DATA: 
         return {
             ...state,
             users: action.payload.users,
-            messages: action.payload.messages,
         };
-    case FINISH_WORD:
-        if(action.payload.win_word) {
-            return {
-            ...state,
-            win_word: [...state.win_word, action.payload.win_word],
-            };
-        }
-        return {
-            ...state,
-            skip_word: [ ...state.skip_word, action.payload.skip_word],
-        };
-        
     default:
         return state;
     }
 };
+
+export const setUser = (users) => ({type: ReducerCommand.SET_USERS, payload: users});
+
+export const signin = ({ roomId, login, password }, cb) => async (dispatch) => {
+    try {
+        const response = await AuthService.login(roomId, login, password);
+        console.log(response.data);
+        localStorage.setItem('token', response.data.accessToken);
+        dispatch(setUser(response.data.rooms.login[0].userName))
+        cb();
+    } catch (e) {
+        console.log(e);
+    }
+}
+export const checkAuth = () => async (dispatch) => {
+    dispatch(setLoading(true));
+    try {
+        const response = await axios.get('http://localhost:4000/refresh', {withCredentials: true});
+        dispatch(setUser(response.data.rooms.login[0].userName));
+        localStorage.setItem('token', response.data.accessToken);
+        dispatch(setLoading(false));
+    } catch (e) {
+        console.log('ERROR', e);
+    }
+}
 
 export default userReducer;

@@ -53,9 +53,9 @@ function Game({ userName, users, roomId, stateTimer, sec }) {
   return (
     <Box>
       <Flex>
-        {<LeftBlock userName={userName} roomId={roomId} />}
+        {/* {<LeftBlock userName={userName} roomId={roomId} />}
         <Spacer />
-        {<RightBlock />}
+        {<RightBlock />} */}
       </Flex>
       <Divider mb='5' size='4' colorScheme='purple'/>
       <Flex h='100%'>

@@ -1,7 +1,8 @@
 import React from "react";
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from "react-router-dom";
-import { useAuth } from '../../hook/useAuth';
+import { signin } from '../../reducer/users';
+import { setLoading } from '../../reducer/ui';
 import {
   Box,
   Container,
@@ -18,24 +19,23 @@ import axios from "axios";
 import $api from "../../http";
 import { connect } from "react-redux";
 
-function JoinBlock() {
+function JoinBlock(props) {
   const { t } = useTranslation();
   const [roomId, setRoomId] = React.useState('');
   const [login, setLogin] = React.useState('');
   const [password, setPassword] = React.useState('');
-  const [isLoading, setLoading] = React.useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const fromPage = location.state?.from?.pathname || '/';
-  const { signin } = useAuth();
 
   const onEnter = () => {
     // TODO: Сделать проверку полей!
     if(!roomId || !password || !login) {
       return alert(t('alert.empty'))
     }
-    setLoading(true);
-    signin({roomId, password, login}, () => navigate(fromPage, { replace: true }));
+    props.dispatch(setLoading(true));
+    console.log('join', roomId, password, login);
+    props.dispatch(signin({roomId, password, login}, () => navigate(fromPage, { replace: true })));
   }
   return (
     <div className="join-block">
@@ -61,7 +61,7 @@ function JoinBlock() {
                 <PasswordField onChange={(e) => setPassword(e.target.value)} />
                 <Button
                 colorScheme='blue'
-                isLoading={isLoading}
+                isLoading={props.isLoading}
                 loadingText={t('btn.enter.loading')}
                 onClick={onEnter}
                 >{t('btn.enter')}</Button>
@@ -74,6 +74,7 @@ function JoinBlock() {
   );
 }
 
-export default connect(({ rooms }) => ({
-  roomsId: rooms.id,
-}))(JoinBlock);
+export default connect(({ room, ui }) => ({
+  roomsId: room.id,
+  isLoading: ui.loading,
+}), (dispatch) => ({dispatch}))(JoinBlock);
