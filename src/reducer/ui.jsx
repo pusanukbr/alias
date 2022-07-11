@@ -20,7 +20,7 @@ const uiReducer = (state = initialState, action) => {
     }
 };
 
-export const setLoading = (loading) => ({ type: ReducerCommand.TOGGLE_LOADING, loading });
+export const setLoading = (loading) => ({ type: ReducerCommand.TOGGLE_LOADING, payload: loading });
 
 
 

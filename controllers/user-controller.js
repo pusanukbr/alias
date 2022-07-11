@@ -6,7 +6,7 @@ class UserController {
     try {
       const { roomId, login, password } = req.body;
       const userData = await userService.login(roomId, login, password);
-      console.log(userData);
+      console.log('userData', userData);
       res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true});
       return res.json(userData);
     } catch (e) {
@@ -31,6 +31,7 @@ class UserController {
       const { refreshToken } = req.cookies;
       const roomData = await userService.refresh(refreshToken);
       res.cookie('refreshToken', roomData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
+      roomData.test = 'test';
       return res.json(roomData);
     } catch (e) {
       next(e);

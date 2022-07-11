@@ -46,6 +46,7 @@ class TokenService {
 
   async findToken(refreshToken) {
     const tokenData = await tokenModel.findOne({refreshToken});
+    console.log('token=====>', refreshToken, tokenData);
     return tokenData;
   }
 }

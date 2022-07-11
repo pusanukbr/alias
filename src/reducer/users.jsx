@@ -52,7 +52,9 @@ export const signin = ({ roomId, login, password }, cb) => async (dispatch) => {
 export const checkAuth = () => async (dispatch) => {
     dispatch(setLoading(true));
     try {
-        const response = await axios.get('http://localhost:4000/refresh', {withCredentials: true});
+        // const response = await axios.get('http://localhost:4000/refresh', {withCredentials: true});
+        const response = await AuthService.checkAuth();
+        console.log('response', response.data);
         dispatch(setUser(response.data.rooms.login[0].userName));
         localStorage.setItem('token', response.data.accessToken);
         dispatch(setLoading(false));

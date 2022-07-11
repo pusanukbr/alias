@@ -8,4 +8,8 @@ export default class AuthService {
   static async logout() {
     return $api.post('/logout');
   }
+
+  static async checkAuth() {
+    return $api.get('/refresh');
+  }
 }

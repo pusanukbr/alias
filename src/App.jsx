@@ -14,7 +14,6 @@ import {
 } from '@chakra-ui/react';
 
 function App(props) {
-  console.log(props);
   // const setUsers = (users) => {
   //   dispatch(setUser(users))
   // };

@@ -53,11 +53,11 @@ function Registration() {
             <Stack spacing="6">
               <Stack spacing="5">
                 <FormControl>
-                  <FormLabel htmlFor="user">{t('form.user')}</FormLabel>
+                  <FormLabel htmlFor="user">{t('form.login')}</FormLabel>
                   <Input id="user" type="text" onChange={(e) => setLogin(e.target.value)} />
                 </FormControl>
                 <FormControl>
-                  <FormLabel htmlFor="roomId">{t('form.roomId')}</FormLabel>
+                  <FormLabel htmlFor="roomId">{t('id.room')}</FormLabel>
                   <Input id="roomId" type="text" onChange={(e) => setRoomId(e.target.value)} />
                 </FormControl>
                 <PasswordField onChange={(e) => setPassword(e.target.value)} />
