@@ -1,9 +1,9 @@
 module.exports = class RoomsDto {
-  roomId;
+  idRoom = 0;
   login;
   id;
   constructor(model) {
-    this.roomId = model.roomId;
+    this.idRoom = model.idRoom;
     this.id = model._id;
     this.login = model.login;
   }

@@ -2,19 +2,17 @@ import React from "react";
 import { connect } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 import JoinBlock from "./components/pages/Join";
+import Loading from "./components/ui/loading";
 import Layout from "./components/Layout";
-import RequireAuth from "./hoc/RequireAuth";
+import ProtectedRoute from "./hoc/ProtectedRoute";
 import Game from "./components/gameActive/GameBlock";
 import RouterConfig from "./const/RouterConfig";
-
+import { setPreloader } from './reducer/ui';
+import { checkAuth } from "./reducer/users";
 // import socket from "./socket";
-// chakra
-import {
-  ChakraProvider,
-} from '@chakra-ui/react';
 
 function App(props) {
-  // const setUsers = (users) => {
+    // const setUsers = (users) => {
   //   dispatch(setUser(users))
   // };
 
@@ -32,18 +30,26 @@ function App(props) {
   //     payload: data,
   //   })
   // };
-  // React.useEffect(() => {
-    // socket.on('ROOM:SET_USERS', setUsers);
-  // }, [])
+  // React.useEffect(async () => {
+  //   // socket.on('ROOM:SET_USERS', setUsers);
+  // })
+  React.useEffect(() => {
+    if (localStorage.getItem('token') && !props.user.isAuth) {
+        props.dispatch(checkAuth());
+    }
+  }, [])
+  if (props.ui.preloader) {
+    return <Loading/>
+  }
   return (
-    <ChakraProvider>
-      <Routes>
-        <Route path={RouterConfig.MAIN.path} element={<Layout />}>
-          <Route index element={<RequireAuth><Game /></RequireAuth>} />
-          <Route path={RouterConfig.AUTH.path} element={<JoinBlock/>} />
+    <Routes>
+      <Route path={RouterConfig.MAIN.path} element={<Layout />}>
+        <Route element={<ProtectedRoute />}>
+          <Route index element={<Game />} />
         </Route>
-      </Routes>
-    </ChakraProvider>
+        <Route path={RouterConfig.AUTH.path} element={<JoinBlock/>} />
+      </Route>
+    </Routes>
   );
 }
 

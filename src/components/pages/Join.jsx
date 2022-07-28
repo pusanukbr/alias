@@ -21,8 +21,7 @@ import { connect } from "react-redux";
 
 function JoinBlock(props) {
   const { t } = useTranslation();
-  const [roomId, setRoomId] = React.useState('');
-  const [login, setLogin] = React.useState('');
+  const [name, setName] = React.useState('');
   const [password, setPassword] = React.useState('');
   const navigate = useNavigate();
   const location = useLocation();
@@ -30,15 +29,15 @@ function JoinBlock(props) {
 
   const onEnter = () => {
     // TODO: Сделать проверку полей!
-    if(!roomId || !password || !login) {
+    if(!password || !name) {
       return alert(t('alert.empty'))
     }
     props.dispatch(setLoading(true));
-    console.log('join', roomId, password, login);
-    props.dispatch(signin({roomId, password, login}, () => navigate(fromPage, { replace: true })));
+    props.dispatch(signin({password, name}).then(() => navigate(fromPage, { replace: true })));
+    // navigate(fromPage, { replace: true });
   }
   return (
-    <div className="join-block">
+    <div>
       <Container maxW="lg" py={{ base: '12', md: '24' }} px={{ base: '0', sm: '8' }}>
         <Stack spacing="8">
           <Box
@@ -52,11 +51,7 @@ function JoinBlock(props) {
               <Stack spacing="5">
                 <FormControl>
                   <FormLabel htmlFor="user">{t('form.login')}</FormLabel>
-                  <Input id="user" type="text" onChange={(e) => setLogin(e.target.value)} />
-                </FormControl>
-                <FormControl>
-                  <FormLabel htmlFor="roomId">{t('id.room')}</FormLabel>
-                  <Input id="roomId" type="text" onChange={(e) => setRoomId(e.target.value)} />
+                  <Input id="user" type="text" onChange={(e) => setName(e.target.value)} />
                 </FormControl>
                 <PasswordField onChange={(e) => setPassword(e.target.value)} />
                 <Button
@@ -74,7 +69,6 @@ function JoinBlock(props) {
   );
 }
 
-export default connect(({ room, ui }) => ({
-  roomsId: room.id,
+export default connect(({ ui }) => ({
   isLoading: ui.loading,
 }), (dispatch) => ({dispatch}))(JoinBlock);

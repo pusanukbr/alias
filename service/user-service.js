@@ -1,29 +1,32 @@
 const RoomsModel = require('../models/rooms');
+const UserModel = require('../models/user');
 const bcrypt = require('bcrypt');
 const tokenService = require('./token-service');
-const RoomsDto = require('../dtos/rooms-dtos');
+const UserDto = require('../dtos/user-dtos');
 const ApiError = require('../exceptions/api-error');
 
 class UserService {
-  async login(roomId, login, password) {
-    let room = await RoomsModel.findOne({roomId});
-    if (room) {
-      const isPassEquals = await bcrypt.compare(password, room.password);
-      if (!isPassEquals) {
+
+  async signin(name, password) {
+    const users = await UserModel.find({ name });
+    let user;
+    if (Boolean(users.length)) {
+      user = users.find(async (user) => await bcrypt.compare(password, user.password));
+      if (!user) {
         throw ApiError.BadRequest('Неверный пароль');
       }
     } else {
       const hashPassword = await bcrypt.hash(password, 3);
-      room = await RoomsModel.create({ roomId, login: [{userName: login}], password: hashPassword });
+      user = await UserModel.create({ name, password: hashPassword });
     }
     
-    const roomsDto = new RoomsDto(room)
-    const tokens = tokenService.genarateTokens({...roomsDto});
-    await tokenService.saveToken(roomsDto.id, tokens.refreshToken);
+    const userDto = new UserDto(user)
+    const tokens = tokenService.genarateTokens({...userDto});
+    await tokenService.saveToken(userDto.id, tokens.refreshToken);
 
     return {
       ...tokens,
-      rooms: roomsDto
+      user: userDto
     }
   }
 
@@ -33,24 +36,22 @@ class UserService {
   }
 
   async refresh(refreshToken) {
-    console.log('test============> ', refreshToken);
     if(!refreshToken) {
       throw ApiError.UnauthorizedError();
     }
-    const roomData = tokenService.validateRefreshToken(refreshToken);
+    const userData = tokenService.validateRefreshToken(refreshToken);
     const tokenFromDB = await tokenService.findToken(refreshToken);
-    console.log('roomData', roomData, 'tokenFromDB', tokenFromDB);
-    if (!roomData || !tokenFromDB) {
+    if (!userData || !tokenFromDB) {
       throw ApiError.UnauthorizedError();
     }
-    const room = await RoomsModel.findById(roomData.id);
-    const roomsDto = new RoomsDto(room);
-    const tokens = tokenService.genarateTokens({...roomsDto});
-    await tokenService.saveToken(roomsDto.id, tokens.refreshToken);
+    const user = await UserModel.findById(userData.id);
+    const userDto = new UserDto(user);
+    const tokens = tokenService.genarateTokens({...userDto});
+    await tokenService.saveToken(userDto.id, tokens.refreshToken);
 
     return {
       ...tokens,
-      rooms: roomsDto
+      user
     }
   }
 }

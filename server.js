@@ -18,9 +18,9 @@ app.use(
   cookieParser()
 )
 
-app.use('/', router);
+app.use('/auth', router);
 
-const startServer = async() => {
+const startServer = async () => {
   try {
     await mongoose.connect(process.env.DB_URL, { useNewUrlParser: true });
     server.listen(PORT, (err) => console.log(`Server start on PORT = ${PORT}`));

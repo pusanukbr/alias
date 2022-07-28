@@ -26,15 +26,6 @@ const reducer = combineReducers({
 
 let store = null;
 
-// export const getStore = () => {
-//   return store;
-// }
-
-// export const getState = () => {
-//   if(!store) return null;
-//   return store.getState();
-// }
-
 store = createStore(
   reducer,
   ReduxDevToolsExt.composeWithDevTools({

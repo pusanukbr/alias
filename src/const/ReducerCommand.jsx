@@ -18,4 +18,6 @@ export default class ReducerCommand {
   static JOINED = 'JOINED';
 
   static TOGGLE_LOADING = 'TOGGLE_LOADING';
+
+  static TOGGLE_PRELOADER = 'TOGGLE_PRELOADER';
 }

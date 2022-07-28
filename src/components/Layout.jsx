@@ -1,4 +1,4 @@
-import { Outlet  } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { Stack } from '@chakra-ui/react';
 

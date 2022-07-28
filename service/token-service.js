@@ -3,7 +3,7 @@ const tokenModel = require('../models/token');
 
 class TokenService {
   genarateTokens(payload) {
-    const accessToken = jwt.sign(payload, process.env.JWT_ACCESS_SECRET, {expiresIn: '24h'})
+    const accessToken = jwt.sign(payload, process.env.JWT_ACCESS_SECRET, {expiresIn: '40m'})
     const refreshToken = jwt.sign(payload, process.env.JWT_REFRESH_SECRET, {expiresIn: '24h'})
     return {
       accessToken,
@@ -29,13 +29,13 @@ class TokenService {
     }
   }
 
-  async saveToken(roomId, refreshToken) {
-    const tokenData = await tokenModel.findOne({roomId});
+  async saveToken(userId, refreshToken) {
+    const tokenData = await tokenModel.findOne({ userId });
     if (tokenData) {
       tokenData.refreshToken = refreshToken;
       return tokenData.save();
     }
-    const token = await tokenModel.create({roomId, refreshToken});
+    const token = await tokenModel.create({userId, refreshToken});
     return token;
   }
 
@@ -46,7 +46,6 @@ class TokenService {
 
   async findToken(refreshToken) {
     const tokenData = await tokenModel.findOne({refreshToken});
-    console.log('token=====>', refreshToken, tokenData);
     return tokenData;
   }
 }
