@@ -29,6 +29,7 @@
     "mongoose": "^6.1.8",
     "nodemon": "^2.0.15",
     "react": "^17.0.2",
+    "react-app-rewired": "^2.2.1",
     "react-dom": "^17.0.2",
     "react-i18next": "^11.15.6",
     "react-icons": "^4.3.1",
@@ -45,11 +46,11 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-app-rewired start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server": "nodemon server.js"
+    "server": "nodemon server/index.js"
   },
   "eslintConfig": {
     "extends": [

@@ -1,4 +1,4 @@
-import ReducerCommand from '../const/ReducerCommand';
+import ReducerCommand from '../../const/ReducerCommand';
 
 const initialState = {
   roomId: 0,

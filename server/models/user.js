@@ -13,6 +13,10 @@ const schema = new Schema({
     type: String,
     required: true,
   },
+  refreshToken: {
+    type: String,
+     required: true
+  },
 })
 
 module.exports = model('User', schema)

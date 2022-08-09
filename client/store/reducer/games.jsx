@@ -1,5 +1,3 @@
-import ReducerCommand from '../const/ReducerCommand';
-
 const initialState = {
     time: 90,
     mode: '',
@@ -8,7 +6,7 @@ const initialState = {
 
 const gamesReducer = (state = initialState, action) => {
 
-    const { type, payload } = action;
+    const { type } = action;
 
     switch (type) {
         default:

@@ -6,7 +6,7 @@ import {
     useLocation
 } from 'react-router-dom';
 import RouterConfig from "../const/RouterConfig";
-import { checkAuth } from "../reducer/users";
+import { checkAuth } from "../store/reducer/users";
 
 const ProtectedRoute = ({ redirectPath = `${RouterConfig.AUTH.path}`, children }) => {
     const userState = useSelector((state) => state.user);

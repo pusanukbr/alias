@@ -7,8 +7,8 @@ import Layout from "./components/Layout";
 import ProtectedRoute from "./hoc/ProtectedRoute";
 import Game from "./components/gameActive/GameBlock";
 import RouterConfig from "./const/RouterConfig";
-import { setPreloader } from './reducer/ui';
-import { checkAuth } from "./reducer/users";
+import { setPreloader } from './store/reducer/ui';
+import { checkAuth } from "./store/reducer/users";
 // import socket from "./socket";
 
 function App(props) {

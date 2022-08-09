@@ -1,8 +1,8 @@
 import React from "react";
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from "react-router-dom";
-import { signin } from '../../reducer/users';
-import { setLoading } from '../../reducer/ui';
+import { signin } from '../../store/reducer/users';
+import { setLoading } from '../../store/reducer/ui';
 import {
   Box,
   Container,
@@ -13,15 +13,18 @@ import {
   useBreakpointValue,
   useColorModeValue,
   Button,
+  Checkbox
 } from '@chakra-ui/react';
 import { PasswordField } from '../form/PasswordField';
 import axios from "axios";
-import $api from "../../http";
+import $api from "../../API/http";
 import { connect } from "react-redux";
 
 function JoinBlock(props) {
   const { t } = useTranslation();
   const [name, setName] = React.useState('');
+  const [hasRoom, sethasRoom] = React.useState(false);
+  const [idRoom, setIdRoom] = React.useState(0);
   const [password, setPassword] = React.useState('');
   const navigate = useNavigate();
   const location = useLocation();
@@ -33,7 +36,7 @@ function JoinBlock(props) {
       return alert(t('alert.empty'))
     }
     props.dispatch(setLoading(true));
-    props.dispatch(signin({password, name}).then(() => navigate(fromPage, { replace: true })));
+    props.dispatch(signin({password, name, idRoom}).then(() => navigate(fromPage, { replace: true })));
     // navigate(fromPage, { replace: true });
   }
   return (
@@ -44,7 +47,7 @@ function JoinBlock(props) {
             py={{ base: '0', sm: '8' }}
             px={{ base: '4', sm: '10' }}
             bg={useBreakpointValue({ base: 'transparent', sm: 'bg-surface' })}
-            boxShadow={{ base: 'none', sm: useColorModeValue('md', 'md-dark') }}
+            boxShadow={{ base: 'none', sm: useColorModeValue('xl') }}
             borderRadius={{ base: 'none', sm: 'xl' }}
           >
             <Stack spacing="6">
@@ -54,6 +57,13 @@ function JoinBlock(props) {
                   <Input id="user" type="text" onChange={(e) => setName(e.target.value)} />
                 </FormControl>
                 <PasswordField onChange={(e) => setPassword(e.target.value)} />
+                <Box><Checkbox onChange={(e)=> sethasRoom(e.target.checked)}>{t('form.hide.hasRoom')}</Checkbox></Box>
+                {hasRoom && 
+                  <FormControl>
+                  <FormLabel htmlFor="idRoom">{t('form.idRoom')}</FormLabel>
+                  <Input id="idRoom" type="text" onChange={(e) => setIdRoom(e.target.value)} />
+                  </FormControl>
+                }
                 <Button
                 colorScheme='blue'
                 isLoading={props.isLoading}

@@ -1,6 +1,6 @@
-import AuthService from '../service/AuthService';
+import AuthService from '../../API/service/AuthService';
 import axios from "axios";
-import ReducerCommand from '../const/ReducerCommand';
+import ReducerCommand from '../../const/ReducerCommand';
 import { setPreloader } from './ui';
 
 const initialState = {
