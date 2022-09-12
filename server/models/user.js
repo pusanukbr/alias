@@ -13,9 +13,9 @@ const schema = new Schema({
     type: String,
     required: true,
   },
-  refreshToken: {
+  token: {
     type: String,
-     required: true
+     required: false
   },
 })
 

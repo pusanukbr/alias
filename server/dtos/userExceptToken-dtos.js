@@ -1,6 +1,5 @@
 module.exports = class UserDto {
   idRoom = 0;
-  token;
   login;
   id;
 
@@ -8,6 +7,5 @@ module.exports = class UserDto {
     this.id = model._id;
     this.login = model.login;
     this.idRoom = model.idRoom;
-    this.token = model.token;
   }
 }

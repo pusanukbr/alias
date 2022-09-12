@@ -19,7 +19,7 @@ const ProtectedRoute = ({ redirectPath = `${RouterConfig.AUTH.path}`, children }
     //         dispatch(checkAuth());
     //     }
     // })
-    
+    console.log(userState);
     if (!userState.isAuth) {
         return <Navigate to={redirectPath} replace state={{ from: fromPage }} />;
     }

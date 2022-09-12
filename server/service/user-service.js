@@ -1,58 +1,59 @@
-const RoomsModel = require('../models/rooms');
 const UserModel = require('../models/user');
 const bcrypt = require('bcrypt');
 const tokenService = require('./token-service');
 const UserDto = require('../dtos/user-dtos');
+const userExceptTokenDto = require('../dtos/userExceptToken-dtos');
 const ApiError = require('../exceptions/api-error');
 
 class UserService {
 
-  async signin(name, password) {
+  async signin(name, password, idRoom = '') {
     const users = await UserModel.find({ name });
     let user;
-    if (Boolean(users.length)) {
-      user = users.find(async (user) => await bcrypt.compare(password, user.password));
+    if (Boolean(users.length)) {  // Авторизация
+      user = users.find(async (item) => await bcrypt.compare(password, item.password)); // Проверяем на пароль
+      console.log('user', user);
       if (!user) {
+        // TODO: Переделать ошибки
         throw ApiError.BadRequest('Неверный пароль');
       }
-    } else {
+    } else {  // Регистрация
       const hashPassword = await bcrypt.hash(password, 3);
-      user = await UserModel.create({ name, password: hashPassword });
+      
+      user = await UserModel.create({ login: name, password: hashPassword, idRoom });
+      const token = tokenService.genarateToken(user); // генерим токен
+      await user.push({ token: token });
+      user.save();
     }
-    
-    const userDto = new UserDto(user)
-    const tokens = tokenService.genarateTokens({...userDto});
-    await tokenService.saveToken(userDto.id, tokens.refreshToken);
+    console.log('user---=======', user);
+    const userDto = new UserDto(user); // Фильтруем данные от не нужных полей
 
-    return {
-      ...tokens,
-      user: userDto
-    }
+    return { user: userDto };
   }
 
-  async logout(refreshToken) {
-    const token = await tokenService.removeToken(refreshToken);
+  async logout(deleteToken) {
+    const token = await tokenService.removeToken(deleteToken); // TODO: removeToken
     return token;
   }
 
-  async refresh(refreshToken) {
-    if(!refreshToken) {
+  async getUser(token) {
+    console.log('getUser', token);
+    if(!token) {
       throw ApiError.UnauthorizedError();
     }
-    const userData = tokenService.validateRefreshToken(refreshToken);
-    const tokenFromDB = await tokenService.findToken(refreshToken);
+    console.log('getUser after');
+    const userData = tokenService.validateAccessToken(token);
+    console.log('getUser', userData);
+    const tokenFromDB = await tokenService.findToken(token);
     if (!userData || !tokenFromDB) {
       throw ApiError.UnauthorizedError();
     }
     const user = await UserModel.findById(userData.id);
-    const userDto = new UserDto(user);
-    const tokens = tokenService.genarateTokens({...userDto});
-    await tokenService.saveToken(userDto.id, tokens.refreshToken);
+    const dataExceptToken = new userExceptTokenDto(user);
+    const newToken = tokenService.genarateTokens({...dataExceptToken});
+    const userDto = new UserDto(tokenService.tokenSave(newToken, user.id));
 
-    return {
-      ...tokens,
-      user
-    }
+    return userDto;
   }
 }
 

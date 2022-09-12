@@ -1,8 +1,8 @@
 import React from "react";
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from "react-router-dom";
-import { signin } from '../../store/reducer/users';
-import { setLoading } from '../../store/reducer/ui';
+import { signin } from '../store/reducer/users';
+import { setLoading } from '../store/reducer/ui';
 import {
   Box,
   Container,
@@ -15,9 +15,9 @@ import {
   Button,
   Checkbox
 } from '@chakra-ui/react';
-import { PasswordField } from '../form/PasswordField';
+import { PasswordField } from '../components/form/PasswordField';
 import axios from "axios";
-import $api from "../../API/http";
+import $api from "../API/http";
 import { connect } from "react-redux";
 
 function JoinBlock(props) {
@@ -36,7 +36,7 @@ function JoinBlock(props) {
       return alert(t('alert.empty'))
     }
     props.dispatch(setLoading(true));
-    props.dispatch(signin({password, name, idRoom}).then(() => navigate(fromPage, { replace: true })));
+    props.dispatch(signin({password, name, idRoom: idRoom || ''}));
     // navigate(fromPage, { replace: true });
   }
   return (

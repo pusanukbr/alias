@@ -18,7 +18,7 @@ app.use(
   cookieParser()
 )
 
-app.use('/auth', router);
+app.use('/', router);
 
 const startServer = async () => {
   try {

@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Routes, Route } from "react-router-dom";
-import JoinBlock from "./components/pages/Join";
+import JoinBlock from "./pages/Join";
 import Loading from "./components/ui/loading";
 import Layout from "./components/Layout";
 import ProtectedRoute from "./hoc/ProtectedRoute";
@@ -36,9 +36,12 @@ function App(props) {
   React.useEffect(() => {
     if (localStorage.getItem('token') && !props.user.isAuth) {
         props.dispatch(checkAuth());
+    } else {
+      props.dispatch(setPreloader(false));
     }
   }, [])
   if (props.ui.preloader) {
+    console.log('test');
     return <Loading/>
   }
   return (
