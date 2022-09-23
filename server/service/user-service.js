@@ -20,15 +20,15 @@ class UserService {
     } else {  // Регистрация
       const hashPassword = await bcrypt.hash(password, 3);
       
-      user = await UserModel.create({ login: name, password: hashPassword, idRoom });
-      const token = tokenService.genarateToken(user); // генерим токен
-      await user.push({ token: token });
+      const token = tokenService.genarateToken({user, password: hashPassword, idRoom}); // генерим токен
+      user = await UserModel.create({ login: name, password: hashPassword, idRoom, token });
+      // await user.push({ token: token });
       user.save();
     }
     console.log('user---=======', user);
     const userDto = new UserDto(user); // Фильтруем данные от не нужных полей
 
-    return { user: userDto };
+    return { user: { ...userDto } };
   }
 
   async logout(deleteToken) {

@@ -35,7 +35,7 @@ function App(props) {
   // })
   React.useEffect(() => {
     if (localStorage.getItem('token') && !props.user.isAuth) {
-        props.dispatch(checkAuth());
+        // props.dispatch(checkAuth());
     } else {
       props.dispatch(setPreloader(false));
     }
