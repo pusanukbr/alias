@@ -18,7 +18,7 @@ const userReducer = (state = initialState, action) => {
     case ReducerCommand.SET_USERS:
         return {
             ...state,
-            userName: action.payload.user,
+            userName: action.payload,
             isAuth: true
         };
     default:
@@ -32,10 +32,9 @@ export const setUser = (response) => ({type: ReducerCommand.SET_USERS, payload: 
 // THUNK ACTION
 export const signin = ({ name, password, idRoom }) => async (dispatch) => {
     const response = await AuthService.signin(name, password, idRoom);
-    console.log(response.data.user);
     localStorage.setItem('token', response.data.user.token);
 
-    dispatch(setUser({user: response.data.user.login})) // TODO: FIX
+    dispatch(setUser(response.data.user.login));
 }
 
 export const checkAuth = () => async (dispatch) => {
@@ -44,8 +43,7 @@ export const checkAuth = () => async (dispatch) => {
             'user',
             {withCredentials: true}
         );
-        console.log('bjyvvt kt kftyktt', response);
-        dispatch(setUser({user: response.data.user.login}));
+        dispatch(setUser(response.data.user.login));
         localStorage.setItem('token', response.data.user.token);
         dispatch(setPreloader(false));
         dispatch(setLoading(false));

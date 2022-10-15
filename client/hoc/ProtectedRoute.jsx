@@ -1,29 +1,21 @@
 import React from "react";
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
     Navigate,
     Outlet,
     useLocation
 } from 'react-router-dom';
 import RouterConfig from "../const/RouterConfig";
-import { checkAuth } from "../store/reducer/users";
 
-const ProtectedRoute = ({ redirectPath = `${RouterConfig.AUTH.path}`, children }) => {
+const ProtectedRoute = ({ redirectPath }) => {
     const userState = useSelector((state) => state.user);
-    const dispatch = useDispatch();
     const location = useLocation();
     const fromPage = location.state?.from?.pathname || '/';
 
-    // React.useEffect(() => {
-    //     if (localStorage.getItem('token') && !userState.isAuth) {
-    //         dispatch(checkAuth());
-    //     }
-    // })
-    console.log(userState);
-    if (!userState.isAuth) {
-        return <Navigate to={redirectPath} replace state={{ from: fromPage }} />;
-    }
-    return children ? children : <Outlet />;
+    if (redirectPath) return <Navigate to={redirectPath} replace state={{ from: fromPage }} />;
+    return userState.isAuth
+     ? <Outlet />
+     : <Navigate to={RouterConfig.AUTH.path} state={{ from: fromPage }} />;
 };
 
 export default ProtectedRoute;

@@ -35,22 +35,26 @@ function App(props) {
   // })
   React.useEffect(() => {
     if (localStorage.getItem('token') && !props.user.isAuth) {
-        // props.dispatch(checkAuth());
+        props.dispatch(checkAuth());
     } else {
       props.dispatch(setPreloader(false));
     }
   }, [])
   if (props.ui.preloader) {
-    console.log('test');
     return <Loading/>
   }
   return (
     <Routes>
+      
       <Route path={RouterConfig.MAIN.path} element={<Layout />}>
+        {/* Main */}
         <Route element={<ProtectedRoute />}>
           <Route index element={<Game />} />
         </Route>
+
+        {/* Login */}
         <Route path={RouterConfig.AUTH.path} element={<JoinBlock/>} />
+
       </Route>
     </Routes>
   );

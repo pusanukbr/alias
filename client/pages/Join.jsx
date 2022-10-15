@@ -37,7 +37,7 @@ function JoinBlock(props) {
     }
     props.dispatch(setLoading(true));
     props.dispatch(signin({password, name, idRoom: idRoom || ''}));
-    // navigate(fromPage, { replace: true });
+    navigate(fromPage, { replace: true });
   }
   return (
     <div>
