@@ -17,5 +17,10 @@
   "form.idRoom": "ID кімнати",
   "form.show.password": "Подивитсь пароль",
   "form.hide.password": "Приховати пароль",
-  "form.hide.hasRoom": "Увійти до кімнати по ID"
+  "form.hide.hasRoom": "Увійти до кімнати по ID",
+
+  "button.login": "Логін",
+  "button.register": "Регістрація",
+  "landing.title": "Ласкаво просимо до Аліасу",
+  "landing.desc": "Щось напевно дуже цікаве про аліас хз"
 }

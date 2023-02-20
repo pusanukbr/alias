@@ -3,6 +3,16 @@ const ApiError = require('../exceptions/api-error');
 
 class UserController {
 
+  async registration(req, res, next) {
+    try {
+      const { name, password } = req.body;
+      const userData = await userService.registration(name, password);
+      return res.json(userData);
+    } catch (e) {
+      next(e);
+    }
+  }
+
   async signin(req, res, next) {
     try {
       const { name, password } = req.body;

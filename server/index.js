@@ -12,7 +12,7 @@ const PORT = process.env.PORT_SERVER || 4000;
 
 // setting
 app.use(
-  cors({ origin: '*', credentials: true, origin: process.env.CLIENT_URL }),
+  cors({ credentials: true, origin: process.env.CLIENT_URL }),
   express.json(),
   express.urlencoded({ extended: true }),
   cookieParser()
@@ -23,11 +23,10 @@ app.use('/', router);
 const startServer = async () => {
   try {
     await mongoose.connect(process.env.DB_URL, { useNewUrlParser: true });
-    server.listen(PORT, (err) => console.log(`Server start on PORT = ${PORT}`));
+    server.listen(PORT, () => console.log(`Server start on PORT = ${PORT}`));
   } catch (e) {
     console.log(e);
   }
-  
 }
 // client
 // app.use(authRouter);

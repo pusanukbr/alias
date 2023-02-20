@@ -13,15 +13,13 @@ function loading() {
             alignItems='center' 
             justifyContent='center'
             >
-            <Spinner
-            position='absolute'
-            w='90px'
-            h='90px'
-            thickness='8px'
-            speed='1s'
-            emptyColor='white.100'
+          <Spinner
+            thickness='4px'
+            speed='0.65s'
+            emptyColor='gray.200'
             color='blue.500'
-            />
+            size='xl'
+          />
         </Box>
     )
 

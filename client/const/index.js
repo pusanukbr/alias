@@ -9,6 +9,23 @@ const langWord = () => {
   if(i18n.language === 'ua') return ua;
 }
 
+const getRandomArbitrary = (min, max) => {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+const numbers = [];
+const getRandomUniqueNumber = (min, max) => {
+  console.log(min, max);
+  const number = Math.floor(min + Math.random() * (max - min))
+  if (numbers.includes(number)) return getRandomUniqueNumber(min, max)
+  else {
+    numbers.push(number)
+    return number
+  }
+}
+
 const wordsRandom  = () => {
   const word = langWord();
   return word[Math.floor(Math.random() * word.length)];
@@ -23,5 +40,7 @@ const accentColor = '#3ddbe6'
 
 
 export {
-  wordsRandom
+  wordsRandom,
+  getRandomArbitrary,
+  getRandomUniqueNumber
 };

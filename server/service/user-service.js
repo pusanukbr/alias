@@ -7,12 +7,14 @@ const ApiError = require('../exceptions/api-error');
 const user = require('../models/user');
 
 class UserService {
+  async registration(name, password) {
 
-  async signin(name, password, idRoom = '') {
+  }
+  async signin(name, password) {
     const users = await UserModel.find({ name });
     let user;
     let newToken = '';
-    if (Boolean(users.length)) {  // Авторизация
+    if (Object.keys(users)) {  // Авторизация
       user = users.find(async (item) => await bcrypt.compare(password, item.password)); // Проверяем на пароль
       if (!user) {
         // TODO: Переделать ошибки

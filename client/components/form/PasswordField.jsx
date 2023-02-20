@@ -11,23 +11,19 @@ import * as React from 'react';
 import { HiEye, HiEyeOff } from 'react-icons/hi';
 import { useTranslation } from 'react-i18next';
 
-export const PasswordField = ((props, ref) => {
+export const PasswordField = ((props) => {
   const { t } = useTranslation();
   const { isOpen, onToggle } = useDisclosure();
 
-  const onClickReveal = () => {
-    onToggle();
-  }
-
   return (
-    <FormControl>
+    <FormControl isRequired>
       <FormLabel htmlFor="password">{t('form.password')}</FormLabel>
       <InputGroup>
         <InputRightElement>
           <IconButton
             variant="link"
             icon={isOpen ? <HiEyeOff /> : <HiEye />}
-            onClick={onClickReveal}
+            onClick={() => onToggle()}
             _focus={{shadow: 'none'}}
             title={!isOpen ? t('form.show.password') : t('form.hide.password')}
           />

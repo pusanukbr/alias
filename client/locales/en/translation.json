@@ -17,5 +17,10 @@
   "form.idRoom": "ID the room",
   "form.show.password": "Show password",
   "form.hide.password": "Hide password",
-  "form.hide.hasRoom": "Enter the room by ID"
+  "form.hide.hasRoom": "Enter the room by ID",
+
+  "button.login": "Login",
+  "button.register": "Registration",
+  "landing.title": "Welcome to the Alias game",
+  "landing.desc": "Lorem ipsom dolor emet"
 }

@@ -20,53 +20,12 @@
     <title>React App</title>
   </head>
   <body>
-    <script>  
-      (function() {
-        console.log('dark');
-        // Change these if you use something different in your hook.
-        var storageKey = 'chakra-ui-color-mode';
-        var classNameDark = 'chakra-ui-dark';
-        var classNameLight = 'chakra-ui-light';
-  
-        function setClassOnDocumentBody(mode) {
-          var html = document.getElementsByTagName('html');
-          
-          html[0].setAttribute('data-theme', mode === 'dark' ? 'dark' : 'light');
-          html[0].setAttribute('style',
-          mode === 'dark'
-              ? '--chakra-ui-color-mode:dark;'
-              : '--chakra-ui-color-mode:ligth;');
-
-          document.body.classList.add(mode === 'dark' ? classNameDark : classNameLight);
-          document.body.classList.remove(mode === 'dark' ? classNameLight : classNameDark);
-        }
-        
-        var preferDarkQuery = '(prefers-color-scheme: dark)';
-        var mql = window.matchMedia(preferDarkQuery);
-        var supportsColorSchemeQuery = mql.media === preferDarkQuery;
-        var localStorageTheme = null;
-        try {
-          localStorageTheme = localStorage.getItem(storageKey);
-        } catch (err) {}
-        var localStorageExists = localStorageTheme !== null;
-        if (localStorageExists) {
-          localStorageTheme = localStorageTheme;
-        }
-  
-        // Determine the source of truth
-        if (localStorageExists) {
-          // source of truth from localStorage
-          setClassOnDocumentBody(localStorageTheme);
-        } else if (supportsColorSchemeQuery) {
-          // source of truth from system
-          setClassOnDocumentBody(mql.matches ? 'dark' : 'ligth');
-          localStorage.setItem(storageKey, mql.matches ? 'dark' : 'ligth');
-        } else {
-          // source of truth from document.body
-          var isDarkMode = document.body.classList.contains(classNameDark);
-          localStorage.setItem(storageKey, isDarkMode ? 'dark' : 'ligth');
-        }
-      })();
+    <script>
+console.log(`
+%c  %c
+%cAlias
+%c1.0.0`,"background: linear-gradient(124.21deg, #FFC81D 0%, #F34EF1 10.21%, #3DFCC6 19.96%, #3DFCC6 27.38%, #4380FF 34.39%, #4380FF 55.06%, #FF3AF3 66.05%, #FF3AF3 89.11%);border-radius: 6px;","background: none;","color: #888; font-size: 20px;","color: #666; font-size: 15px;"
+);
     </script>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>

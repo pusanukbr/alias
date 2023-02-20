@@ -1,32 +1,9 @@
-import React, { useState, useReducer } from 'react';
+import React, {useState} from 'react';
 import Timer from '../Timer';
-import { wordsRandom } from '../../const';
+import {wordsRandom} from '../../const';
 // import Maps from './GameMapsBlock'; FOR FUTURES
-import LeftBlock from './GameLeftBlock';
-import RightBlock from './GameRightBlock';
-import CorrectBlock from './GameCorrectBlock';
-import SkipBlock from './GameSkipBlock';
-import { useTranslation } from 'react-i18next';
-import { FaRegClock, FaClock } from 'react-icons/fa';
-import {
-  Box,
-  Progress,
-  FormControl,
-  FormLabel,
-  Input,
-  Stack,
-  useBreakpointValue,
-  useColorModeValue,
-  Button,
-  Flex,
-  Spacer,
-  Divider,
-  Tag,
-  TagLeftIcon,
-  TagLabel,
-  VStack,
-  ButtonGroup,
-} from '@chakra-ui/react';
+import {useTranslation} from 'react-i18next';
+import {Box, Button, ButtonGroup, Divider, Flex, VStack,} from '@chakra-ui/react';
 
 function Game({ userName, users, roomId, stateTimer, sec }) {
   const { t } = useTranslation();

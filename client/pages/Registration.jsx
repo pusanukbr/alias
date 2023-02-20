@@ -1,73 +1,73 @@
 import React from "react";
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from "react-router-dom";
-import { useAuth } from '../../hook/useAuth';
+import { signin } from '../store/reducer/users';
+import { setLoading } from '../store/reducer/ui';
 import {
   Box,
   Container,
   FormControl,
   FormLabel,
+  FormErrorMessage,
   Input,
   Stack,
   useBreakpointValue,
   useColorModeValue,
   Button,
+  Checkbox
 } from '@chakra-ui/react';
-import { PasswordField } from '../form/PasswordField';
-import axios from "axios";
+import { PasswordField } from '../components/form/PasswordField';
+import { connect } from "react-redux";
 
-function Registration() {
+function JoinBlock(props) {
   const { t } = useTranslation();
-  const [roomId, setRoomId] = React.useState('');
-  const [login, setLogin] = React.useState('');
+  const [name, setName] = React.useState('');
+  const [hasRoom, sethasRoom] = React.useState(false);
+  const [idRoom, setIdRoom] = React.useState(0);
   const [password, setPassword] = React.useState('');
-  const [isLoading, setLoading] = React.useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const fromPage = location.state?.from?.pathname || '/';
-  const { signin } = useAuth();
 
   const onEnter = () => {
     // TODO: Сделать проверку полей!
-    if(!roomId || !password || !login) {
+    if(!password || !name) {
       return alert(t('alert.empty'))
     }
-    setLoading(true);
-    axios.post('/registration', { roomId, password, login }).then((resp) => {
-      if(resp.status === 200) {
-        signin(resp.config.data, () => navigate(fromPage, { replace: true }));
-      }
-    });
+    props.dispatch(setLoading(true));
+    props.dispatch(signin({password, name, idRoom: idRoom || ''}));
+    navigate(fromPage, { replace: true });
   }
   return (
-    <div className="join-block">
+    <div>
       <Container maxW="lg" py={{ base: '12', md: '24' }} px={{ base: '0', sm: '8' }}>
         <Stack spacing="8">
           <Box
             py={{ base: '0', sm: '8' }}
             px={{ base: '4', sm: '10' }}
             bg={useBreakpointValue({ base: 'transparent', sm: 'bg-surface' })}
-            boxShadow={{ base: 'none', sm: useColorModeValue('md', 'md-dark') }}
+            boxShadow={{ base: 'none', sm: useColorModeValue('xl') }}
             borderRadius={{ base: 'none', sm: 'xl' }}
           >
-            <Stack spacing="6">
-              <Stack spacing="5">
+            <Stack spacing="5">
+              <FormControl isRequired>
+                <FormLabel htmlFor="user">{t('form.login')}</FormLabel>
+                <Input id="user" type="text" onChange={(e) => setName(e.target.value)} />
+              </FormControl>
+              <PasswordField onChange={(e) => setPassword(e.target.value)} />
+              <Box><Checkbox onChange={(e)=> sethasRoom(e.target.checked)}>{t('form.hide.hasRoom')}</Checkbox></Box>
+              {hasRoom &&
                 <FormControl>
-                  <FormLabel htmlFor="user">{t('form.login')}</FormLabel>
-                  <Input id="user" type="text" onChange={(e) => setLogin(e.target.value)} />
+                  <FormLabel htmlFor="idRoom">{t('form.idRoom')}</FormLabel>
+                  <Input id="idRoom" type="text" onChange={(e) => setIdRoom(e.target.value)} />
                 </FormControl>
-                <FormControl>
-                  <FormLabel htmlFor="roomId">{t('id.room')}</FormLabel>
-                  <Input id="roomId" type="text" onChange={(e) => setRoomId(e.target.value)} />
-                </FormControl>
-                <PasswordField onChange={(e) => setPassword(e.target.value)} />
-                <Button
+              }
+              <Button
                 colorScheme='blue'
-                isLoading={isLoading}
+                isLoading={props.isLoading}
                 loadingText={t('btn.enter.loading')}
                 onClick={onEnter}
-                >{t('btn.enter')}</Button>
-              </Stack>
+              >{t('btn.enter')}</Button>
             </Stack>
           </Box>
         </Stack>
@@ -76,4 +76,6 @@ function Registration() {
   );
 }
 
-export default Registration;
+export default connect(({ ui }) => ({
+  isLoading: ui.loading,
+}), (dispatch) => ({dispatch}))(JoinBlock);

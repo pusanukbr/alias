@@ -13,18 +13,13 @@ import {
   useBreakpointValue,
   useColorModeValue,
   Button,
-  Checkbox
 } from '@chakra-ui/react';
 import { PasswordField } from '../components/form/PasswordField';
-import axios from "axios";
-import $api from "../API/http";
 import { connect } from "react-redux";
 
 function JoinBlock(props) {
   const { t } = useTranslation();
   const [name, setName] = React.useState('');
-  const [hasRoom, sethasRoom] = React.useState(false);
-  const [idRoom, setIdRoom] = React.useState(0);
   const [password, setPassword] = React.useState('');
   const navigate = useNavigate();
   const location = useLocation();
@@ -36,7 +31,7 @@ function JoinBlock(props) {
       return alert(t('alert.empty'))
     }
     props.dispatch(setLoading(true));
-    props.dispatch(signin({password, name, idRoom: idRoom || ''}));
+    props.dispatch(signin({ password, name }));
     navigate(fromPage, { replace: true });
   }
   return (
@@ -44,8 +39,8 @@ function JoinBlock(props) {
       <Container maxW="lg" py={{ base: '12', md: '24' }} px={{ base: '0', sm: '8' }}>
         <Stack spacing="8">
           <Box
-            py={{ base: '0', sm: '8' }}
-            px={{ base: '4', sm: '10' }}
+            py={8}
+            px={10}
             bg={useBreakpointValue({ base: 'transparent', sm: 'bg-surface' })}
             boxShadow={{ base: 'none', sm: useColorModeValue('xl') }}
             borderRadius={{ base: 'none', sm: 'xl' }}
@@ -57,13 +52,6 @@ function JoinBlock(props) {
                   <Input id="user" type="text" onChange={(e) => setName(e.target.value)} />
                 </FormControl>
                 <PasswordField onChange={(e) => setPassword(e.target.value)} />
-                <Box><Checkbox onChange={(e)=> sethasRoom(e.target.checked)}>{t('form.hide.hasRoom')}</Checkbox></Box>
-                {hasRoom && 
-                  <FormControl>
-                  <FormLabel htmlFor="idRoom">{t('form.idRoom')}</FormLabel>
-                  <Input id="idRoom" type="text" onChange={(e) => setIdRoom(e.target.value)} />
-                  </FormControl>
-                }
                 <Button
                 colorScheme='blue'
                 isLoading={props.isLoading}
