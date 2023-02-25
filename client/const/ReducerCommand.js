@@ -9,7 +9,7 @@ const ReducerCommand = {
   SET_DATA: 'SET_DATA',
   JOINED: 'JOINED',
   TOGGLE_LOADING: 'TOGGLE_LOADING',
-  TOGGLE_PRELOADER:'TOGGLE_PRELOADER',
+  TOGGLE_PRELOADER: 'TOGGLE_PRELOADER'
 };
 
 export default ReducerCommand;

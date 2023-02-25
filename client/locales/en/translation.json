@@ -12,8 +12,9 @@
   "btn.win": "Done",
   "btn.skip": "Skip",
   "alert.empty": "Enter ID the room and password!",
-  "form.login": "Login",
+  "form.name": "Username",
   "form.password": "Password",
+  "form.email": "Email",
   "form.idRoom": "ID the room",
   "form.show.password": "Show password",
   "form.hide.password": "Hide password",
@@ -22,5 +23,9 @@
   "button.login": "Login",
   "button.register": "Registration",
   "landing.title": "Welcome to the Alias game",
-  "landing.desc": "Lorem ipsom dolor emet"
+  "landing.desc": "Lorem ipsom dolor emet",
+  "form.minLength.error": "Min length string {{number}}",
+  "form.maxLength.error": "Max length string {{number}}",
+  "form.required.error": "This is required.",
+  "form.email.error": "Entered value does not match email format"
 }

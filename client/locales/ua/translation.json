@@ -12,8 +12,9 @@
   "btn.win": "Вiдгадав",
   "btn.skip": "Пропустити",
   "alert.empty": "Введіть ID кімнати та пароль!",
-  "form.login": "Логін",
+  "form.name": "Імʼя",
   "form.password": "Пароль",
+  "form.email": "Email",
   "form.idRoom": "ID кімнати",
   "form.show.password": "Подивитсь пароль",
   "form.hide.password": "Приховати пароль",
@@ -22,5 +23,9 @@
   "button.login": "Логін",
   "button.register": "Регістрація",
   "landing.title": "Ласкаво просимо до Аліасу",
-  "landing.desc": "Щось напевно дуже цікаве про аліас хз"
+  "landing.desc": "Щось напевно дуже цікаве про аліас хз",
+  "form.minLength.error": "Мінімальна довжина рядка має становити {{number}}",
+  "form.maxLength.error": "Масксимальна довжина рядка має не перевищувати {{number}}",
+  "form.required.error": "Це поле обовʼязкове для заповнення.",
+  "form.email.error": "Введене значення не підлягає формату електроної скриньки"
 }

@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 export const API_URL = 'http://localhost:4000/';
 const $api = axios.create({
@@ -27,6 +27,5 @@ $api.interceptors.request.use((config) => {
 //   }
 //   throw error;
 // })
-
 
 export default $api;

@@ -3,31 +3,35 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const app = express();
 const server = require('http').Server(app);
-const io = require('socket.io')(server, { cors: { origin: "*" } });
+// eslint-disable-next-line no-unused-vars
+const io = require('socket.io')(server, { cors: { origin: '*' } });
 const cors = require('cors');
 const mongoose = require('mongoose');
 
 const router = require('./routers/index');
+// eslint-disable-next-line no-undef
 const PORT = process.env.PORT_SERVER || 4000;
 
 // setting
 app.use(
+  // eslint-disable-next-line no-undef
   cors({ credentials: true, origin: process.env.CLIENT_URL }),
   express.json(),
   express.urlencoded({ extended: true }),
   cookieParser()
-)
+);
 
 app.use('/', router);
 
 const startServer = async () => {
   try {
+    // eslint-disable-next-line no-undef
     await mongoose.connect(process.env.DB_URL, { useNewUrlParser: true });
     server.listen(PORT, () => console.log(`Server start on PORT = ${PORT}`));
   } catch (e) {
     console.log(e);
   }
-}
+};
 // client
 // app.use(authRouter);
 
@@ -57,10 +61,9 @@ const startServer = async () => {
 //   // res.send({
 //   //   roomId,
 //   //   userName,
-//   //   test: 'test',  
+//   //   test: 'test',
 //   // });
 // })
-
 
 // // socket
 // io.on('connection', (socket) => {
