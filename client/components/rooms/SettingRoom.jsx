@@ -46,7 +46,7 @@ export default function settingRoom() {
           <SliderTrack>
             <SliderFilledTrack />
           </SliderTrack>
-          <Tooltip hasArrow bg="teal.500" color="white" placement="top">
+          <Tooltip hasArrow color="white" placement="top">
             <SliderThumb />
           </Tooltip>
         </Slider>
@@ -72,20 +72,20 @@ export default function settingRoom() {
           <SliderTrack>
             <SliderFilledTrack />
           </SliderTrack>
-          <Tooltip hasArrow bg="teal.500" color="white" placement="top">
+          <Tooltip hasArrow color="white" placement="top">
             <SliderThumb />
           </Tooltip>
         </Slider>
       </Box>
       <Box mb={5}>
         <Text>Штрафы за пропуски</Text>
-        <Checkbox colorScheme="green" defaultChecked>
+        <Checkbox colorScheme="teal" defaultChecked>
           Checkbox
         </Checkbox>
       </Box>
       <Box mb={5}>
         <Text>Последнее слово для всех</Text>
-        <Checkbox colorScheme="green">Checkbox</Checkbox>
+        <Checkbox colorScheme="teal">Checkbox</Checkbox>
       </Box>
       <Box>
         <Button>Start</Button>

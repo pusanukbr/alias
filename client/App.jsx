@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 import JoinBlock from './pages/Join';
 import Loading from './components/ui/loading';
-import Layout from './components/Layout';
+import Layout from './components/layout/Layout';
 import RouterConfig from './const/RouterConfig';
 import { setPreloader } from './store/reducer/ui';
 import { checkAuth } from './store/reducer/users';

@@ -15,11 +15,11 @@ export default function ConnectRoom() {
         <Box>
           <List>
             <ListItem>
-              <ListIcon as={FaUserPlus} color="green.500" />
+              <ListIcon as={FaUserPlus} color="teal.300" />
               Id number 1
             </ListItem>
             <ListItem>
-              <ListIcon as={FaLink} color="green.500" />
+              <ListIcon as={FaLink} color="teal.300" />
               Id number 2
             </ListItem>
           </List>
