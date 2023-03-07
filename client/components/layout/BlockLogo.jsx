@@ -8,7 +8,9 @@ import {
   Divider,
   List,
   ListItem,
-  ListIcon
+  ListIcon,
+  Image,
+  useColorModeValue
 } from '@chakra-ui/react';
 import { FaGamepad, FaBuilding, FaHandSpock } from 'react-icons/fa';
 import store from '../../store';
@@ -16,7 +18,7 @@ import { t } from 'i18next';
 
 export default function BlockLogo() {
   const {
-    user: { isAuth, name, numberGameEnd, createRooms, creatingProfile }
+    user: { isAuth, name, numberGameEnd, createRooms, creatingProfile, avatar }
   } = store.getState();
   return (
     <Container
@@ -30,22 +32,37 @@ export default function BlockLogo() {
       {!isAuth ? (
         <Stack direction="row">
           <Stack>
-            <Avatar name={name} src="./avatar.jpg" size="xl" />
+            <Avatar
+              backgroundColor="teal.400"
+              name={name}
+              borderWidth="2px"
+              borderColor="teal.400"
+              icon={
+                avatar || (
+                  <Image
+                    width="60%"
+                    filter={useColorModeValue('invert(0)', 'invert(1)')}
+                    src="./alias.png"
+                  />
+                )
+              }
+              size="xl"
+            />
           </Stack>
           <Stack>
             <Heading size="md">{name || 'Lorem ipsum'}</Heading>
             <Divider />
             <List>
               <ListItem fontSize="sm">
-                <ListIcon as={FaHandSpock} color="green.500" />
+                <ListIcon as={FaHandSpock} color="teal.500" />
                 {t('user.creating.profile', creatingProfile)}
               </ListItem>
               <ListItem fontSize="sm">
-                <ListIcon as={FaGamepad} color="green.500" />
+                <ListIcon as={FaGamepad} color="teal.500" />
                 {t('user.rooms.gaming', numberGameEnd)}
               </ListItem>
               <ListItem fontSize="sm">
-                <ListIcon as={FaBuilding} color="green.500" />
+                <ListIcon as={FaBuilding} color="teal.500" />
                 {t('user.rooms.create', createRooms)}
               </ListItem>
             </List>
