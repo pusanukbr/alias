@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Box, Text, Avatar, Stack, Button } from '@chakra-ui/react';
+import { Container, Box, Text, Stack, Button } from '@chakra-ui/react';
 import Form from '../form/Form';
 import Input from '../form/Input';
 import PasswordField from '../form/PasswordField';
@@ -12,14 +12,7 @@ export default function SettingUser(props) {
     console.log(e.target.value);
   };
   return (
-    <Container>
-      <Box>
-        <Avatar name="Dan Abrahmov" src="./avatar.jpg" size="xl" />
-        <span>icon</span>
-      </Box>
-      <Box>
-        <Text>Segun Adebayo</Text>
-      </Box>
+    <Container overflow="auto">
       <Box>
         <Text>Color</Text>
         <input type="color" name="color" onChange={test} />

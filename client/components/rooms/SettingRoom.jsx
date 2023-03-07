@@ -11,12 +11,19 @@ import {
   Select,
   Tooltip,
   Checkbox,
-  Button
+  Button,
+  useColorModeValue
 } from '@chakra-ui/react';
 
 export default function settingRoom() {
   return (
-    <Container>
+    <Container
+      backgroundColor={useColorModeValue('white', 'gray.700')}
+      maxW="auto"
+      m="0"
+      mr="10px"
+      p="20px"
+      borderRadius="20px">
       <Box mb={5}>
         <Text>Словарь</Text>
         <Select>

@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 function ListMenu() {
   return (
     <>
-      <List>
+      <List mt="20px" textAlign="center">
         <ListItem>
           <ListIcon as={FaUserPlus} color="teal.300" />
           Id number 1

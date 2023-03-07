@@ -3,34 +3,55 @@ import { ColorModeSwitcher } from '../ColorModeSwitcher';
 import { GameLanguageBlock } from '../Language';
 import ListMenu from './ListMenu';
 import BlockLogo from './BlockLogo';
-import { Stack, Flex, Divider, useColorModeValue } from '@chakra-ui/react';
+import { Stack, Flex, Divider, useColorModeValue, Heading } from '@chakra-ui/react';
+import SettingUser from '../user/SettingUser';
+import { useTranslation } from 'react-i18next';
+import LogOut from '../authentication/LogOut';
+import store from '../../store';
 
 function Layout() {
+  const { t } = useTranslation();
+  const {
+    user: { isAuth }
+  } = store.getState();
+
   return (
     <>
       <Flex>
         <Flex
+          w="calc(100% - 340px)"
+          height="75px"
+          position="fixed"
+          align="center"
+          justify="space-between"
+          p="8px 10px"
+          top="10px"
+          right="20px"
+          zIndex="2"
+          borderRadius="20px"
+          backgroundColor="{useColorModeValue('white', 'rgba(26,32,44, .5)')}"
+          backdropFilter="blur(20px)">
+          <Heading as="h2">{t('setting.page.title')}</Heading>
+          <Flex gap="4">
+            <ColorModeSwitcher />
+            <GameLanguageBlock />
+            {!isAuth && <LogOut />}
+          </Flex>
+        </Flex>
+
+        <Flex
           position="fixed"
           height="100vh"
           width="300px"
-          backgroundColor={useColorModeValue('white', 'gray.800')}>
-          <Stack>
-            <BlockLogo />
-            <Divider />
-            <ListMenu />
-          </Stack>
+          flexDirection="column"
+          backgroundColor={useColorModeValue('white', 'gray.700')}>
+          <BlockLogo />
+          <Divider />
+          {!isAuth ? <SettingUser /> : <ListMenu />}
         </Flex>
 
-        <Flex flex="3" position="fixed" backdropFilter="blur(2px)">
-          <Stack direction="row" flex="3" p={4} spacing={4} align="center" justify="space-between">
-            <ColorModeSwitcher />
-            <GameLanguageBlock />
-          </Stack>
-        </Flex>
-
-        <Flex flex="3">
-          <Stack pt="72px" pl="300px" backgroundColor={useColorModeValue('white', 'gray.700')}>
-            <Outlet />
+        <Flex w="calc(100% - 340px)" ml="auto" mr="20px" pt="95px">
+          <Stack w="100%">
             <Outlet />
           </Stack>
         </Flex>
