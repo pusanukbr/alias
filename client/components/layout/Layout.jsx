@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import { ColorModeSwitcher } from '../ColorModeSwitcher';
 import { GameLanguageBlock } from '../Language';
 import ListMenu from './ListMenu';
@@ -14,6 +14,8 @@ function Layout() {
   const {
     user: { isAuth }
   } = store.getState();
+  const location = useLocation();
+  const path = location.pathname.replace('/', '');
 
   return (
     <>
@@ -31,11 +33,11 @@ function Layout() {
           borderRadius="20px"
           backgroundColor="{useColorModeValue('white', 'rgba(26,32,44, .5)')}"
           backdropFilter="blur(20px)">
-          <Heading as="h2">{t('setting.page.title')}</Heading>
+          <Heading as="h2">{t(`${path || 'notFound'}.page.title`)}</Heading>
           <Flex gap="4">
             <ColorModeSwitcher />
             <GameLanguageBlock />
-            {!isAuth && <LogOut />}
+            {isAuth && <LogOut />}
           </Flex>
         </Flex>
 
@@ -47,7 +49,7 @@ function Layout() {
           backgroundColor={useColorModeValue('white', 'gray.700')}>
           <BlockLogo />
           <Divider />
-          {!isAuth ? <SettingUser /> : <ListMenu />}
+          {isAuth ? <SettingUser /> : <ListMenu />}
         </Flex>
 
         <Flex w="calc(100% - 340px)" ml="auto" mr="20px" pt="95px">

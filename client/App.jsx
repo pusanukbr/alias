@@ -7,7 +7,6 @@ import Layout from './components/layout/Layout';
 import RouterConfig from './const/RouterConfig';
 import { setPreloader } from './store/reducer/ui';
 import { checkAuth } from './store/reducer/users';
-import Home from './pages/Home';
 import Registration from './pages/Registration';
 import Lobby from './pages/Lobby';
 import ProtectedRoute from './hoc/ProtectedRoute';
@@ -26,9 +25,6 @@ function App(props) {
   return (
     <Routes>
       <Route path={RouterConfig.MAIN.path} element={<Layout />}>
-        {/* Main */}
-        <Route index element={<Home />} />
-
         {/* Login */}
         <Route path={RouterConfig.AUTH.path} element={<JoinBlock />} />
         <Route path={RouterConfig.REGISTRATION.path} element={<Registration />} />

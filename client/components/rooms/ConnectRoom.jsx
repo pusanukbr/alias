@@ -6,6 +6,7 @@ import {
   ListItem,
   ListIcon,
   Button,
+  Heading,
   useColorModeValue
 } from '@chakra-ui/react';
 import Input from '../form/Input';
@@ -13,9 +14,21 @@ import { FaUserPlus, FaLink } from 'react-icons/fa';
 import { Rules } from '../../const/Validate';
 import { useTranslation } from 'react-i18next';
 import Form from '../form/Form';
-
+import store from '../../store';
 export default function ConnectRoom() {
   const { t } = useTranslation();
+  const {
+    user: {
+      roomsHistory = [
+        { id: 111222, roomType: 'user' },
+        { id: 43, roomType: 'invite' }
+      ]
+    }
+  } = store.getState();
+
+  const onSubmit = () => {
+    console.log('start room');
+  };
   return (
     <Container
       backgroundColor={useColorModeValue('white', 'gray.700')}
@@ -24,21 +37,33 @@ export default function ConnectRoom() {
       ml="10px"
       p="20px"
       borderRadius="20px">
-      <Form onSubmit="">
-        <Input name="connectId" type="text" label={t('room.connect.id')} rules={Rules.connect} />
+      <Box mb={10}>
+        <Heading>{t('create.room.title')}</Heading>
+      </Box>
+      <Form onSubmit={onSubmit}>
+        <Input
+          name="connectId"
+          type="text"
+          mb={5}
+          label={t('connect.room.input')}
+          rules={Rules.connect}
+        />
+        <Button mb={10} type="submit">
+          {t('connect.room.start')}
+        </Button>
         <Box>
-          <List>
-            <ListItem>
-              <ListIcon as={FaUserPlus} color="teal.300" />
-              Id number 1
-            </ListItem>
-            <ListItem>
-              <ListIcon as={FaLink} color="teal.300" />
-              Id number 2
-            </ListItem>
+          <Heading fontSize="lg" mb={2}>
+            {t('connect.room.history')}
+          </Heading>
+          <List fontSize="lg">
+            {roomsHistory.map(({ id, roomType }) => (
+              <ListItem key={id}>
+                <ListIcon as={roomType === 'user' ? FaUserPlus : FaLink} color="teal.300" />
+                {t('connect.room.id', id)}
+              </ListItem>
+            ))}
           </List>
         </Box>
-        <Button type="submit">Connect</Button>
       </Form>
     </Container>
   );

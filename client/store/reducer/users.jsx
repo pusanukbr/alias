@@ -4,13 +4,13 @@ import ReducerCommand from '../../const/ReducerCommand';
 import { setPreloader, setLoading } from './ui';
 
 const initialState = {
-  userName: '',
-  userToken: '',
-  userActive: false,
-  scope: 0,
-  color: '',
+  roomsHistory: [],
   isAuth: false,
-  idRoom: 0
+  name: '',
+  numberGameEnd: 0,
+  createRooms: 0,
+  creatingProfile: '00.00.0000',
+  avatar: ''
 };
 
 const userReducer = (state = initialState, action) => {
@@ -18,7 +18,7 @@ const userReducer = (state = initialState, action) => {
     case ReducerCommand.SET_USERS:
       return {
         ...state,
-        userName: action.payload,
+        name: action.payload,
         isAuth: true
       };
     default:
@@ -35,6 +35,7 @@ export const signin =
   async (dispatch) => {
     const response = await AuthService.signin(name, password, idRoom);
     localStorage.setItem('token', response.data.user.token);
+    localStorage.setItem('userData', response.data.user.name);
 
     dispatch(setUser(response.data.user.login));
   };
@@ -44,6 +45,7 @@ export const checkAuth = () => async (dispatch) => {
     const response = await $api.get('user', { withCredentials: true });
     dispatch(setUser(response.data.user.login));
     localStorage.setItem('token', response.data.user.token);
+    localStorage.setItem('userData', response.data.user.name);
     dispatch(setPreloader(false));
     dispatch(setLoading(false));
   } catch (e) {

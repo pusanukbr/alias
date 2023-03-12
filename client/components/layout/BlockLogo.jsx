@@ -14,12 +14,13 @@ import {
 } from '@chakra-ui/react';
 import { FaGamepad, FaBuilding, FaHandSpock } from 'react-icons/fa';
 import store from '../../store';
-import { t } from 'i18next';
+import { useTranslation } from 'react-i18next';
 
 export default function BlockLogo() {
   const {
     user: { isAuth, name, numberGameEnd, createRooms, creatingProfile, avatar }
   } = store.getState();
+  const { t } = useTranslation();
   return (
     <Container
       w="100%"
@@ -29,7 +30,7 @@ export default function BlockLogo() {
       display="flex"
       alignItems="center"
       justifyContent="center">
-      {!isAuth ? (
+      {isAuth ? (
         <Stack direction="row">
           <Stack>
             <Avatar

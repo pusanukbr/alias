@@ -5,7 +5,7 @@ import ConnectRoom from '../components/rooms/ConnectRoom';
 
 export default function Lobby() {
   return (
-    <Flex>
+    <Flex align="flex-start">
       <SettingRoom />
       <ConnectRoom />
     </Flex>

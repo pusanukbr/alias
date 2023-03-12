@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Container,
   Box,
@@ -7,15 +7,19 @@ import {
   SliderTrack,
   SliderFilledTrack,
   SliderThumb,
-  SliderMark,
   Select,
   Tooltip,
   Checkbox,
   Button,
-  useColorModeValue
+  useColorModeValue,
+  Heading
 } from '@chakra-ui/react';
+import { useTranslation } from 'react-i18next';
 
 export default function settingRoom() {
+  const { t } = useTranslation();
+  const [timeRound, setTimeRound] = useState(25);
+  const [poinForWin, setPoinForWin] = useState();
   return (
     <Container
       backgroundColor={useColorModeValue('white', 'gray.700')}
@@ -24,32 +28,31 @@ export default function settingRoom() {
       mr="10px"
       p="20px"
       borderRadius="20px">
-      <Box mb={5}>
-        <Text>Словарь</Text>
+      <Box mb={10}>
+        <Heading>{t('create.room.title')}</Heading>
+      </Box>
+      <Box mb={10}>
+        <Text>{t('create.room.dictionary')}</Text>
         <Select>
-          <option value="option1">Option 1</option>
-          <option value="option2">Option 2</option>
-          <option value="option3">Option 3</option>
+          <option value="hide">{t('create.room.dictionary_hige')}</option>
+          <option value="classic">{t('create.room.dictionary_classic')}</option>
+          <option value="low">{t('create.room.dictionary_low')}</option>
         </Select>
       </Box>
-      <Box mb={5}>
-        <Text>Длина раунда</Text>
-        <Slider id="slider" defaultValue={0} min={0} max={100} step={25} colorScheme="teal">
-          <SliderMark value={0} mt="1" ml="-2.5" color="CaptionText" fontSize="sm">
-            0%
-          </SliderMark>
-          <SliderMark value={25} mt="1" ml="-2.5" color="CaptionText" fontSize="sm">
-            25%
-          </SliderMark>
-          <SliderMark value={50} mt="1" ml="-2.5" color="CaptionText" fontSize="sm">
-            50%
-          </SliderMark>
-          <SliderMark value={75} mt="1" ml="-2.5" color="CaptionText" fontSize="sm">
-            75%
-          </SliderMark>
-          <SliderMark value={100} mt="1" ml="-2.5" color="CaptionText" fontSize="sm">
-            100%
-          </SliderMark>
+      <Box mb={10}>
+        <Heading fontSize="md" display="flex" flexDirection="row" justifyContent="space-between">
+          <Text>{t('create.room.timeRound')}</Text>
+          <Text>{timeRound || '0'}</Text>
+        </Heading>
+
+        <Slider
+          id="slider"
+          defaultValue={25}
+          min={0}
+          max={100}
+          step={25}
+          onChange={setTimeRound}
+          colorScheme="teal">
           <SliderTrack>
             <SliderFilledTrack />
           </SliderTrack>
@@ -58,24 +61,19 @@ export default function settingRoom() {
           </Tooltip>
         </Slider>
       </Box>
-      <Box mb={5}>
-        <Text>Очки для победы</Text>
-        <Slider id="slider" defaultValue={0} min={0} max={100} step={25} colorScheme="teal">
-          <SliderMark value={0} mt="1" ml="-2.5" color="CaptionText" fontSize="sm">
-            0%
-          </SliderMark>
-          <SliderMark value={25} mt="1" ml="-2.5" color="CaptionText" fontSize="sm">
-            25%
-          </SliderMark>
-          <SliderMark value={50} mt="1" ml="-2.5" color="CaptionText" fontSize="sm">
-            50%
-          </SliderMark>
-          <SliderMark value={75} mt="1" ml="-2.5" color="CaptionText" fontSize="sm">
-            75%
-          </SliderMark>
-          <SliderMark value={100} mt="1" ml="-2.5" color="CaptionText" fontSize="sm">
-            100%
-          </SliderMark>
+      <Box mb={10}>
+        <Heading fontSize="md" display="flex" flexDirection="row" justifyContent="space-between">
+          <Text>{t('create.room.poinForWin')}</Text>
+          <Text>{poinForWin || '0'}</Text>
+        </Heading>
+        <Slider
+          id="slider"
+          defaultValue={0}
+          min={0}
+          max={100}
+          step={25}
+          onChange={setPoinForWin}
+          colorScheme="teal">
           <SliderTrack>
             <SliderFilledTrack />
           </SliderTrack>
@@ -84,18 +82,29 @@ export default function settingRoom() {
           </Tooltip>
         </Slider>
       </Box>
-      <Box mb={5}>
-        <Text>Штрафы за пропуски</Text>
-        <Checkbox colorScheme="teal" defaultChecked>
-          Checkbox
+      <Box mb={10}>
+        <Checkbox
+          colorScheme="teal"
+          w="100%"
+          display="flex"
+          justifyContent="space-between"
+          flexDirection="row-reverse"
+          defaultChecked>
+          {t('create.room.fine')}
         </Checkbox>
       </Box>
-      <Box mb={5}>
-        <Text>Последнее слово для всех</Text>
-        <Checkbox colorScheme="teal">Checkbox</Checkbox>
+      <Box mb={10}>
+        <Checkbox
+          w="100%"
+          colorScheme="teal"
+          display="flex"
+          justifyContent="space-between"
+          flexDirection="row-reverse">
+          {t('create.room.lastWord')}
+        </Checkbox>
       </Box>
       <Box>
-        <Button>Start</Button>
+        <Button>{t('create.room.startNewGame')}</Button>
       </Box>
     </Container>
   );
