@@ -4,7 +4,6 @@ import UserModel from '../models/user.js';
 class TokenService {
   genarateToken(payload) {
     try {
-      // eslint-disable-next-line no-undef
       const accessToken = jwt.sign(payload, process.env.JWT_ACCESS_SECRET, { expiresIn: '30d' });
       return accessToken;
     } catch (e) {
@@ -14,7 +13,6 @@ class TokenService {
 
   validateAccessToken(token) {
     try {
-      // eslint-disable-next-line no-undef
       const userData = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
       return userData;
     } catch (e) {

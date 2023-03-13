@@ -4,20 +4,17 @@ import cookieParser from 'cookie-parser';
 const app = express();
 import http from 'http';
 const server = http.Server(app);
-// eslint-disable-next-line no-unused-vars
 // const io = require('socket.io')(server, { cors: { origin: '*' } });
 import cors from 'cors';
 import { connect } from 'mongoose';
 
 import router from './routers/index.js';
-// eslint-disable-next-line no-undef
 const PORT = process.env.PORT_SERVER || 4000;
 
 dotenv.config();
 
 // setting
 app.use(
-  // eslint-disable-next-line no-undef
   cors({ credentials: true, origin: process.env.CLIENT_URL }),
   json(),
   urlencoded({ extended: true }),
@@ -28,7 +25,6 @@ app.use('/', router);
 
 const startServer = async () => {
   try {
-    // eslint-disable-next-line no-undef
     await connect(process.env.DB_URL, { useNewUrlParser: true });
     server.listen(PORT, () => console.log(`Server start on PORT = ${PORT}`));
   } catch (e) {

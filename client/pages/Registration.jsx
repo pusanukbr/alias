@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { signin } from '../store/reducer/users';
+import { registration } from '../store/reducer/users';
 import { setLoading } from '../store/reducer/ui';
 import {
   Box,
@@ -26,7 +26,7 @@ function JoinBlock(props) {
   const onEnter = (data) => {
     console.log(data);
     props.dispatch(setLoading(true));
-    props.dispatch(signin({ ...data }));
+    props.dispatch(registration({ ...data }));
     navigate(fromPage, { replace: true });
   };
   return (
@@ -41,7 +41,7 @@ function JoinBlock(props) {
           <Form onSubmit={onEnter}>
             <Input name="name" type="text" label={t('form.name')} rules={Rules.email} />
             <Input name="email" type="email" label={t('form.email')} rules={Rules.email} />
-            <PasswordField name="userPassword" label={t('form.password')} rules={Rules.password} />
+            <PasswordField name="password" label={t('form.password')} rules={Rules.password} />
             <Stack mt="5">
               <Button
                 colorScheme="blue"
