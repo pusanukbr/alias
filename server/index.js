@@ -7,12 +7,9 @@ const server = http.Server(app);
 // const io = require('socket.io')(server, { cors: { origin: '*' } });
 import cors from 'cors';
 import { connect } from 'mongoose';
-
+dotenv.config();
 import router from './routers/index.js';
 const PORT = process.env.PORT_SERVER || 4000;
-
-dotenv.config();
-
 // setting
 app.use(
   cors({ credentials: true, origin: process.env.CLIENT_URL }),
