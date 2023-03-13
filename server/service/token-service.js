@@ -1,14 +1,20 @@
-const jwt = require('jsonwebtoken');
-const UserModel = require('../models/user');
+import jwt from 'jsonwebtoken';
+import UserModel from '../models/user.js';
 
 class TokenService {
   genarateToken(payload) {
-    const accessToken = jwt.sign(payload, process.env.JWT_ACCESS_SECRET, {expiresIn: '30d'});
-    return accessToken;
+    try {
+      // eslint-disable-next-line no-undef
+      const accessToken = jwt.sign(payload, process.env.JWT_ACCESS_SECRET, { expiresIn: '30d' });
+      return accessToken;
+    } catch (e) {
+      return null;
+    }
   }
 
   validateAccessToken(token) {
     try {
+      // eslint-disable-next-line no-undef
       const userData = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
       return userData;
     } catch (e) {
@@ -17,13 +23,23 @@ class TokenService {
   }
 
   async findToken(token) {
-    const tokenDB = await UserModel.findOne({ token });
-    return tokenDB;
+    try {
+      const tokenDB = await UserModel.findOne({ token });
+      return tokenDB;
+    } catch (e) {
+      return null;
+    }
   }
 
-  removeToken() {
-    
+  removeToken(token) {
+    try {
+      const user = this.findToken(token);
+      delete user.token;
+      user.save();
+    } catch (e) {
+      return null;
+    }
   }
 }
 
-module.exports = new TokenService();
+export default new TokenService();

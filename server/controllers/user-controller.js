@@ -1,12 +1,10 @@
-const userService = require('../service/user-service');
-const ApiError = require('../exceptions/api-error');
+import userService from '../service/user-service.js';
 
-class UserController {
-
+export default class UserController {
   async registration(req, res, next) {
     try {
-      const { name, password } = req.body;
-      const userData = await userService.registration(name, password);
+      const { name, password, email } = req.body;
+      const userData = await userService.registration(name, password, email);
       return res.json(userData);
     } catch (e) {
       next(e);
@@ -15,8 +13,8 @@ class UserController {
 
   async signin(req, res, next) {
     try {
-      const { name, password } = req.body;
-      const userData = await userService.signin(name, password);
+      const { password, email } = req.body;
+      const userData = await userService.signin(password, email);
       return res.json(userData);
     } catch (e) {
       next(e);
@@ -25,12 +23,10 @@ class UserController {
 
   async logout(req, res, next) {
     try {
-      const { refreshToken } = req.cookie;
-      const token = await userService.logout(refreshToken);
-      // res.clearCookies('refreshToken');
-      return res.json(token);
+      const { token } = req.body;
+      await userService.logout(token);
     } catch (e) {
-      next(e)
+      next(e);
     }
   }
 
@@ -38,12 +34,10 @@ class UserController {
     try {
       let token = req.headers.authorization;
       if (token) token = token.split(' ')[1];
-      const roomData = await userService.getUser(token);
-      return res.json(roomData);
+      const userData = await userService.getUser(token);
+      return res.json(userData);
     } catch (e) {
       next(e);
     }
   }
 }
-
-module.exports = new UserController();

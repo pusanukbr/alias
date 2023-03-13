@@ -1,23 +1,26 @@
-require('dotenv').config();
-const express = require('express');
-const cookieParser = require('cookie-parser');
+import dotenv from 'dotenv';
+import express, { json, urlencoded } from 'express';
+import cookieParser from 'cookie-parser';
 const app = express();
-const server = require('http').Server(app);
+import http from 'http';
+const server = http.Server(app);
 // eslint-disable-next-line no-unused-vars
-const io = require('socket.io')(server, { cors: { origin: '*' } });
-const cors = require('cors');
-const mongoose = require('mongoose');
+// const io = require('socket.io')(server, { cors: { origin: '*' } });
+import cors from 'cors';
+import { connect } from 'mongoose';
 
-const router = require('./routers/index');
+import router from './routers/index.js';
 // eslint-disable-next-line no-undef
 const PORT = process.env.PORT_SERVER || 4000;
+
+dotenv.config();
 
 // setting
 app.use(
   // eslint-disable-next-line no-undef
   cors({ credentials: true, origin: process.env.CLIENT_URL }),
-  express.json(),
-  express.urlencoded({ extended: true }),
+  json(),
+  urlencoded({ extended: true }),
   cookieParser()
 );
 
@@ -26,7 +29,7 @@ app.use('/', router);
 const startServer = async () => {
   try {
     // eslint-disable-next-line no-undef
-    await mongoose.connect(process.env.DB_URL, { useNewUrlParser: true });
+    await connect(process.env.DB_URL, { useNewUrlParser: true });
     server.listen(PORT, () => console.log(`Server start on PORT = ${PORT}`));
   } catch (e) {
     console.log(e);

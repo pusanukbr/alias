@@ -1,11 +1,9 @@
-module.exports = class UserDto {
-  idRoom = 0;
-  login;
-  id;
+export default class UserDto {
+  name;
+  email;
 
   constructor(model) {
-    this.id = model._id;
-    this.login = model.login;
-    this.idRoom = model.idRoom;
+    this.id = model.email;
+    this.login = model.name;
   }
 }

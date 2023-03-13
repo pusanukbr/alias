@@ -47,7 +47,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server": "nodemon server/index.js",
+    "server": "PORT=4000 nodemon server/index.js",
     "lint": "eslint .",
     "lint:fix": "eslint --fix",
     "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
@@ -71,6 +71,7 @@
       "last 1 safari version"
     ]
   },
+  "type": "module",
   "devDependencies": {
     "eslint": "^8.34.0",
     "eslint-config-prettier": "^8.6.0",
