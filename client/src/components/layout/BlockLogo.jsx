@@ -21,6 +21,7 @@ export default function BlockLogo() {
     user: { isAuth, name, numberGameEnd, createRooms, creatingProfile, avatar }
   } = store.getState();
   const { t } = useTranslation();
+  const filterImg = useColorModeValue('invert(0)', 'invert(1)');
   return (
     <Container
       w="100%"
@@ -38,15 +39,7 @@ export default function BlockLogo() {
               name={name}
               borderWidth="2px"
               borderColor="teal.400"
-              icon={
-                avatar || (
-                  <Image
-                    width="60%"
-                    filter={useColorModeValue('invert(0)', 'invert(1)')}
-                    src="./alias.png"
-                  />
-                )
-              }
+              icon={avatar || <Image width="60%" filter={filterImg} src="./alias.png" />}
               size="xl"
             />
           </Stack>

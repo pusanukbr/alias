@@ -16,7 +16,7 @@ import {
 } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
-export default function settingRoom() {
+export default function SettingRoom() {
   const { t } = useTranslation();
   const [timeRound, setTimeRound] = useState(25);
   const [poinForWin, setPoinForWin] = useState();
