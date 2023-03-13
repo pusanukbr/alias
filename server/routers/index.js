@@ -2,8 +2,8 @@ import { Router } from 'express';
 import userController from '../controllers/user-controller.js';
 const router = new Router();
 
-router.post('/registration', () => {
-  userController.registration;
+router.post('/registration', (req, res, next) => {
+  new userController().registration(req, res, next);
 });
 router.post('/signin', () => {
   userController.signin;

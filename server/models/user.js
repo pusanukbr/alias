@@ -1,22 +1,26 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model } from "mongoose";
 
 const schema = new Schema({
   name: {
     type: String,
-    require: true
+    require: true,
   },
   password: {
     type: String,
-    required: true
+    required: true,
   },
   token: {
     type: String,
-    required: false
+    required: false,
   },
   email: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
+  date: {
+    type: String,
+    require: true,
+  },
 });
 
-export default model('User', schema);
+export default model("User", schema);

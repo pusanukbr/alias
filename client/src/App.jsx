@@ -26,10 +26,13 @@ function App(props) {
     <Routes>
       <Route path={RouterConfig.MAIN.path} element={<Layout />}>
         {/* Login */}
-        <Route path={RouterConfig.AUTH.path} element={<JoinBlock />} />
-        <Route path={RouterConfig.REGISTRATION.path} element={<Registration />} />
-
-        <Route path={RouterConfig.MAIN.path} element={<ProtectedRoute />}>
+        <Route element={<ProtectedRoute param={!props.user.isAuth} />}>
+          <Route path={RouterConfig.AUTH.path} element={<JoinBlock />} />
+        </Route>
+        <Route element={<ProtectedRoute param={!props.user.isAuth} />}>
+          <Route path={RouterConfig.REGISTRATION.path} element={<Registration />} />
+        </Route>
+        <Route element={<ProtectedRoute param={props.user.isAuth} />}>
           <Route path={RouterConfig.LOBBY.path} element={<Lobby />} />
         </Route>
       </Route>

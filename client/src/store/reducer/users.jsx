@@ -18,7 +18,7 @@ const userReducer = (state = initialState, action) => {
     case ReducerCommand.SET_USERS:
       return {
         ...state,
-        name: { ...state.user, ...action.payload },
+        ...action.payload,
         isAuth: true
       };
     default:
@@ -43,11 +43,13 @@ export const signin =
 export const registration =
   ({ name, password, email }) =>
   async (dispatch) => {
+    console.log('test');
     const response = await AuthService.registration(name, password, email);
+    console.log(response);
     localStorage.setItem('token', response.data.user.token);
     localStorage.setItem('userData', response.data.user.name);
 
-    dispatch(setUser(response.data.user.login));
+    dispatch(setUser(response.data.user));
   };
 
 export const checkAuth = () => async (dispatch) => {
