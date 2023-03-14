@@ -50,9 +50,11 @@ export default class UserService {
     if (!token) throw ApiError.UnauthorizedError();
 
     const userData = tokenService.validateAccessToken(token);
+    console.log(userData);
     if (!userData) throw ApiError.UnauthorizedError();
 
     const user = await UserModel.findOne({ email: userData.email });
+    console.log(user);
     const dataExceptToken = new userExceptTokenDto(user);
     const newToken = tokenService.genarateToken({ ...dataExceptToken });
     user.token = newToken;

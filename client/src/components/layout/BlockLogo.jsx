@@ -18,7 +18,7 @@ import { useTranslation } from 'react-i18next';
 
 export default function BlockLogo() {
   const {
-    user: { isAuth, name, numberGameEnd, createRooms, creatingProfile, avatar }
+    user: { isAuth, name, numberGameEnd, createRooms, date, avatar }
   } = store.getState();
   const { t } = useTranslation();
   const filterImg = useColorModeValue('invert(0)', 'invert(1)');
@@ -49,7 +49,7 @@ export default function BlockLogo() {
             <List>
               <ListItem fontSize="sm">
                 <ListIcon as={FaHandSpock} color="teal.500" />
-                {t('user.creating.profile', creatingProfile)}
+                {t('user.creating.profile', date)}
               </ListItem>
               <ListItem fontSize="sm">
                 <ListIcon as={FaGamepad} color="teal.500" />

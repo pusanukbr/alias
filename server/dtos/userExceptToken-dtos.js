@@ -3,7 +3,7 @@ export default class UserDto {
   email;
 
   constructor(model) {
-    this.id = model.email;
-    this.login = model.name;
+    this.email = model.email;
+    this.name = model.name;
   }
 }
