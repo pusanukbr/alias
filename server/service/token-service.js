@@ -1,10 +1,12 @@
-import jwt from 'jsonwebtoken';
-import UserModel from '../models/user.js';
+import jwt from "jsonwebtoken";
+import UserModel from "../models/user.js";
 
 class TokenService {
   genarateToken(payload) {
     try {
-      const accessToken = jwt.sign(payload, process.env.JWT_ACCESS_SECRET, { expiresIn: '30d' });
+      const accessToken = jwt.sign(payload, process.env.JWT_ACCESS_SECRET, {
+        expiresIn: "30d",
+      });
       return accessToken;
     } catch (e) {
       return null;
@@ -29,11 +31,12 @@ class TokenService {
     }
   }
 
-  removeToken(token) {
+  async removeToken(token) {
     try {
-      const user = this.findToken(token);
-      delete user.token;
+      const user = await UserModel.findOne({ token });
+      user.token = "";
       user.save();
+      return;
     } catch (e) {
       return null;
     }

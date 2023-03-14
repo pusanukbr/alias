@@ -7,7 +7,6 @@ import ApiError from "../exceptions/api-error.js";
 export default class UserService {
   async registration(name, email, password) {
     const findUser = await UserModel.find({ email });
-    console.log(findUser);
     if (findUser && findUser.length) {
       throw ApiError.BadRequest("Пользователь с таким Email уже существует");
     }
@@ -42,19 +41,18 @@ export default class UserService {
     return { user };
   }
 
-  async logout(deleteToken) {
-    await tokenService.removeToken(deleteToken);
+  logout(deleteToken) {
+    tokenService.removeToken(deleteToken);
+    return;
   }
 
   async getUser(token) {
     if (!token) throw ApiError.UnauthorizedError();
 
     const userData = tokenService.validateAccessToken(token);
-    console.log(userData);
     if (!userData) throw ApiError.UnauthorizedError();
 
     const user = await UserModel.findOne({ email: userData.email });
-    console.log(user);
     const dataExceptToken = new userExceptTokenDto(user);
     const newToken = tokenService.genarateToken({ ...dataExceptToken });
     user.token = newToken;

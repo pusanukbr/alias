@@ -25,10 +25,12 @@ export default class UserController {
     }
   }
 
-  async logout(req, res, next) {
+  logout(req, res, next) {
     try {
-      const { token } = req.body;
-      await userService.logout(token);
+      let token = req.headers.authorization;
+      if (token) token = token.split(" ")[1];
+      new userService().logout(token);
+      return res.status(200).send("logOut");
     } catch (e) {
       next(e);
     }

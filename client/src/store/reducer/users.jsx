@@ -20,6 +20,11 @@ const userReducer = (state = initialState, action) => {
         ...action.payload,
         isAuth: true
       };
+    case ReducerCommand.LOGOUT_USERS:
+      return {
+        ...initialState,
+        isAuth: false
+      };
     default:
       return state;
   }
@@ -27,6 +32,7 @@ const userReducer = (state = initialState, action) => {
 
 // ACTION
 export const setUser = (response) => ({ type: ReducerCommand.SET_USERS, payload: response });
+export const logOutUser = () => ({ type: ReducerCommand.LOGOUT_USERS });
 
 // THUNK ACTION
 export const signin =
@@ -59,8 +65,20 @@ export const checkAuth = () => async (dispatch) => {
 
     dispatch(setPreloader(false));
     dispatch(setLoading(false));
-  } catch (e) {
-    console.log('ERROR', e);
+  } catch (error) {
+    console.log('ERROR', error);
+    dispatch(setPreloader(false));
+  }
+};
+
+export const logOutAction = () => async (dispatch) => {
+  try {
+    await AuthService.logout();
+    dispatch(logOutUser());
+    localStorage.removeItem('token');
+    dispatch(setPreloader(false));
+  } catch (error) {
+    console.log('ERROR', error);
     dispatch(setPreloader(false));
   }
 };

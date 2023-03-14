@@ -1,10 +1,19 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
+import { useNavigate } from 'react-router-dom';
 import { IconButton } from '@chakra-ui/react';
 import { FaSignOutAlt } from 'react-icons/fa';
+import { logOutAction } from '../../store/reducer/users';
+import { setPreloader } from '../../store/reducer/ui';
+import RouterConfig from '../../const/RouterConfig';
 
-export default function LogOut() {
-  const logOut = () => {
-    console.log('logOut');
+function LogOut(props) {
+  const navigate = useNavigate();
+  const logOut = async () => {
+    await props.dispatch(setPreloader(true));
+    await props.dispatch(logOutAction());
+    navigate(`/${RouterConfig.AUTH.path}`, { replace: true });
   };
   return (
     <IconButton
@@ -19,3 +28,7 @@ export default function LogOut() {
     />
   );
 }
+export default connect(
+  () => ({}),
+  (dispatch) => ({ dispatch })
+)(LogOut);
