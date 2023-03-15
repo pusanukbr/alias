@@ -5,7 +5,7 @@ export default class RouterConfig {
 
   static GAME = { path: 'game' };
 
-  static AUTH = { path: 'login' };
+  static AUTH = { path: 'signin' };
 
   static REGISTRATION = { path: 'registration' };
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import RouterConfig from '../const/RouterConfig';
 
-const ProtectedRoute = ({ redirectPath, param }) => {
+const ProtectedRoute = ({ redirectPath, param = true }) => {
   const storyUser = localStorage.getItem('userData');
   const location = useLocation();
   const fromPage = location.state?.from?.pathname || RouterConfig.MAIN.path;

@@ -35,15 +35,13 @@ export const setUser = (response) => ({ type: ReducerCommand.SET_USERS, payload:
 export const logOutUser = () => ({ type: ReducerCommand.LOGOUT_USERS });
 
 // THUNK ACTION
-export const signin =
-  ({ password, email }) =>
-  async (dispatch) => {
-    const response = await AuthService.signin(password, email);
-    localStorage.setItem('token', response.data.user.token);
-    localStorage.setItem('userData', response.data.user.name);
+export const signin = (data) => async (dispatch) => {
+  const response = await AuthService.signin(data);
+  localStorage.setItem('token', response.data.user.token);
+  localStorage.setItem('userData', response.data.user.name);
 
-    dispatch(setUser(response.data.user.login));
-  };
+  dispatch(setUser(response.data.user.login));
+};
 
 export const registration =
   ({ name, password, email }) =>

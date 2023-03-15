@@ -3,12 +3,7 @@ import userService from "../service/user-service.js";
 export default class UserController {
   async registration(req, res, next) {
     try {
-      const { name, password, email } = req.body;
-      const userData = await new userService().registration(
-        name,
-        password,
-        email
-      );
+      const userData = await new userService().registration(req.body);
       return res.json(userData);
     } catch (e) {
       next(e);
@@ -17,8 +12,7 @@ export default class UserController {
 
   async signin(req, res, next) {
     try {
-      const { password, email } = req.body;
-      const userData = await userService.signin(password, email);
+      const userData = await new userService().signin(req.body);
       return res.json(userData);
     } catch (e) {
       next(e);

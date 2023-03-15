@@ -5,7 +5,7 @@ import userExceptTokenDto from "../dtos/userExceptToken-dtos.js";
 import ApiError from "../exceptions/api-error.js";
 
 export default class UserService {
-  async registration(name, email, password) {
+  async registration({ name, email, password }) {
     const findUser = await UserModel.find({ email });
     if (findUser && findUser.length) {
       throw ApiError.BadRequest("Пользователь с таким Email уже существует");
@@ -26,9 +26,9 @@ export default class UserService {
 
     return { user };
   }
-  async signin(email, password) {
-    const user = await UserModel.find({ email });
-    if (!Object.keys(user)) throw ApiError.BadRequest("Пользователь не найден");
+  async signin({ password, email }) {
+    const user = await UserModel.findOne({ email });
+    if (!user) throw ApiError.BadRequest("Пользователь не найден");
 
     // Авторизация
     const passwordCompare = await bcrypt.compare(password, user.password); // Проверяем на пароль

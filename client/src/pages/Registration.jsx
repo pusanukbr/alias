@@ -18,7 +18,7 @@ import { connect } from 'react-redux';
 import { Rules } from '../const/Validate';
 import RouterConfig from '../const/RouterConfig';
 
-function JoinBlock(props) {
+function Registration(props) {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -62,4 +62,4 @@ export default connect(
     isLoading: ui.loading
   }),
   (dispatch) => ({ dispatch })
-)(JoinBlock);
+)(Registration);
