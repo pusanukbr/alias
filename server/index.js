@@ -1,15 +1,15 @@
-import dotenv from 'dotenv';
-import express, { json, urlencoded } from 'express';
-import cookieParser from 'cookie-parser';
+import dotenv from "dotenv";
+import express, { json, urlencoded } from "express";
+import cookieParser from "cookie-parser";
 const app = express();
-import http from 'http';
+import http from "http";
 const server = http.Server(app);
 // const io = require('socket.io')(server, { cors: { origin: '*' } });
-import cors from 'cors';
-import { connect } from 'mongoose';
+import cors from "cors";
+import { connect } from "mongoose";
 dotenv.config();
-import router from './routers/index.js';
-const PORT = process.env.PORT_SERVER || 4000;
+import router from "./routers/index.js";
+const PORT = process.env.PORT || 4000;
 // setting
 app.use(
   cors({ credentials: true, origin: process.env.CLIENT_URL }),
@@ -18,7 +18,7 @@ app.use(
   cookieParser()
 );
 
-app.use('/', router);
+app.use("/", router);
 
 const startServer = async () => {
   try {
