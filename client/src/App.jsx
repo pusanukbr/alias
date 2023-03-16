@@ -19,7 +19,7 @@ function App(props) {
     } else {
       props.dispatch(setPreloader(false));
     }
-  }, []);
+  }, [props.user.isAuth]);
   if (props.ui.preloader) {
     return <Loading />;
   }
