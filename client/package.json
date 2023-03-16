@@ -43,6 +43,7 @@
   "extends": [
     "react-app"
   ],
+  "proxy": "https://alias.onrender.com",
   "eslintConfig": {
     "extends": [
       "react-app",
