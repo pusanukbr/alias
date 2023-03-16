@@ -1,6 +1,5 @@
 import axios from 'axios';
-
-export const API_URL = 'https://alias.onrender.com/';
+export const API_URL = process.env.REACT_APP_LOCAL_SERVER_URL || 'https://alias.onrender.com/';
 const $api = axios.create({
   withCredentials: true,
   baseURL: API_URL,
