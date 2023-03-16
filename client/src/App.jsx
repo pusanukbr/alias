@@ -19,7 +19,8 @@ function App(props) {
     } else {
       props.dispatch(setPreloader(false));
     }
-  }, [props.user.isAuth]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   if (props.ui.preloader) {
     return <Loading />;
   }
