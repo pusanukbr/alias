@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Container,
   Avatar,
@@ -16,11 +16,14 @@ import { FaGamepad, FaBuilding, FaHandSpock } from 'react-icons/fa';
 import store from '../../store';
 import { useTranslation } from 'react-i18next';
 
+import ChangLogo from './ChangLogo';
+
 export default function BlockLogo() {
   const {
     user: { isAuth, name, numberGameEnd, createRooms, date, avatar }
   } = store.getState();
   const { t } = useTranslation();
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const filterImg = useColorModeValue('invert(0)', 'invert(1)');
   return (
     <Container
@@ -31,15 +34,17 @@ export default function BlockLogo() {
       display="flex"
       alignItems="center"
       justifyContent="center">
+      <ChangLogo />
       {isAuth ? (
         <Stack direction="row">
-          <Stack>
+          <Stack onClick={() => setModalIsOpen(true)}>
             <Avatar
               backgroundColor="teal.400"
-              name={name}
               borderWidth="2px"
               borderColor="teal.400"
-              icon={avatar || <Image width="60%" filter={filterImg} src="./alias.png" />}
+              icon={
+                <Image width="60%" filter={!avatar && filterImg} src={avatar || './alias.png'} />
+              }
               size="xl"
             />
           </Stack>
