@@ -1,30 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Container,
-  Avatar,
   Text,
   Heading,
   Stack,
   Divider,
   List,
   ListItem,
-  ListIcon,
-  Image,
-  useColorModeValue
+  ListIcon
 } from '@chakra-ui/react';
 import { FaGamepad, FaBuilding, FaHandSpock } from 'react-icons/fa';
-import store from '../../store';
 import { useTranslation } from 'react-i18next';
-
 import ChangLogo from './ChangLogo';
+import { connect } from 'react-redux';
 
-export default function BlockLogo() {
-  const {
-    user: { isAuth, name, numberGameEnd, createRooms, date, avatar }
-  } = store.getState();
+function BlockHeader(props) {
   const { t } = useTranslation();
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const filterImg = useColorModeValue('invert(0)', 'invert(1)');
+  const {
+    user: { avatar, isAuth, name, date, numberGameEnd, createRooms }
+  } = props;
   return (
     <Container
       w="100%"
@@ -34,20 +28,10 @@ export default function BlockLogo() {
       display="flex"
       alignItems="center"
       justifyContent="center">
-      <ChangLogo />
       {isAuth ? (
         <Stack direction="row">
-          <Stack onClick={() => setModalIsOpen(true)}>
-            <Avatar
-              backgroundColor="teal.400"
-              borderWidth="2px"
-              borderColor="teal.400"
-              icon={
-                <Image width="60%" filter={!avatar && filterImg} src={avatar || './alias.png'} />
-              }
-              size="xl"
-            />
-          </Stack>
+          <ChangLogo avatar={avatar} />
+
           <Stack>
             <Heading size="md">{name || 'Lorem ipsum'}</Heading>
             <Divider />
@@ -79,3 +63,10 @@ export default function BlockLogo() {
     </Container>
   );
 }
+export default connect(
+  ({ user, ui }) => ({
+    user,
+    ui
+  }),
+  (dispatch) => ({ dispatch })
+)(BlockHeader);
