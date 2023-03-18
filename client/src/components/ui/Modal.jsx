@@ -17,8 +17,10 @@ export default function CustomModal({
   buttons,
   onClose,
   isOpen,
-  closeOnOverlayClick = true
+  closeOnOverlayClick = true,
+  size
 }) {
+  console.log('test ======> ');
   return (
     <>
       <Modal
@@ -26,6 +28,7 @@ export default function CustomModal({
         isCentered
         onClose={() => onClose(false)}
         isOpen={isOpen}
+        size={size || 'md'}
         motionPreset="scale">
         <ModalOverlay />
         <ModalContent>
@@ -35,10 +38,13 @@ export default function CustomModal({
           <ModalFooter>
             {buttons &&
               buttons.length &&
-              buttons.map((button) => {
-                console.log('test button');
+              buttons.map((button, index) => {
                 return (
-                  <Button colorScheme={button.scheme} mr={3} onClick={() => button.callback(false)}>
+                  <Button
+                    key={index}
+                    colorScheme={button.scheme}
+                    mr={3}
+                    onClick={() => button.callback()}>
                     {button.text}
                   </Button>
                 );
