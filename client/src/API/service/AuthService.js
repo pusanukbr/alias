@@ -13,6 +13,10 @@ export default class AuthService {
   }
 
   static checkAuth() {
-    return $api.get('/user');
+    return $api.get('/user/checkAuth');
+  }
+
+  static changUserData(data) {
+    return $api.post('/user/changData', { ...data });
   }
 }

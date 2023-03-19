@@ -30,11 +30,20 @@ export default class UserController {
     }
   }
 
-  async getUser(req, res, next) {
+  async checkAuth(req, res, next) {
     try {
       let token = req.headers.authorization;
       if (token) token = token.split(" ")[1];
-      const userData = await new userService().getUser(token);
+      const userData = await new userService().checkAuth(token);
+      return res.json(userData);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  async changData(req, res, next) {
+    try {
+      const userData = await new userService().changData(req.body);
       return res.json(userData);
     } catch (e) {
       next(e);

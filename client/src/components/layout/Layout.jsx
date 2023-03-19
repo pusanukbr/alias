@@ -2,7 +2,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { ColorModeSwitcher } from '../ColorModeSwitcher';
 import { GameLanguageBlock } from '../Language';
 import ListMenu from './ListMenu';
-import BlockLogo from './BlockHeader';
+import BlockHeader from './BlockHeader';
 import { Stack, Flex, Divider, useColorModeValue, Heading } from '@chakra-ui/react';
 import SettingUser from '../user/SettingUser';
 import { useTranslation } from 'react-i18next';
@@ -47,7 +47,7 @@ function Layout() {
           width="300px"
           flexDirection="column"
           backgroundColor={useColorModeValue('white', 'gray.700')}>
-          <BlockLogo />
+          <BlockHeader />
           <Divider />
           {isAuth ? <SettingUser /> : <ListMenu />}
         </Flex>

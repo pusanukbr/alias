@@ -9,7 +9,8 @@ const initialState = {
   gaming: 0,
   roomCreated: 0,
   date: '00.00.0000',
-  avatar: ''
+  avatar: '',
+  _id: ''
 };
 
 const userReducer = (state = initialState, action) => {
@@ -25,6 +26,11 @@ const userReducer = (state = initialState, action) => {
         ...initialState,
         isAuth: false
       };
+    case ReducerCommand.CHANG_DATA:
+      return {
+        ...state,
+        ...action.payload
+      };
     default:
       return state;
   }
@@ -33,12 +39,13 @@ const userReducer = (state = initialState, action) => {
 // ACTION
 export const setUser = (response) => ({ type: ReducerCommand.SET_USERS, payload: response });
 export const logOutUser = () => ({ type: ReducerCommand.LOGOUT_USERS });
+export const changData = (data) => ({ type: ReducerCommand.CHANG_DATA, payload: data });
 
 // THUNK ACTION
 export const signin = (data) => async (dispatch) => {
   const response = await AuthService.signin(data);
   localStorage.setItem('token', response.data.user.token);
-  localStorage.setItem('userData', response.data.user.name);
+  localStorage.setItem('user_ID', response.data.user._id);
 
   dispatch(setUser(response.data.user.login));
 };
@@ -48,7 +55,7 @@ export const registration =
   async (dispatch) => {
     const response = await AuthService.registration(name, password, email);
     localStorage.setItem('token', response.data.user.token);
-    localStorage.setItem('userData', response.data.user.name);
+    localStorage.setItem('user_ID', response.data.user._id);
 
     dispatch(setUser(response.data.user));
   };
@@ -57,7 +64,7 @@ export const checkAuth = () => async (dispatch) => {
   try {
     const response = await AuthService.checkAuth();
     localStorage.setItem('token', response.data.user.token);
-    localStorage.setItem('userData', response.data.user.name);
+    localStorage.setItem('user_ID', response.data.user._id);
 
     dispatch(setUser(response.data.user));
 
@@ -78,6 +85,18 @@ export const logOutAction = () => async (dispatch) => {
   } catch (error) {
     console.log('ERROR', error);
     dispatch(setPreloader(false));
+  }
+};
+
+export const changUserData = (data) => async (dispatch) => {
+  try {
+    await AuthService.changUserData({
+      ...data,
+      _id: localStorage.getItem('user_ID')
+    });
+    await dispatch(changData(data));
+  } catch (error) {
+    console.log(error);
   }
 };
 

@@ -1,48 +1,86 @@
-import React from 'react';
-import CustomModal from '../ui/Modal';
-import { useColorModeValue, useDisclosure, Stack, Image, Avatar } from '@chakra-ui/react';
-export default function ChangLogo({ avatar }) {
+import React, { useState } from 'react';
+import {
+  useColorModeValue,
+  useDisclosure,
+  Stack,
+  Image,
+  Avatar,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
+  Button
+} from '@chakra-ui/react';
+import { changUserData } from '../../store/reducer/users';
+import { connect } from 'react-redux';
+
+const ChangLogo = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const filterImg = useColorModeValue('invert(0)', 'invert(1)');
+  const [localAvatar, setLocalAvatar] = useState('');
+  const { avatar } = props.user;
+  const renderAvatar = () => {
+    console.log('test');
+    return [...Array(10)].map((item, index) => {
+      const nameUrl = `avatar-${index}.png`;
+      return (
+        <Image
+          key={index}
+          backgroundColor="teal.400"
+          width="100px"
+          borderStyle="solid"
+          borderWidth="2px"
+          borderColor={localAvatar === nameUrl ? 'white' : 'teal.400'}
+          borderRadius="20px"
+          mb={5}
+          src={`${process.env.PUBLIC_URL}/avatar/${nameUrl}`}
+          size="xl"
+          onClick={() => setLocalAvatar(nameUrl)}
+        />
+      );
+    });
+  };
+
+  const closeModal = async () => {
+    await props.dispatch(changUserData({ avatar: localAvatar }));
+    return onClose();
+  };
+  console.log(avatar);
   return (
     <>
       <Stack onClick={onOpen}>
-        <Avatar
+        <Image
+          width="100px"
           backgroundColor="teal.400"
-          borderWidth="2px"
-          borderColor="teal.400"
-          icon={
-            <Image
-              width="60%"
-              filter={!avatar && filterImg}
-              src={avatar || `${process.env.PUBLIC_URL}/avatar/avatar.png`}
-            />
-          }
+          borderRadius="20px"
+          src={`${process.env.PUBLIC_URL}/avatar/${avatar || 'avatar.png'}`}
           size="xl"
         />
       </Stack>
-      <CustomModal
-        onClose={onClose}
-        isOpen={isOpen}
-        title="TRALALA"
-        size="2xl"
-        buttons={[{ callback: onClose, scheme: 'blue', text: 'Change' }]}>
-        <Stack wrap="wrap" align="center" direction="row" justify="center">
-          {[...Array(10)].map((item, index) => {
-            console.log(`${process.env.PUBLIC_URL}/avatar/avatar-${index}.svg`);
-            return (
-              <Avatar
-                key={index}
-                backgroundColor="teal.400"
-                borderWidth="2px"
-                borderColor="teal.400"
-                src={`${process.env.PUBLIC_URL}/avatar/avatar-${index}.svg`}
-                size="xl"
-              />
-            );
-          })}
-        </Stack>
-      </CustomModal>
+      <Modal onClose={onClose} isOpen={isOpen} size="2xl" motionPreset="scale">
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Avatar</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Stack wrap="wrap" align="flex-start" direction="row" justify="center">
+              {renderAvatar()}
+            </Stack>
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={closeModal}>
+              Chang
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   );
-}
+};
+
+export default connect(
+  ({ user }) => ({ user }),
+  (dispatch) => ({ dispatch })
+)(ChangLogo);

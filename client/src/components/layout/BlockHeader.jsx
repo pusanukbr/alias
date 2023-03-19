@@ -14,11 +14,12 @@ import { useTranslation } from 'react-i18next';
 import ChangLogo from './ChangLogo';
 import { connect } from 'react-redux';
 
-function BlockHeader(props) {
+const BlockHeader = React.memo((props) => {
   const { t } = useTranslation();
   const {
-    user: { avatar, isAuth, name, date, numberGameEnd, createRooms }
+    user: { isAuth, name, date, numberGameEnd, createRooms }
   } = props;
+
   return (
     <Container
       w="100%"
@@ -29,8 +30,8 @@ function BlockHeader(props) {
       alignItems="center"
       justifyContent="center">
       {isAuth ? (
-        <Stack direction="row">
-          <ChangLogo avatar={avatar} />
+        <Stack direction="row" width="100%" justifyContent="space-around">
+          <ChangLogo />
 
           <Stack>
             <Heading size="md">{name || 'Lorem ipsum'}</Heading>
@@ -62,7 +63,7 @@ function BlockHeader(props) {
       )}
     </Container>
   );
-}
+});
 export default connect(
   ({ user, ui }) => ({
     user,

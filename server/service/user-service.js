@@ -46,7 +46,7 @@ export default class UserService {
     return;
   }
 
-  async getUser(token) {
+  async checkAuth(token) {
     if (!token) throw ApiError.UnauthorizedError();
 
     const userData = tokenService.validateAccessToken(token);
@@ -59,5 +59,13 @@ export default class UserService {
     user.save();
 
     return { user };
+  }
+
+  async changData(data) {
+    if (!data) throw ApiError.UnauthorizedError();
+    console.log(data);
+    const { _id, ...filterData } = data;
+    await UserModel.findOneAndUpdate({ _id }, { ...filterData });
+    return data;
   }
 }

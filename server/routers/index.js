@@ -11,8 +11,11 @@ router.post("/signin", (req, res, next) => {
 router.post("/logout", (req, res, next) => {
   new userController().logout(req, res, next);
 });
-router.get("/user", (req, res, next) => {
-  new userController().getUser(req, res, next);
+router.get("/user/checkAuth", (req, res, next) => {
+  new userController().checkAuth(req, res, next);
+});
+router.post("/user/changData", (req, res, next) => {
+  new userController().changData(req, res, next);
 });
 
 export default router;
