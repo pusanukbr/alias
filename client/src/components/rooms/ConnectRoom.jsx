@@ -18,14 +18,9 @@ import store from '../../store';
 export default function ConnectRoom() {
   const { t } = useTranslation();
   const {
-    user: {
-      roomsHistory = [
-        { id: 111222, roomType: 'user' },
-        { id: 43, roomType: 'invite' }
-      ]
-    }
+    user: { roomsHistory }
   } = store.getState();
-
+  console.log(roomsHistory);
   const onSubmit = () => {
     console.log('start room');
   };
