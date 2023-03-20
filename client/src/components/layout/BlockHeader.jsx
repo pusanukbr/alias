@@ -23,14 +23,15 @@ const BlockHeader = React.memo((props) => {
   return (
     <Container
       w="100%"
-      p="10px"
+      pt="15px"
+      pb="15px"
       height="auto"
       transition="height .3s"
       display="flex"
       alignItems="center"
       justifyContent="center">
       {isAuth ? (
-        <Stack direction="row" width="100%" justifyContent="space-around">
+        <Stack direction="row" width="100%" justifyContent="space-between">
           <ChangLogo />
 
           <Stack>

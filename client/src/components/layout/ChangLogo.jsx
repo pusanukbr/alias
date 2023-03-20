@@ -22,7 +22,6 @@ const ChangLogo = (props) => {
   const [localAvatar, setLocalAvatar] = useState('');
   const { avatar } = props.user;
   const renderAvatar = () => {
-    console.log('test');
     return [...Array(10)].map((item, index) => {
       const nameUrl = `avatar-${index}.png`;
       return (
@@ -47,7 +46,6 @@ const ChangLogo = (props) => {
     await props.dispatch(changUserData({ avatar: localAvatar }));
     return onClose();
   };
-  console.log(avatar);
   return (
     <>
       <Stack onClick={onOpen}>

@@ -38,7 +38,7 @@ export default function ConnectRoom() {
       p="20px"
       borderRadius="20px">
       <Box mb={10}>
-        <Heading>{t('create.room.title')}</Heading>
+        <Heading>{t('connect.room.title')}</Heading>
       </Box>
       <Form onSubmit={onSubmit}>
         <Input
