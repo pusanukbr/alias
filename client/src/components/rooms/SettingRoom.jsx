@@ -32,7 +32,7 @@ export default function SettingRoom() {
         <Heading>{t('create.room.title')}</Heading>
       </Box>
       <Box mb={10}>
-        <Text>{t('create.room.dictionary')}</Text>
+        <Text mb="2">{t('create.room.dictionary')}</Text>
         <Select>
           <option value="hide">{t('create.room.dictionary_hige')}</option>
           <option value="classic">{t('create.room.dictionary_classic')}</option>
@@ -40,7 +40,12 @@ export default function SettingRoom() {
         </Select>
       </Box>
       <Box mb={10}>
-        <Heading fontSize="md" display="flex" flexDirection="row" justifyContent="space-between">
+        <Heading
+          fontSize="md"
+          display="flex"
+          flexDirection="row"
+          mb="2"
+          justifyContent="space-between">
           <Text>{t('create.room.timeRound')}</Text>
           <Text>{timeRound || '0'}</Text>
         </Heading>
@@ -62,7 +67,12 @@ export default function SettingRoom() {
         </Slider>
       </Box>
       <Box mb={10}>
-        <Heading fontSize="md" display="flex" flexDirection="row" justifyContent="space-between">
+        <Heading
+          fontSize="md"
+          display="flex"
+          flexDirection="row"
+          mb="2"
+          justifyContent="space-between">
           <Text>{t('create.room.poinForWin')}</Text>
           <Text>{poinForWin || '0'}</Text>
         </Heading>
