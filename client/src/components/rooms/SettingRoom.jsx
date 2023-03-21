@@ -96,9 +96,11 @@ export default function SettingRoom() {
       <Box mb={10}>
         <Text mb="2">{i18next.t('create.room.dictionary')}</Text>
         <Select>
-          <option value="hide">{i18next.t('create.room.dictionary_hige')}</option>
-          <option value="classic">{i18next.t('create.room.dictionary_classic')}</option>
-          <option value="low">{i18next.t('create.room.dictionary_low')}</option>
+          <option value="hide">{i18next.t('create.room.dictionary_hige', { words: 103 })}</option>
+          <option value="classic">
+            {i18next.t('create.room.dictionary_classic', { words: 245 })}
+          </option>
+          <option value="low">{i18next.t('create.room.dictionary_low', { words: 156 })}</option>
         </Select>
       </Box>
       <SliderRound />
@@ -125,7 +127,7 @@ export default function SettingRoom() {
         </Checkbox>
       </Box>
       <Box>
-        <Button>{i18next.t('create.room.startNewGame')}</Button>
+        <Button colorScheme="teal">{i18next.t('create.room.startNewGame')}</Button>
       </Box>
     </Container>
   );

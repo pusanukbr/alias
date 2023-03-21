@@ -17,7 +17,7 @@ import { connect } from 'react-redux';
 const BlockHeader = React.memo((props) => {
   const { t } = useTranslation();
   const {
-    user: { isAuth, name, date, numberGameEnd, createRooms }
+    user: { isAuth, name, date, numberGameEnd = 10, createRooms = 10 }
   } = props;
 
   return (
@@ -31,24 +31,26 @@ const BlockHeader = React.memo((props) => {
       alignItems="center"
       justifyContent="center">
       {isAuth ? (
-        <Stack direction="row" width="100%" justifyContent="space-between">
+        <Stack direction="column" width="100%" alignItems="center">
           <ChangLogo />
 
-          <Stack>
-            <Heading size="md">{name || 'Lorem ipsum'}</Heading>
+          <Stack width="100%">
+            <Text fontSize="xl" fontWeight="extrabold" textAlign="center">
+              {name.charAt(0).toUpperCase() + name.slice(1) || 'Lorpsum'}
+            </Text>
             <Divider />
             <List>
               <ListItem fontSize="sm">
                 <ListIcon as={FaHandSpock} color="teal.500" />
-                {t('user.creating.profile', date)}
+                {t('user.creating.profile', { date })}
               </ListItem>
               <ListItem fontSize="sm">
                 <ListIcon as={FaGamepad} color="teal.500" />
-                {t('user.rooms.gaming', numberGameEnd)}
+                {t('user.rooms.gaming', { numberGameEnd })}
               </ListItem>
               <ListItem fontSize="sm">
                 <ListIcon as={FaBuilding} color="teal.500" />
-                {t('user.rooms.create', createRooms)}
+                {t('user.rooms.create', { createRooms })}
               </ListItem>
             </List>
           </Stack>
