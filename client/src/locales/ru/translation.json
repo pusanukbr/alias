@@ -27,5 +27,33 @@
   "form.required.error": "Это поле, являеться обязательно к заполнению.",
   "form.email.error": "Введенное значение не соответствует формату электронной почты",
 
-  "create.room.timeRound": "Время игры (мин)"
+  "lobby.page.title": "Настройки",
+
+  "create.room.title": "Создать новую комнату",
+  "create.room.dictionary": "Словарь",
+  "create.room.dictionary_hige": "Легкий ({{words}})",
+  "create.room.dictionary_classic": "Класический ({{words}})",
+  "create.room.dictionary_low": "Сложный ({{words}})",
+  "create.room.timeRound": "Время игры (хвилин)",
+  "create.room.poinForWin": "Количество очков для выиграша",
+  "create.room.fine": "Штраф за пропущеное слово (1 очко)",
+  "create.room.lastWord": "Последнее слово для всех",
+  "create.room.startNewGame": "Начать игру",
+  "create.form.name": "Новое имя",
+  "create.form.password": "Новый пароль",
+  "create.form.passwordRepeat": "Поторить пароль",
+  "create.user.color": "Цвет значка",
+
+  "user.creating.profile": "Дата регистрации: {{date}}",
+  "user.rooms.gaming": "Сыграно игр: {{numberGameEnd}}",
+  "user.rooms.create": "Созданые комнаты: {{createRooms}}",
+
+  "btn.save": "Изменить",
+
+  "connect.room.id": "ID комнаты: {{id}}",
+  "connect.room.history": "Посещенные комнаты",
+  "connect.room.copyed": "Скопированно!",
+  "connect.room.title": "Подключиться к комнате",
+  "connect.room.input": "ID Комнаты",
+  "connect.room.start": "Подключиться"
 }

@@ -14,9 +14,10 @@ import {
   useColorModeValue,
   Heading
 } from '@chakra-ui/react';
-import i18next from 'i18next';
+import { useTranslation } from 'react-i18next';
 
 const SliderRound = () => {
+  const { t } = useTranslation();
   const [timeRound, setTimeRound] = useState(25);
   return (
     <Box mb={10}>
@@ -26,7 +27,7 @@ const SliderRound = () => {
         flexDirection="row"
         mb="2"
         justifyContent="space-between">
-        <Text>{i18next.t('create.room.timeRound')}</Text>
+        <Text>{t('create.room.timeRound')}</Text>
         <Text>{timeRound || '0'}</Text>
       </Heading>
 
@@ -50,6 +51,7 @@ const SliderRound = () => {
 };
 const SliderPoinToWin = () => {
   const [poinForWin, setPoinForWin] = useState();
+  const { t } = useTranslation();
   return (
     <Box mb={10}>
       <Heading
@@ -58,7 +60,7 @@ const SliderPoinToWin = () => {
         flexDirection="row"
         mb="2"
         justifyContent="space-between">
-        <Text>{i18next.t('create.room.poinForWin')}</Text>
+        <Text>{t('create.room.poinForWin')}</Text>
         <Text>{poinForWin || '0'}</Text>
       </Heading>
       <Slider
@@ -81,6 +83,7 @@ const SliderPoinToWin = () => {
 };
 
 export default function SettingRoom() {
+  const { t } = useTranslation();
   return (
     <Container
       backgroundColor={useColorModeValue('white', 'gray.700')}
@@ -90,17 +93,17 @@ export default function SettingRoom() {
       p="20px"
       borderRadius="20px">
       <Box mb={10}>
-        <Heading>{i18next.t('create.room.title')}</Heading>
+        <Heading>{t('create.room.title')}</Heading>
       </Box>
 
       <Box mb={10}>
-        <Text mb="2">{i18next.t('create.room.dictionary')}</Text>
+        <Text mb="2" fontWeight="bold">
+          {t('create.room.dictionary')}
+        </Text>
         <Select>
-          <option value="hide">{i18next.t('create.room.dictionary_hige', { words: 103 })}</option>
-          <option value="classic">
-            {i18next.t('create.room.dictionary_classic', { words: 245 })}
-          </option>
-          <option value="low">{i18next.t('create.room.dictionary_low', { words: 156 })}</option>
+          <option value="hide">{t('create.room.dictionary_hige', { words: 103 })}</option>
+          <option value="classic">{t('create.room.dictionary_classic', { words: 245 })}</option>
+          <option value="low">{t('create.room.dictionary_low', { words: 156 })}</option>
         </Select>
       </Box>
       <SliderRound />
@@ -112,8 +115,9 @@ export default function SettingRoom() {
           display="flex"
           justifyContent="space-between"
           flexDirection="row-reverse"
-          defaultChecked>
-          {i18next.t('create.room.fine')}
+          defaultChecked
+          fontWeight="bold">
+          {t('create.room.fine')}
         </Checkbox>
       </Box>
       <Box mb={10}>
@@ -122,12 +126,13 @@ export default function SettingRoom() {
           colorScheme="teal"
           display="flex"
           justifyContent="space-between"
-          flexDirection="row-reverse">
-          {i18next.t('create.room.lastWord')}
+          flexDirection="row-reverse"
+          fontWeight="bold">
+          {t('create.room.lastWord')}
         </Checkbox>
       </Box>
       <Box>
-        <Button colorScheme="teal">{i18next.t('create.room.startNewGame')}</Button>
+        <Button colorScheme="teal">{t('create.room.startNewGame')}</Button>
       </Box>
     </Container>
   );

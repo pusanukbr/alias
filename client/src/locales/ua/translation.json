@@ -41,6 +41,10 @@
   "create.room.fine": "Штраф за пропущені слова (1 очко)",
   "create.room.lastWord": "Останнє слово для всіх",
   "create.room.startNewGame": "Розпочати гру",
+  "create.form.name": "Нове Імʼя",
+  "create.form.password": "Новий пароль",
+  "create.form.passwordRepeat": "Повторіть пароль",
+  "create.user.color": "Колір",
 
   "user.creating.profile": "Дата регістрації: {{date}}",
   "user.rooms.gaming": "Закінченні ігри: {{numberGameEnd}}",
@@ -49,7 +53,6 @@
   "btn.save": "Змінити",
 
   "connect.room.id": "ID кімнати: {{id}}",
-  "user.color": "Колір",
   "connect.room.history": "Відвіданні кімнати",
   "connect.room.copyed": "Скопійовано!",
   "connect.room.title": "Під'єднатись до кімнати",
