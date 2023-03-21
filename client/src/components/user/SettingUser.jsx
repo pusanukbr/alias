@@ -27,7 +27,7 @@ export default function SettingUser(props) {
         />
         <Stack mt="5">
           <Button
-            colorScheme="blue"
+            colorScheme="teal"
             type="submit"
             isLoading={props.isLoading}
             loadingText={t('btn.enter.loading')}>

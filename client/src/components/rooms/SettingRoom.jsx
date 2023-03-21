@@ -14,12 +14,73 @@ import {
   useColorModeValue,
   Heading
 } from '@chakra-ui/react';
-import { useTranslation } from 'react-i18next';
+import i18next from 'i18next';
+
+const SliderRound = () => {
+  const [timeRound, setTimeRound] = useState(25);
+  return (
+    <Box mb={10}>
+      <Heading
+        fontSize="md"
+        display="flex"
+        flexDirection="row"
+        mb="2"
+        justifyContent="space-between">
+        <Text>{i18next.t('create.room.timeRound')}</Text>
+        <Text>{timeRound || '0'}</Text>
+      </Heading>
+
+      <Slider
+        id="slider"
+        defaultValue={25}
+        min={0}
+        max={100}
+        step={25}
+        onChange={setTimeRound}
+        colorScheme="teal">
+        <SliderTrack>
+          <SliderFilledTrack />
+        </SliderTrack>
+        <Tooltip hasArrow color="white" placement="top">
+          <SliderThumb />
+        </Tooltip>
+      </Slider>
+    </Box>
+  );
+};
+const SliderPoinToWin = () => {
+  const [poinForWin, setPoinForWin] = useState();
+  return (
+    <Box mb={10}>
+      <Heading
+        fontSize="md"
+        display="flex"
+        flexDirection="row"
+        mb="2"
+        justifyContent="space-between">
+        <Text>{i18next.t('create.room.poinForWin')}</Text>
+        <Text>{poinForWin || '0'}</Text>
+      </Heading>
+      <Slider
+        id="slider"
+        defaultValue={0}
+        min={0}
+        max={100}
+        step={25}
+        onChange={setPoinForWin}
+        colorScheme="teal">
+        <SliderTrack>
+          <SliderFilledTrack />
+        </SliderTrack>
+        <Tooltip hasArrow color="white" placement="top">
+          <SliderThumb />
+        </Tooltip>
+      </Slider>
+    </Box>
+  );
+};
 
 export default function SettingRoom() {
-  const { t } = useTranslation();
-  const [timeRound, setTimeRound] = useState(25);
-  const [poinForWin, setPoinForWin] = useState();
   return (
     <Container
       backgroundColor={useColorModeValue('white', 'gray.700')}
@@ -29,69 +90,21 @@ export default function SettingRoom() {
       p="20px"
       borderRadius="20px">
       <Box mb={10}>
-        <Heading>{t('create.room.title')}</Heading>
+        <Heading>{i18next.t('create.room.title')}</Heading>
       </Box>
+
       <Box mb={10}>
-        <Text mb="2">{t('create.room.dictionary')}</Text>
+        <Text mb="2">{i18next.t('create.room.dictionary')}</Text>
         <Select>
-          <option value="hide">{t('create.room.dictionary_hige')}</option>
-          <option value="classic">{t('create.room.dictionary_classic')}</option>
-          <option value="low">{t('create.room.dictionary_low')}</option>
+          <option value="hide">{i18next.t('create.room.dictionary_hige', { words: 103 })}</option>
+          <option value="classic">
+            {i18next.t('create.room.dictionary_classic', { words: 245 })}
+          </option>
+          <option value="low">{i18next.t('create.room.dictionary_low', { words: 156 })}</option>
         </Select>
       </Box>
-      <Box mb={10}>
-        <Heading
-          fontSize="md"
-          display="flex"
-          flexDirection="row"
-          mb="2"
-          justifyContent="space-between">
-          <Text>{t('create.room.timeRound')}</Text>
-          <Text>{timeRound || '0'}</Text>
-        </Heading>
-
-        <Slider
-          id="slider"
-          defaultValue={25}
-          min={0}
-          max={100}
-          step={25}
-          onChange={setTimeRound}
-          colorScheme="teal">
-          <SliderTrack>
-            <SliderFilledTrack />
-          </SliderTrack>
-          <Tooltip hasArrow color="white" placement="top">
-            <SliderThumb />
-          </Tooltip>
-        </Slider>
-      </Box>
-      <Box mb={10}>
-        <Heading
-          fontSize="md"
-          display="flex"
-          flexDirection="row"
-          mb="2"
-          justifyContent="space-between">
-          <Text>{t('create.room.poinForWin')}</Text>
-          <Text>{poinForWin || '0'}</Text>
-        </Heading>
-        <Slider
-          id="slider"
-          defaultValue={0}
-          min={0}
-          max={100}
-          step={25}
-          onChange={setPoinForWin}
-          colorScheme="teal">
-          <SliderTrack>
-            <SliderFilledTrack />
-          </SliderTrack>
-          <Tooltip hasArrow color="white" placement="top">
-            <SliderThumb />
-          </Tooltip>
-        </Slider>
-      </Box>
+      <SliderRound />
+      <SliderPoinToWin />
       <Box mb={10}>
         <Checkbox
           colorScheme="teal"
@@ -100,7 +113,7 @@ export default function SettingRoom() {
           justifyContent="space-between"
           flexDirection="row-reverse"
           defaultChecked>
-          {t('create.room.fine')}
+          {i18next.t('create.room.fine')}
         </Checkbox>
       </Box>
       <Box mb={10}>
@@ -110,11 +123,11 @@ export default function SettingRoom() {
           display="flex"
           justifyContent="space-between"
           flexDirection="row-reverse">
-          {t('create.room.lastWord')}
+          {i18next.t('create.room.lastWord')}
         </Checkbox>
       </Box>
       <Box>
-        <Button>{t('create.room.startNewGame')}</Button>
+        <Button colorScheme="teal">{i18next.t('create.room.startNewGame')}</Button>
       </Box>
     </Container>
   );

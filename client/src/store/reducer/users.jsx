@@ -14,6 +14,7 @@ const initialState = {
 };
 
 const userReducer = (state = initialState, action) => {
+  console.log(action.payload);
   switch (action.type) {
     case ReducerCommand.SET_USERS:
       return {

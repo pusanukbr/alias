@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
+  Text,
   Container,
   Box,
   List,
@@ -10,25 +11,65 @@ import {
   useColorModeValue
 } from '@chakra-ui/react';
 import Input from '../form/Input';
-import { FaUserPlus, FaLink } from 'react-icons/fa';
+import { FaUserPlus, FaLink, FaRegCopy } from 'react-icons/fa';
 import { Rules } from '../../const/Validate';
-import { useTranslation } from 'react-i18next';
+import i18next from 'i18next';
 import Form from '../form/Form';
 import store from '../../store';
+let timer;
 export default function ConnectRoom() {
-  const { t } = useTranslation();
-  const {
-    user: {
-      roomsHistory = [
-        { id: 111222, roomType: 'user' },
-        { id: 43, roomType: 'invite' }
-      ]
-    }
-  } = store.getState();
+  const roomsHistory = [
+    { id: 786, roomType: 'user' },
+    { id: 678656, roomType: 'history' },
+    { id: 876, roomType: 'user' }
+  ];
+  // const {
+  //   user: { roomsHistory }
+  // } = store.getState();
+  const [copyId, setCopyId] = useState(false);
 
   const onSubmit = () => {
     console.log('start room');
   };
+  const History = React.memo(() => {
+    return (
+      <Box mt="10">
+        <Heading fontSize="lg" mb={2}>
+          {i18next.t('connect.room.history')}
+        </Heading>
+        <List fontSize="lg">
+          {roomsHistory.map(({ id, roomType }) => (
+            <ListItem key={id} display="flex" alignItems="center">
+              <ListIcon as={roomType === 'user' ? FaUserPlus : FaLink} color="teal.300" />
+              <Box
+                _hover={{ cursor: 'pointer' }}
+                onClick={() => copyToClipboard(id)}
+                display="flex"
+                alignItems="center">
+                {i18next.t('connect.room.id', { id })}
+                <ListIcon as={FaRegCopy} ml="2" color={copyId === id ? 'teal.100' : 'teal.400'} />
+                {copyId === id && (
+                  <Text ml="1" opacity="0.5">
+                    {i18next.t('connect.room.copyed')}
+                  </Text>
+                )}
+              </Box>
+            </ListItem>
+          ))}
+        </List>
+      </Box>
+    );
+  });
+
+  const copyToClipboard = (id) => {
+    clearTimeout(timer);
+    navigator.clipboard.writeText(id);
+    setCopyId(id);
+    timer = setTimeout(() => {
+      setCopyId(null);
+    }, 1000);
+  };
+
   return (
     <Container
       backgroundColor={useColorModeValue('white', 'gray.700')}
@@ -38,33 +79,21 @@ export default function ConnectRoom() {
       p="20px"
       borderRadius="20px">
       <Box mb={10}>
-        <Heading>{t('connect.room.title')}</Heading>
+        <Heading>{i18next.t('connect.room.title')}</Heading>
       </Box>
       <Form onSubmit={onSubmit}>
         <Input
           name="connectId"
           type="text"
           mb={5}
-          label={t('connect.room.input')}
+          label={i18next.t('connect.room.input')}
           rules={Rules.connect}
         />
-        <Button mb={10} type="submit">
-          {t('connect.room.start')}
+        <Button colorScheme="teal" type="submit">
+          {i18next.t('connect.room.start')}
         </Button>
-        <Box>
-          <Heading fontSize="lg" mb={2}>
-            {t('connect.room.history')}
-          </Heading>
-          <List fontSize="lg">
-            {roomsHistory.map(({ id, roomType }) => (
-              <ListItem key={id}>
-                <ListIcon as={roomType === 'user' ? FaUserPlus : FaLink} color="teal.300" />
-                {t('connect.room.id', id)}
-              </ListItem>
-            ))}
-          </List>
-        </Box>
       </Form>
+      {roomsHistory && roomsHistory.length ? <History /> : null}
     </Container>
   );
 }

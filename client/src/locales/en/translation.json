@@ -27,5 +27,7 @@
   "form.minLength.error": "Min length string {{number}}",
   "form.maxLength.error": "Max length string {{number}}",
   "form.required.error": "This is required.",
-  "form.email.error": "Entered value does not match email format"
+  "form.email.error": "Entered value does not match email format",
+
+  "create.room.timeRound": "Time game (min)"
 }

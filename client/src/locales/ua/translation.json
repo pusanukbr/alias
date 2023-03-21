@@ -27,5 +27,32 @@
   "form.minLength.error": "Мінімальна довжина рядка має становити {{number}}",
   "form.maxLength.error": "Масксимальна довжина рядка має не перевищувати {{number}}",
   "form.required.error": "Це поле обовʼязкове для заповнення.",
-  "form.email.error": "Введене значення не підлягає формату електроної скриньки"
+  "form.email.error": "Введене значення не підлягає формату електроної скриньки",
+
+  "lobby.page.title": "Налаштування",
+
+  "create.room.title": "Створи нову кімнату",
+  "create.room.dictionary": "Словник",
+  "create.room.dictionary_hige": "Легкий ({{words}})",
+  "create.room.dictionary_classic": "Класичний ({{words}})",
+  "create.room.dictionary_low": "Складний ({{words}})",
+  "create.room.timeRound": "Тривалість гри (хвилин)",
+  "create.room.poinForWin": "Кількість очків для перемоги",
+  "create.room.fine": "Штраф за пропущені слова (1 очко)",
+  "create.room.lastWord": "Останнє слово для всіх",
+  "create.room.startNewGame": "Розпочати гру",
+
+  "user.creating.profile": "Дата регістрації: {{date}}",
+  "user.rooms.gaming": "Закінченні ігри: {{numberGameEnd}}",
+  "user.rooms.create": "Створенні кімнати: {{createRooms}}",
+
+  "btn.save": "Змінити",
+
+  "connect.room.id": "ID кімнати: {{id}}",
+  "user.color": "Колір",
+  "connect.room.history": "Відвіданні кімнати",
+  "connect.room.copyed": "Скопійовано!",
+  "connect.room.title": "Під'єднатись до кімнати",
+  "connect.room.input": "ID Кімнати",
+  "connect.room.start": "Під'єднатись"
 }
