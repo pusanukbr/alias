@@ -14,7 +14,9 @@ export default function CustomInput({
   const { t } = useTranslation();
   return (
     <FormControl isInvalid={errors[name]}>
-      <FormLabel htmlFor={name}>{label}</FormLabel>
+      <FormLabel htmlFor={name} fontWeight="bold">
+        {label}
+      </FormLabel>
       <Input id={name} type={type} {...register(name, rules)} {...rest} />
       <FormErrorMessage>
         {errors[name] && t(errors[name].message, { number: rules[errors[name].type].value })}

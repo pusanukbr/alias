@@ -7,7 +7,9 @@ export default function ChangColor() {
   const [color, setColor] = useState('#81e6d9');
   return (
     <Box mb="15px">
-      <Text mb="2">{i18next.t('user.color')}</Text>
+      <Text mb="2" fontWeight="bold">
+        {i18next.t('create.user.color')}
+      </Text>
       <SliderPicker color={color} onChange={setColor} />
     </Box>
   );

@@ -13,11 +13,12 @@ import {
 import Input from '../form/Input';
 import { FaUserPlus, FaLink, FaRegCopy } from 'react-icons/fa';
 import { Rules } from '../../const/Validate';
-import i18next from 'i18next';
 import Form from '../form/Form';
 import store from '../../store';
+import { useTranslation } from 'react-i18next';
 let timer;
 export default function ConnectRoom() {
+  const { t } = useTranslation();
   const roomsHistory = [
     { id: 786, roomType: 'user' },
     { id: 678656, roomType: 'history' },
@@ -35,7 +36,7 @@ export default function ConnectRoom() {
     return (
       <Box mt="10">
         <Heading fontSize="lg" mb={2}>
-          {i18next.t('connect.room.history')}
+          {t('connect.room.history')}
         </Heading>
         <List fontSize="lg">
           {roomsHistory.map(({ id, roomType }) => (
@@ -46,11 +47,11 @@ export default function ConnectRoom() {
                 onClick={() => copyToClipboard(id)}
                 display="flex"
                 alignItems="center">
-                {i18next.t('connect.room.id', { id })}
+                {t('connect.room.id', { id })}
                 <ListIcon as={FaRegCopy} ml="2" color={copyId === id ? 'teal.100' : 'teal.400'} />
                 {copyId === id && (
                   <Text ml="1" opacity="0.5">
-                    {i18next.t('connect.room.copyed')}
+                    {t('connect.room.copyed')}
                   </Text>
                 )}
               </Box>
@@ -79,18 +80,18 @@ export default function ConnectRoom() {
       p="20px"
       borderRadius="20px">
       <Box mb={10}>
-        <Heading>{i18next.t('connect.room.title')}</Heading>
+        <Heading>{t('connect.room.title')}</Heading>
       </Box>
       <Form onSubmit={onSubmit}>
         <Input
           name="connectId"
           type="text"
           mb={5}
-          label={i18next.t('connect.room.input')}
+          label={t('connect.room.input')}
           rules={Rules.connect}
         />
         <Button colorScheme="teal" type="submit">
-          {i18next.t('connect.room.start')}
+          {t('connect.room.start')}
         </Button>
       </Form>
       {roomsHistory && roomsHistory.length ? <History /> : null}

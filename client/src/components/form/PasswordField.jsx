@@ -24,7 +24,9 @@ export default function PasswordField({
   const { isOpen, onToggle } = useDisclosure();
   return (
     <FormControl isInvalid={errors[name]}>
-      <FormLabel htmlFor={name}>{label}</FormLabel>
+      <FormLabel htmlFor={name} fontWeight="bold">
+        {label}
+      </FormLabel>
       <InputGroup>
         <InputRightElement>
           <IconButton

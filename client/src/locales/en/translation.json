@@ -29,5 +29,33 @@
   "form.required.error": "This is required.",
   "form.email.error": "Entered value does not match email format",
 
-  "create.room.timeRound": "Time game (min)"
+  "lobby.page.title": "Settings",
+
+  "create.room.title": "Create Room",
+  "create.room.dictionary": "Dictionary",
+  "create.room.dictionary_hige": "Easy ({{words}})",
+  "create.room.dictionary_classic": "Classic ({{words}})",
+  "create.room.dictionary_low": "Hard ({{words}})",
+  "create.room.timeRound": "Game time (min)",
+  "create.room.poinForWin": "Points to win",
+  "create.room.fine": "Fine for a skipped word (1 point)",
+  "create.room.lastWord": "Last word for everyone",
+  "create.room.startNewGame": "Start",
+  "create.form.name": "New name",
+  "create.form.password": "New password",
+  "create.form.passwordRepeat": "Repeat password",
+  "create.user.color": "Color",
+
+  "user.creating.profile": "Registration date: {{date}}",
+  "user.rooms.gaming": "Finished games: {{numberGameEnd}}",
+  "user.rooms.create": "Created rooms: {{createRooms}}",
+
+  "btn.save": "Change",
+
+  "connect.room.id": "Room ID: {{id}}",
+  "connect.room.history": "Visited rooms",
+  "connect.room.copyed": "Copied!",
+  "connect.room.title": "Enter the room",
+  "connect.room.input": "Room ID",
+  "connect.room.start": "Enter"
 }
