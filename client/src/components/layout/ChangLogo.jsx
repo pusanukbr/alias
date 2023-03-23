@@ -33,7 +33,7 @@ const ChangLogo = (props) => {
           />
         </Flex>
       </Stack>
-      <ModalLogo onClose={onClose} isOpen={isOpen} closeModal={closeModal} />
+      <ModalLogo onClose={onClose} isOpen={isOpen} avatar={avatar} closeModal={closeModal} />
     </>
   );
 };
