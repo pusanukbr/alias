@@ -1,4 +1,9 @@
 {
+  "lang.ua": "UA",
+  "lang.en": "EN",
+  "lang.pl": "PL",
+  "lang.ru": "RU",
+
   "login.title": "Welcome to Alias game ☺️",
   "login.desc": "Please enter room name and password, lets start game 🤠",
   "user": "User",

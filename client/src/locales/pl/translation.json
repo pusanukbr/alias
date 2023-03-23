@@ -1,0 +1,52 @@
+{
+  "lang.ua": "UA",
+  "lang.en": "EN",
+  "lang.pl": "PL",
+  "lang.ru": "RU",
+
+  "login.title": "Witamy w Aliasie ☺️",
+  "form.name": "Imię",
+  "form.password": "Hasło",
+  "form.email": "Email",
+  "form.show.password": "Pokaż hasło",
+  "form.hide.password": "Ukryj hasło",
+
+  "button.login": "Zaloguj sie",
+  "button.register": "Rejestracja",
+  "landing.title": "Witamy w Aliasie",
+  "landing.desc": "Nadal nie doszliśmy do tego, co to powinno być, ale będzie to coś bardzo interesującego i być może dużego, więc musimy sprawdzić, jak blok będzie wyglądał, gdy będzie dużo tekstu!",
+  "form.minLength.error": "Minimalna liczba znaków {{number}}",
+  "form.maxLength.error": "Maksymalna liczba znaków {{number}}",
+  "form.required.error": "To pole jest obowiązkowe.",
+  "form.email.error": "Wprowadzona wartość nie pasuje do formatu wiadomości e-mail",
+
+  "lobby.page.title": "Ustawienia",
+
+  "create.room.title": "Utwórz nowy pokój",
+  "create.room.dictionary": "Słownik",
+  "create.room.dictionary_hige": "Łatwy ({{words}})",
+  "create.room.dictionary_classic": "Klasyczny ({{words}})",
+  "create.room.dictionary_low": "Trudny ({{words}})",
+  "create.room.timeRound": "Czas gry (minuty)",
+  "create.room.poinForWin": "Liczba punktów do wygrania",
+  "create.room.fine": "Kara za brakujące słowo (1 punkt)",
+  "create.room.lastWord": "Ostatnie słowo dla każdego",
+  "create.room.startNewGame": "Zacząć gre",
+  "create.form.name": "Nowe Imię",
+  "create.form.password": "Nowe hasło",
+  "create.form.passwordRepeat": "Powtórz hasło",
+  "create.user.color": "Kolor ikony",
+
+  "user.creating.profile": "Data rejestracji: {{date}}",
+  "user.rooms.gaming": "Rozegrane gry: {{numberGameEnd}}",
+  "user.rooms.create": "Utworzone pokoje: {{createRooms}}",
+
+  "btn.save": "Zmiana",
+
+  "connect.room.id": "Identyfikator pokoju: {{id}}",
+  "connect.room.history": "Odwiedzone pokoje",
+  "connect.room.copyed": "Skopiowane!",
+  "connect.room.title": "Połącz z pokojem",
+  "connect.room.input": "Identyfikator pokoju",
+  "connect.room.start": "Podłączać"
+}

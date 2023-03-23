@@ -14,7 +14,6 @@ import Input from '../form/Input';
 import { FaUserPlus, FaLink, FaRegCopy } from 'react-icons/fa';
 import { Rules } from '../../const/Validate';
 import Form from '../form/Form';
-import store from '../../store';
 import { useTranslation } from 'react-i18next';
 let timer;
 export default function ConnectRoom() {

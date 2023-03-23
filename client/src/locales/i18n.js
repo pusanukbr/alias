@@ -3,7 +3,7 @@ import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import translationEN from './en/translation.json';
 import translationUA from './ua/translation.json';
-import translationRU from './ru/translation.json';
+import translationPL from './pl/translation.json';
 
 const resources = {
   en: {
@@ -12,8 +12,8 @@ const resources = {
   ua: {
     translation: translationUA
   },
-  ru: {
-    translation: translationRU
+  pl: {
+    translation: translationPL
   }
 };
 i18n.use(LanguageDetector).use(initReactI18next).init({
