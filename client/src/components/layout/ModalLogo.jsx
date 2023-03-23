@@ -11,8 +11,10 @@ import {
   Button,
   Stack
 } from '@chakra-ui/react';
+import { useTranslation } from 'react-i18next';
 
 const ModalLogo = ({ isOpen, closeModal, onClose, avatar }) => {
+  const { t } = useTranslation();
   const [localAvatar, setLocalAvatar] = useState('');
 
   const changLocalAvatar = useCallback((newAvatar) => {
@@ -23,7 +25,7 @@ const ModalLogo = ({ isOpen, closeModal, onClose, avatar }) => {
     <Modal onClose={onClose} isOpen={isOpen} size="2xl" motionPreset="scale">
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Avatar</ModalHeader>
+        <ModalHeader>{t('modal.title.avatar')}</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <Stack>
@@ -32,7 +34,7 @@ const ModalLogo = ({ isOpen, closeModal, onClose, avatar }) => {
         </ModalBody>
         <ModalFooter>
           <Button colorScheme="blue" mr={3} onClick={() => closeModal(localAvatar)}>
-            Сhange
+            {t('modal.button.change')}
           </Button>
         </ModalFooter>
       </ModalContent>

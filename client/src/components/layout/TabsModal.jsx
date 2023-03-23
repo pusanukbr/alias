@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Tabs, TabList, TabPanels, Tab, TabPanel, Flex, Image } from '@chakra-ui/react';
+import { useTranslation } from 'react-i18next';
 
 const TabsModal = React.memo(({ changAvatar, avatar }) => {
+  const { t } = useTranslation();
   const RenderAvatar = ({ type }) => {
     const [active, setActive] = useState('');
 
@@ -48,9 +50,9 @@ const TabsModal = React.memo(({ changAvatar, avatar }) => {
   return (
     <Tabs isLazy isFitted colorScheme="teal" defaultIndex={tabIndex}>
       <TabList>
-        <Tab>Male</Tab>
-        <Tab>Female</Tab>
-        <Tab>Animals</Tab>
+        <Tab>{t('modal.type.male')}</Tab>
+        <Tab>{t('modal.type.female')}</Tab>
+        <Tab>{t('modal.type.animals')}</Tab>
       </TabList>
       <TabPanels>
         <TabPanel display="flex" flexWrap="wrap" rowGap="20px" justifyContent="space-between">
