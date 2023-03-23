@@ -5,9 +5,9 @@ const TabsModal = React.memo(({ changAvatar, avatar }) => {
   const RenderAvatar = ({ type }) => {
     const [active, setActive] = useState('');
 
-    const check = (url) => {
-      changAvatar(url);
-      setActive(url);
+    const check = (newAvatar) => {
+      changAvatar(newAvatar);
+      setActive(newAvatar.url);
     };
 
     return [...Array(10)].map((item, index) => {
@@ -23,21 +23,30 @@ const TabsModal = React.memo(({ changAvatar, avatar }) => {
           overflow="hidden"
           borderStyle="solid"
           borderWidth="2px"
-          borderColor={(active || avatar) === nameUrl ? 'white' : 'teal.400'}
+          borderColor={(active || avatar.url) === nameUrl ? 'white' : 'teal.400'}
           justify="center"
           _hover={{ cursor: 'pointer' }}>
           <Image
             width="100%"
             src={`${process.env.PUBLIC_URL}/avatar/${nameUrl}`}
-            onClick={() => check(nameUrl)}
+            onClick={() => check({ url: nameUrl, type: type })}
           />
         </Flex>
       );
     });
   };
 
+  const tabIndex = () => {
+    if (avatar) {
+      if (avatar.type === 'male') return 0;
+      if (avatar.type === 'female') return 1;
+      if (avatar.type === 'animals') return 2;
+    }
+    return 0;
+  };
+
   return (
-    <Tabs isLazy isFitted>
+    <Tabs isLazy isFitted colorScheme="teal" defaultIndex={tabIndex}>
       <TabList>
         <Tab>Male</Tab>
         <Tab>Female</Tab>

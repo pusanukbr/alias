@@ -11,7 +11,7 @@ const ChangLogo = (props) => {
   const { avatar } = props.user;
 
   const closeModal = async (localAvatar) => {
-    if (localAvatar) await props.dispatch(changUserData({ avatar: localAvatar }));
+    if (localAvatar) await props.dispatch(changUserData({ avatar: { ...localAvatar } }));
     return onClose();
   };
   return (
@@ -27,9 +27,9 @@ const ChangLogo = (props) => {
           borderRadius="20px"
           _hover={{ cursor: 'pointer' }}>
           <Image
-            filter={!avatar && filter}
-            width={avatar ? '100%' : '60%'}
-            src={`${process.env.PUBLIC_URL}/avatar/${avatar || 'avatar.png'}`}
+            filter={!avatar?.url && filter}
+            width={avatar?.url ? '100%' : '60%'}
+            src={`${process.env.PUBLIC_URL}/avatar/${avatar.url || 'avatar.png'}`}
           />
         </Flex>
       </Stack>
