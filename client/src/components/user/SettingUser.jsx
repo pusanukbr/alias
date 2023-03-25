@@ -17,7 +17,7 @@ export default function SettingUser(props) {
   return (
     <Container overflow="auto" pt="15px" pb="15px">
       <Form onSubmit={onSubmit}>
-        <ChangColor name="color" rules={Rules.name} />
+        <ChangColor name="color" rules={Rules.color} label={t('create.user.color')} />
         <Input name="name" mb="15px" type="text" label={t('create.form.name')} rules={Rules.name} />
         <PasswordField
           name="password"
