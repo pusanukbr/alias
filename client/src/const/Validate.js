@@ -3,6 +3,9 @@ export const Rules = {
     required: 'form.required.error',
     minLength: { value: 4, message: 'form.minLength.error' }
   },
+  color: {
+    required: 'form.required.error'
+  },
   password: {
     required: 'form.required.error',
     minLength: { value: 4, message: 'form.minLength.error' },

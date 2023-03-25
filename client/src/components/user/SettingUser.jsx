@@ -9,10 +9,15 @@ import ChangColor from './ChangColor';
 
 export default function SettingUser(props) {
   const { t } = useTranslation();
+
+  const onSubmit = (data) => {
+    console.log('SUBMIT====>', data);
+  };
+
   return (
     <Container overflow="auto" pt="15px" pb="15px">
-      <ChangColor />
-      <Form onSubmit="">
+      <Form onSubmit={onSubmit}>
+        <ChangColor name="color" rules={Rules.name} />
         <Input name="name" mb="15px" type="text" label={t('create.form.name')} rules={Rules.name} />
         <PasswordField
           name="password"
