@@ -1,18 +1,19 @@
 export const Rules = {
-  name: {
-    required: 'form.required.error',
-    minLength: { value: 4, message: 'form.minLength.error' }
-  },
-  color: {
+  required: {
     required: 'form.required.error'
   },
+
+  name: {
+    minLength: { value: 4, message: 'form.minLength.error' }
+  },
+  requiredColor: {
+    required: 'form.required.errorColor'
+  },
   password: {
-    required: 'form.required.error',
     minLength: { value: 4, message: 'form.minLength.error' },
     maxLength: { value: 16, message: 'form.maxLength.error' }
   },
   email: {
-    required: 'form.required.error',
     pattern: {
       value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
       message: 'form.email.error'

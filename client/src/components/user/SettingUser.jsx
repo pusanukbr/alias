@@ -6,8 +6,9 @@ import PasswordField from '../form/PasswordField';
 import { Rules } from '../../const/Validate';
 import { useTranslation } from 'react-i18next';
 import ChangColor from './ChangColor';
+import { connect } from 'react-redux';
 
-export default function SettingUser(props) {
+const SettingUser = (props) => {
   const { t } = useTranslation();
 
   const onSubmit = (data) => {
@@ -17,18 +18,27 @@ export default function SettingUser(props) {
   return (
     <Container overflow="auto" pt="15px" pb="15px">
       <Form onSubmit={onSubmit}>
-        <ChangColor name="color" rules={Rules.color} label={t('create.user.color')} />
-        <Input name="name" mb="15px" type="text" label={t('create.form.name')} rules={Rules.name} />
+        <ChangColor
+          name="color"
+          rules={Rules.color}
+          userColor={props.user.color}
+          label={t('create.user.color')}
+        />
+        <Input
+          name="name"
+          type="text"
+          label={t('create.form.name')}
+          rules={{ ...Rules.changeName, ...Rules.required }}
+        />
         <PasswordField
           name="password"
-          mb="15px"
           label={t('create.form.password')}
-          rules={Rules.password}
+          rules={{ ...Rules.changePassword, ...Rules.required }}
         />
         <PasswordField
           name="passwordRepeat"
           label={t('create.form.passwordRepeat')}
-          rules={Rules.password}
+          rules={{ ...Rules.changePassword, ...Rules.required }}
         />
         <Stack mt="5">
           <Button
@@ -42,4 +52,8 @@ export default function SettingUser(props) {
       </Form>
     </Container>
   );
-}
+};
+export default connect(
+  ({ user }) => ({ user }),
+  (dispatch) => ({ dispatch })
+)(SettingUser);

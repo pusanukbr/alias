@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
 import { SliderPicker } from 'react-color';
 import { Controller } from 'react-hook-form';
-import { FormErrorMessage, FormControl, FormLabel, Input } from '@chakra-ui/react';
+import { FormErrorMessage, FormControl, FormLabel } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
-export default function ChangColor({ name, control, rules, label, formState: { errors } }) {
-  const [color, setColor] = useState('#81e6d9');
+export default function ChangColor({
+  name,
+  control,
+  rules,
+  label,
+  userColor,
+  formState: { errors }
+}) {
+  const [color, setColor] = useState(userColor);
   const { t } = useTranslation();
   const change = ({ event: { hex }, onChange }) => {
     setColor(hex);
@@ -20,14 +27,13 @@ export default function ChangColor({ name, control, rules, label, formState: { e
         <Controller
           render={({ field }) => (
             <SliderPicker
-              {...field}
-              color={color}
+              color={color || '#81e6d9'}
               onChange={(event) => change({ event, onChange: field.onChange })}
             />
           )}
           name={name}
           control={control}
-          defaultValue=""
+          defaultValue={color}
           rules={rules}
         />
         <FormErrorMessage>
