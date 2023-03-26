@@ -82,7 +82,7 @@ const SliderPoinToWin = () => {
   );
 };
 
-export default function SettingRoom() {
+const SettingRoom = () => {
   const { t } = useTranslation();
   return (
     <Container
@@ -136,4 +136,6 @@ export default function SettingRoom() {
       </Box>
     </Container>
   );
-}
+};
+
+export default SettingRoom;

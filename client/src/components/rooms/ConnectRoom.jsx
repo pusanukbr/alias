@@ -15,17 +15,16 @@ import { FaUserPlus, FaLink, FaRegCopy } from 'react-icons/fa';
 import { Rules } from '../../const/Validate';
 import Form from '../form/Form';
 import { useTranslation } from 'react-i18next';
+import store from '../../store/index';
+
 let timer;
+
 export default function ConnectRoom() {
   const { t } = useTranslation();
-  const roomsHistory = [
-    { id: 786, roomType: 'user' },
-    { id: 678656, roomType: 'history' },
-    { id: 876, roomType: 'user' }
-  ];
-  // const {
-  //   user: { roomsHistory }
-  // } = store.getState();
+
+  const {
+    user: { roomsHistory }
+  } = store.getState();
   const [copyId, setCopyId] = useState(false);
 
   const onSubmit = () => {

@@ -8,7 +8,7 @@ import RouterConfig from './const/RouterConfig';
 import { setPreloader } from './store/reducer/ui';
 import { checkAuth } from './store/reducer/users';
 import Registration from './pages/Registration';
-import Lobby from './pages/Lobby';
+import Settings from './pages/Settings';
 import ProtectedRoute from './hoc/ProtectedRoute';
 import NotFound from './pages/NotFound';
 
@@ -37,7 +37,7 @@ function App(props) {
           <Route path={RouterConfig.REGISTRATION.path} element={<Registration />} />
         </Route>
         <Route element={<ProtectedRoute param={props.user.isAuth} />}>
-          <Route path={RouterConfig.LOBBY.path} element={<Lobby />} />
+          <Route path={RouterConfig.LOBBY.path} element={<Settings />} />
         </Route>
       </Route>
       <Route path="*" element={<NotFound />} />
