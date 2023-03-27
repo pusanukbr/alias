@@ -20,6 +20,7 @@ import CustomCheckbox from '../form/CheckBox';
 import { Controller } from 'react-hook-form';
 import { Rules } from '../../const/Validate';
 import CustomSlider from '../form/Slider';
+import CustomSelect from '../form/Select';
 
 const SettingRoom = () => {
   const { t } = useTranslation();
@@ -35,64 +36,6 @@ const SettingRoom = () => {
           <option value="classic">{t('create.room.dictionary_classic', { words: 245 })}</option>
           <option value="low">{t('create.room.dictionary_low', { words: 156 })}</option>
         </Select>
-      </Box>
-    );
-  };
-
-  const SliderPoinToWin = () => {
-    const [poinForWin, setPoinForWin] = useState();
-    return (
-      <Box mb={10}>
-        <Heading
-          fontSize="md"
-          display="flex"
-          flexDirection="row"
-          mb="2"
-          justifyContent="space-between">
-          <Text>{t('create.room.poinForWin')}</Text>
-          <Text>{poinForWin || '0'}</Text>
-        </Heading>
-        <Slider
-          id="slider"
-          defaultValue={0}
-          min={0}
-          max={100}
-          step={25}
-          onChange={setPoinForWin}
-          colorScheme="teal">
-          <SliderTrack>
-            <SliderFilledTrack />
-          </SliderTrack>
-          <Tooltip hasArrow color="white" placement="top">
-            <SliderThumb />
-          </Tooltip>
-        </Slider>
-      </Box>
-    );
-  };
-
-  const SliderRound = () => {
-    const [timeRound, setTimeRound] = useState(25);
-    return (
-      <Box mb={10}>
-        <Heading
-          fontSize="md"
-          display="flex"
-          flexDirection="row"
-          mb="2"
-          justifyContent="space-between">
-          <Text>{t('create.room.timeRound')}</Text>
-          <Text>{timeRound || '0'}</Text>
-        </Heading>
-
-        <Slider id="slider" onChange={setTimeRound} colorScheme="teal">
-          <SliderTrack>
-            <SliderFilledTrack />
-          </SliderTrack>
-          <Tooltip hasArrow color="white" placement="top">
-            <SliderThumb />
-          </Tooltip>
-        </Slider>
       </Box>
     );
   };
@@ -116,15 +59,19 @@ const SettingRoom = () => {
       <Form onSubmit={onSubmit}>
         {/* Dictionary select */}
         {/* <Dictionary /> */}
+        <CustomSelect name="dictionary" label={t('create.room.dictionary')}>
+          <option value="hide">{t('create.room.dictionary_hige', { words: 103 })}</option>
+          <option value="classic">{t('create.room.dictionary_classic', { words: 245 })}</option>
+          <option value="low">{t('create.room.dictionary_low', { words: 156 })}</option>
+        </CustomSelect>
 
         {/* Slider Round */}
-        <CustomSlider name="round" defaultValue={25} min={0} max={100} step={25} />
+        <CustomSlider name="round" defaultValue={10} min={3} max={30} step={1} />
 
         {/* Slider Point */}
-        {/* <SliderPoinToWin /> */}
+        <CustomSlider name="point" defaultValue={50} min={0} max={100} step={25} />
 
         {/* Checkbox Fine */}
-        {/* <Fine /> */}
         <CustomCheckbox name="fine" defaultChecked label={t('create.room.fine')} />
 
         {/* Checkbox Last word */}

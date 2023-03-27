@@ -22,25 +22,30 @@ export default function CustomSlider({
   formState,
   rules = {},
   control,
+  defaultValue,
   ...rest
 }) {
   const { t } = useTranslation();
-  const [timeRound, setTimeRound] = useState(25);
+  const [local, setLocal] = useState(defaultValue);
   const change = ({ value, onChange }) => {
-    setTimeRound(value);
+    setLocal(value);
     onChange(value);
   };
   return (
     <FormControl isInvalid={errors[name]}>
       <FormLabel htmlFor={name} fontWeight="bold">
         <Text>{label}</Text>
-        <Text>{timeRound || '0'}</Text>
+        <Text>{local || '0'}</Text>
       </FormLabel>
       <Controller
         name={name}
         control={control}
+        defaultValue={defaultValue}
         render={({ field: { onChange } }) => (
-          <Slider {...rest} onChange={(value) => change({ value, onChange: onChange })}>
+          <Slider
+            {...rest}
+            defaultValue={defaultValue}
+            onChange={(value) => change({ value, onChange: onChange })}>
             <SliderTrack>
               <SliderFilledTrack />
             </SliderTrack>
