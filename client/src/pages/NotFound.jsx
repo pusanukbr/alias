@@ -9,22 +9,20 @@ export default function NotFound() {
   const location = useLocation();
   const fromPage = location.state?.from?.pathname || RouterConfig.LOBBY.path;
   return (
-    <div>
-      <Container
-        display="flex"
-        alignItems="center"
-        flexDirection="column"
-        justifyContent="center"
-        height="100vh">
-        <Stack fontSize="2xl" flexDirection="column" alignItems="center" mb="4">
-          <Text>{t('page.notFound.title')}</Text>
-          <Text>404</Text>
-        </Stack>
+    <Container
+      display="flex"
+      alignItems="center"
+      flexDirection="column"
+      justifyContent="center"
+      height="100vh">
+      <Stack fontSize="2xl" flexDirection="column" alignItems="center" mb="4">
+        <Text>{t('page.notFound.title')}</Text>
+        <Text>404</Text>
+      </Stack>
 
-        <Link to={fromPage}>
-          <Button>{t('page.notFound.backButton')}</Button>
-        </Link>
-      </Container>
-    </div>
+      <Link to={fromPage}>
+        <Button>{t('page.notFound.backButton')}</Button>
+      </Link>
+    </Container>
   );
 }

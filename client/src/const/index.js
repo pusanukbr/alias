@@ -31,10 +31,4 @@ const wordsRandom = () => {
   return word[Math.floor(Math.random() * word.length)];
 };
 
-// Color dev
-
-// const primeryBG = '#151316';
-// const lightBG = '#1a1b1d';
-// const accentColor = '#3ddbe6';
-
 export { wordsRandom, getRandomArbitrary, getRandomUniqueNumber };

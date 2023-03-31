@@ -1,44 +1,13 @@
-import React, { useState } from 'react';
-import {
-  Container,
-  Box,
-  Text,
-  Slider,
-  SliderTrack,
-  SliderFilledTrack,
-  SliderThumb,
-  Select,
-  Tooltip,
-  Checkbox,
-  Button,
-  useColorModeValue,
-  Heading
-} from '@chakra-ui/react';
+import React from 'react';
+import { Container, Box, Button, useColorModeValue, Heading } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import Form from '../form/Form';
 import CustomCheckbox from '../form/CheckBox';
-import { Controller } from 'react-hook-form';
-import { Rules } from '../../const/Validate';
 import CustomSlider from '../form/Slider';
 import CustomSelect from '../form/Select';
 
 const SettingRoom = () => {
   const { t } = useTranslation();
-
-  const Dictionary = () => {
-    return (
-      <Box mb={10}>
-        <Text mb="2" fontWeight="bold">
-          {t('create.room.dictionary')}
-        </Text>
-        <Select>
-          <option value="hide">{t('create.room.dictionary_hige', { words: 103 })}</option>
-          <option value="classic">{t('create.room.dictionary_classic', { words: 245 })}</option>
-          <option value="low">{t('create.room.dictionary_low', { words: 156 })}</option>
-        </Select>
-      </Box>
-    );
-  };
 
   const onSubmit = (data) => {
     console.log(data);
@@ -58,7 +27,6 @@ const SettingRoom = () => {
 
       <Form onSubmit={onSubmit}>
         {/* Dictionary select */}
-        {/* <Dictionary /> */}
         <CustomSelect name="dictionary" label={t('create.room.dictionary')}>
           <option value="hide">{t('create.room.dictionary_hige', { words: 103 })}</option>
           <option value="classic">{t('create.room.dictionary_classic', { words: 245 })}</option>
