@@ -6,7 +6,7 @@ const $api = axios.create({
   method: 'HEAD',
   mode: 'no-cors',
   headers: {
-    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Origin': API_URL,
     Accept: 'application/json',
     'Content-Type': 'application/json'
   },
