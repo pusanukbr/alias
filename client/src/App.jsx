@@ -19,8 +19,8 @@ function App(props) {
     } else {
       props.dispatch(setPreloader(false));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   if (props.ui.preloader) {
     return <Loading />;
   }

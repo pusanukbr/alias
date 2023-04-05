@@ -15,7 +15,7 @@ import PasswordField from '../components/form/PasswordField';
 import Form from '../components/form/Form';
 import Input from '../components/form/Input';
 import { connect } from 'react-redux';
-import { Rules } from '../const/Validate';
+import { Rules } from '../const/Rules';
 import RouterConfig from '../const/RouterConfig';
 
 function Auth(props) {
