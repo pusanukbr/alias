@@ -16,6 +16,7 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'react/prop-types': 'off',
     'prettier/prettier': 'error',
-    'no-process-env': 'disable'
+    'no-process-env': 0,
+    'no-undef': 0
   }
 };

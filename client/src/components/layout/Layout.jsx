@@ -7,15 +7,15 @@ import { Stack, Flex, Divider, useColorModeValue, Heading } from '@chakra-ui/rea
 import SettingUser from '../user/SettingUser';
 import { useTranslation } from 'react-i18next';
 import LogOut from '../authentication/LogOut';
-import store from '../../store';
+import { useDispatch } from 'react-redux';
+import { selectUser } from '../../store/user/selector';
 
 function Layout() {
   const { t } = useTranslation();
-  const {
-    user: { isAuth }
-  } = store.getState();
+  const dispatch = useDispatch();
   const location = useLocation();
   const path = location.pathname.replace('/', '');
+  const userData = dispatch(selectUser);
 
   return (
     <>
@@ -37,7 +37,7 @@ function Layout() {
           <Flex gap="4">
             <ColorModeSwitcher />
             <GameLanguageBlock />
-            {isAuth && <LogOut />}
+            {userData.isAuth && <LogOut />}
           </Flex>
         </Flex>
 
@@ -49,7 +49,7 @@ function Layout() {
           backgroundColor={useColorModeValue('white', 'gray.700')}>
           <BlockHeader />
           <Divider />
-          {isAuth ? <SettingUser /> : <ListMenu />}
+          {userData.isAuth ? <SettingUser /> : <ListMenu />}
         </Flex>
 
         <Flex w="calc(100% - 340px)" ml="auto" mr="20px" pt="95px">

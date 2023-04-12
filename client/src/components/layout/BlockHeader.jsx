@@ -1,20 +1,11 @@
 import React from 'react';
-import {
-  Container,
-  Text,
-  Heading,
-  Stack,
-  Divider,
-  List,
-  ListItem,
-  ListIcon
-} from '@chakra-ui/react';
+import { Container, Text, Stack, Divider, List, ListItem, ListIcon } from '@chakra-ui/react';
 import { FaGamepad, FaBuilding, FaHandSpock } from 'react-icons/fa';
 import { useTranslation } from 'react-i18next';
 import ChangLogo from './ChangLogo';
 import { connect } from 'react-redux';
 
-const BlockHeader = React.memo((props) => {
+const BlockHeader = (props) => {
   const { t } = useTranslation();
   const {
     user: { isAuth, name, date, numberGameEnd = 10, createRooms = 10 }
@@ -66,7 +57,7 @@ const BlockHeader = React.memo((props) => {
       )}
     </Container>
   );
-});
+};
 export default connect(
   ({ user, ui }) => ({
     user,

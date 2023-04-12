@@ -6,7 +6,8 @@ import './locales/i18n';
 import { BrowserRouter } from 'react-router-dom';
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import { Provider } from 'react-redux';
-import store from './store';
+import { store, persistor } from './store';
+import { PersistGate } from 'redux-persist/integration/react';
 import { globalStyles } from './theme';
 
 const theme = extendTheme(globalStyles);
@@ -18,9 +19,11 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
-        <ChakraProvider theme={theme}>
-          <App />
-        </ChakraProvider>
+        <PersistGate loading={null} persistor={persistor}>
+          <ChakraProvider theme={theme}>
+            <App />
+          </ChakraProvider>
+        </PersistGate>
       </Provider>
     </BrowserRouter>
   </React.StrictMode>

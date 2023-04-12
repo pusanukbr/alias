@@ -15,11 +15,8 @@ import { Controller } from 'react-hook-form';
 
 export default function CustomSlider({
   label,
-  register,
   name,
-  type,
   formState: { errors },
-  formState,
   rules = {},
   control,
   defaultValue,

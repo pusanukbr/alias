@@ -3,7 +3,7 @@ import { Container, Stack, Button } from '@chakra-ui/react';
 import Form from '../form/Form';
 import Input from '../form/Input';
 import PasswordField from '../form/PasswordField';
-import { Rules } from '../../const/Validate';
+import { Rules } from '../../const/Rules';
 import { useTranslation } from 'react-i18next';
 import ChangColor from './ChangColor';
 import { connect } from 'react-redux';

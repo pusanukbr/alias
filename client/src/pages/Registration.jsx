@@ -1,8 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { registration } from '../store/reducer/users';
-import { setLoading } from '../store/reducer/ui';
+import { register } from '../store/user/operations';
 import {
   Box,
   Container,
@@ -14,18 +13,17 @@ import {
 import PasswordField from '../components/form/PasswordField';
 import Form from '../components/form/Form';
 import Input from '../components/form/Input';
-import { connect } from 'react-redux';
 import { Rules } from '../const/Rules';
 import RouterConfig from '../const/RouterConfig';
+import { useDispatch } from 'react-redux';
 
-function Registration(props) {
+export default function Registration() {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const onEnter = async (data) => {
-    console.log(data);
-    await props.dispatch(setLoading(true));
-    await props.dispatch(registration({ ...data }));
+    await dispatch(register({ ...data }));
     navigate(`/${RouterConfig.LOBBY.path}`, { replace: true });
   };
   return (
@@ -42,11 +40,7 @@ function Registration(props) {
             <Input name="email" type="email" label={t('form.email')} rules={Rules.email} />
             <PasswordField name="password" label={t('form.password')} rules={Rules.password} />
             <Stack mt="5">
-              <Button
-                colorScheme="blue"
-                type="submit"
-                isLoading={props.isLoading}
-                loadingText={t('btn.enter.loading')}>
+              <Button colorScheme="blue" type="submit" loadingText={t('btn.enter.loading')}>
                 {t('btn.enter')}
               </Button>
             </Stack>
@@ -56,10 +50,3 @@ function Registration(props) {
     </Container>
   );
 }
-
-export default connect(
-  ({ ui }) => ({
-    isLoading: ui.loading
-  }),
-  (dispatch) => ({ dispatch })
-)(Registration);

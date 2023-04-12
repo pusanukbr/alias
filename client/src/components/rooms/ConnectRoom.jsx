@@ -12,32 +12,32 @@ import {
 } from '@chakra-ui/react';
 import Input from '../form/Input';
 import { FaUserPlus, FaLink, FaRegCopy } from 'react-icons/fa';
-import { Rules } from '../../const/Validate';
+import { Rules } from '../../const/Rules';
 import Form from '../form/Form';
 import { useTranslation } from 'react-i18next';
-import store from '../../store/index';
+import { useDispatch } from 'react-redux';
+import { selectUser } from '../../store/user/selector';
 
 let timer;
 
 export default function ConnectRoom() {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const userData = dispatch(selectUser);
 
-  const {
-    user: { roomsHistory }
-  } = store.getState();
   const [copyId, setCopyId] = useState(false);
 
   const onSubmit = () => {
     console.log('start room');
   };
-  const History = React.memo(() => {
+  const History = () => {
     return (
       <Box mt="10">
         <Heading fontSize="lg" mb={2}>
           {t('connect.room.history')}
         </Heading>
         <List fontSize="lg">
-          {roomsHistory.map(({ id, roomType }) => (
+          {userData?.roomsHistory.map(({ id, roomType }) => (
             <ListItem key={id} display="flex" alignItems="center">
               <ListIcon as={roomType === 'user' ? FaUserPlus : FaLink} color="teal.300" />
               <Box
@@ -58,7 +58,7 @@ export default function ConnectRoom() {
         </List>
       </Box>
     );
-  });
+  };
 
   const copyToClipboard = (id) => {
     clearTimeout(timer);
@@ -92,7 +92,7 @@ export default function ConnectRoom() {
           {t('connect.room.start')}
         </Button>
       </Form>
-      {roomsHistory && roomsHistory.length ? <History /> : null}
+      {userData.roomsHistory && userData.roomsHistory.length ? <History /> : null}
     </Container>
   );
 }

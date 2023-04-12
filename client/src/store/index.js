@@ -1,34 +1,34 @@
-import { combineReducers, createStore, applyMiddleware } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER
+} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import { authReducer } from './user/slice';
 
-import * as ReduxDevToolsExt from 'redux-devtools-extension';
+const authPersistConfig = {
+  key: 'user',
+  storage,
+  whitelist: ['token', '_id']
+};
 
-import Thunk from 'redux-thunk';
-
-// import Middlewares
-
-// import Reduser
-import userReducer from './reducer/users';
-import roomReducer from './reducer/rooms';
-import uiReducer from './reducer/ui';
-import wordReducer from './reducer/wordGame';
-import gamesReducer from './reducer/games';
-
-// Combine Reducer
-const reducer = combineReducers({
-  user: userReducer,
-  room: roomReducer,
-  ui: uiReducer,
-  wordGames: wordReducer,
-  games: gamesReducer
+export const store = configureStore({
+  reducer: {
+    user: persistReducer(authPersistConfig, authReducer)
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
+      }
+    }),
+  devTools: process.env.NODE_ENV === 'development'
 });
 
-let store = null;
-
-store = createStore(
-  reducer,
-  ReduxDevToolsExt.composeWithDevTools({
-    serialize: true,
-    trace: true
-  })(applyMiddleware(Thunk.withExtraArgument()))
-);
-export default store;
+export const persistor = persistStore(store);

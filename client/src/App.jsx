@@ -1,27 +1,27 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 import JoinBlock from './pages/Auth';
 import Loading from './components/ui/loading';
 import Layout from './components/layout/Layout';
 import RouterConfig from './const/RouterConfig';
-import { setPreloader } from './store/reducer/ui';
-import { checkAuth } from './store/reducer/users';
+import { refreshUser } from './store/user/operations';
 import Registration from './pages/Registration';
 import Settings from './pages/Settings';
 import ProtectedRoute from './hoc/ProtectedRoute';
 import NotFound from './pages/NotFound';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectUser } from './store/user/selector';
 
-function App(props) {
+export default function App() {
+  const dispatch = useDispatch();
+  const userData = useSelector(selectUser);
+  console.log(userData.user);
+
   React.useEffect(() => {
-    if (localStorage.getItem('token') && !props.user.isAuth) {
-      props.dispatch(checkAuth());
-    } else {
-      props.dispatch(setPreloader(false));
-    }
+    dispatch(refreshUser());
   }, []);
 
-  if (props.ui.preloader) {
+  if (userData.user.isLoading) {
     return <Loading />;
   }
   return (
@@ -29,14 +29,18 @@ function App(props) {
       <Route path={RouterConfig.MAIN.path} element={<Layout />}>
         {/* Login */}
         <Route
-          element={<ProtectedRoute redirectPath={props.user.isAuth && RouterConfig.LOBBY.path} />}>
+          element={
+            <ProtectedRoute redirectPath={userData.user.isAuth && RouterConfig.LOBBY.path} />
+          }>
           <Route path={RouterConfig.AUTH.path} element={<JoinBlock />} />
         </Route>
         <Route
-          element={<ProtectedRoute redirectPath={props.user.isAuth && RouterConfig.LOBBY.path} />}>
+          element={
+            <ProtectedRoute redirectPath={userData.user.isAuth && RouterConfig.LOBBY.path} />
+          }>
           <Route path={RouterConfig.REGISTRATION.path} element={<Registration />} />
         </Route>
-        <Route element={<ProtectedRoute param={props.user.isAuth} />}>
+        <Route element={<ProtectedRoute param={userData.user.isAuth} />}>
           <Route path={RouterConfig.LOBBY.path} element={<Settings />} />
         </Route>
       </Route>
@@ -44,11 +48,3 @@ function App(props) {
     </Routes>
   );
 }
-
-export default connect(
-  ({ user, ui }) => ({
-    user,
-    ui
-  }),
-  (dispatch) => ({ dispatch })
-)(App);

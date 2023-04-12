@@ -1,12 +1,11 @@
 import React from 'react';
-import { FormErrorMessage, FormControl, FormLabel, Checkbox } from '@chakra-ui/react';
+import { FormErrorMessage, FormControl, Checkbox } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
 export default function CustomCheckbox({
   label,
   register,
   name,
-  type,
   formState: { errors },
   rules = {},
   ...rest

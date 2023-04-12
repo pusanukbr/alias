@@ -1,4 +1,5 @@
 import axios from 'axios';
+// eslint-disable-next-line no-undef
 export const API_URL = process.env.REACT_APP_LOCAL_SERVER_URL || 'https://alias.onrender.com/';
 const $api = axios.create({
   withCredentials: true,
@@ -12,10 +13,19 @@ const $api = axios.create({
   },
   crossdomain: true
 });
+// Utility to add JWT
+export const setAuthHeader = (token) => {
+  $api.defaults.headers.common.Authorization = `Bearer ${token}`;
+};
 
-$api.interceptors.request.use((config) => {
-  config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
-  return config;
-});
+// Utility to remove JWT
+export const clearAuthHeader = () => {
+  $api.defaults.headers.common.Authorization = '';
+};
+
+// $api.interceptors.request.use((config) => {
+//   config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
+//   return config;
+// });
 
 export default $api;

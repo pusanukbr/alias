@@ -3,6 +3,7 @@ import userService from "../service/user-service.js";
 export default class UserController {
   async registration(req, res, next) {
     try {
+      console.log(req.body);
       const userData = await new userService().registration(req.body);
       return res.json(userData);
     } catch (e) {

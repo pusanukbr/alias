@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Tabs, TabList, TabPanels, Tab, TabPanel, Flex, Image } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
-const TabsModal = React.memo(({ changAvatar, avatar }) => {
+const TabsModal = ({ changAvatar, avatar }) => {
   const { t } = useTranslation();
   const RenderAvatar = ({ type }) => {
     const [active, setActive] = useState('');
@@ -69,6 +69,6 @@ const TabsModal = React.memo(({ changAvatar, avatar }) => {
       </TabPanels>
     </Tabs>
   );
-});
+};
 
 export default TabsModal;
